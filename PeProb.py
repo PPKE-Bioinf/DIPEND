@@ -1,4 +1,7 @@
 import os
+__requires__ = 'pychimera==0+unknown'
+__import__('pkg_resources').run_script('pychimera==0+unknown', 'pychimera')
+
 import re
 import sys
 import getopt

@@ -6,8 +6,6 @@ import random
 import math
 import subprocess
 import time
-import chimera
-from chimera import runCommand
 
 start_time = time.time() # for measuring purposes
 
@@ -29,8 +27,7 @@ The input parameters:
 -h --help: prints this help message and exits
 -m --mode: choose the building mode (see text above, optional: DERIVED_TRIPLET by default)
 -n --numofstructures: the number of structures to be generated (optional but highly recommended, 1 by default)
--o --offset: in case you do not want the amino acids of the resulting Peptides to be numbered from one, but from a higher number, offset+1 (optional, 0 by default)
--p --proline: whether we want to rotate the phi psi angels of prolines as well, in order to do so, one has to tweak the code of chimera, 1 by default, 0 if you do not want to tweak your chimera code and you want to leave the prolines alone
+-p --proline: whether we want to rotate the phi angels of prolines as well, in order to do so, one has to tweak the code of chimera, 1 by default, 0 if you do not want to tweak your chimera code and you want to leave the prolines alone
 -r --remain: does not delete temporary files (0 (deletes temporary files) by default, set it to 1 if you want the files to remain). Beware! From the Gromacs files, only the very last run is retained even with value 1! (I set the GMX_MAXBACKUP to -1 in order to avoid creating a lot of files, modify the Groamcs running sh files if you need all the Gromacs files!)
 -s --sequence: the sequence of the Peptides to be generated (Required!)
 """)
@@ -52,12 +49,11 @@ class Peptides():
             phiPsiAngles.append(a)
 
 
-    def __init__(self, sequence, base, mode, numberOfStructures, offset, dataSet, cycle, remain, gmxCheck, phi0, psi0, sx, sy, pro):
+    def __init__(self, sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, phi0, psi0, sx, sy, pro):
         self.sequence = sequence
         self.base = base
         self.mode = mode
         self.numberOfStructures = numberOfStructures
-        self.offset = offset
         self.dataSet = dataSet
         self.cycle = cycle
         self.remain = remain
@@ -75,13 +71,12 @@ class Peptides():
 ##################### CLASS ########################################
 # the Class of Install to handle program paths
 class Install():
-    def __init__(self, GromacsPath, GromacsSuffix, Scwrl4Path, LsqmanPath, DataPath, WorkingDirectory):
+    def __init__(self, GromacsPath, GromacsSuffix, DataPath, WorkingDirectory, ChimeraXPath):
         self.GromacsPath = GromacsPath
         self.GromacsSuffix = GromacsSuffix
-        self.Scwrl4Path = Scwrl4Path
-        self.LsqmanPath = LsqmanPath
         self.DataPath = DataPath
         self.WorkingDirectory = WorkingDirectory
+        self.ChimeraXPath = ChimeraXPath
 
 #######################################################################
 # writes to the logfile # attention: it appends! make sure to delete the file before each run
@@ -101,11 +96,15 @@ def WriteStatus(line, peptides):
 #######################################################################
 # chooses a piece based on the left neighbour, coil only Dunbrack probabilities
 def ChooseAnglesLeftProb(aminoAcidNumber, peptides, install):
-    aminoAcidTriplet = peptides.sequence[aminoAcidNumber-1:aminoAcidNumber+2]
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == 1:
+        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        leftaa = peptides.sequence[aminoAcidNumber-2]
     draw = random.random() # random value generation between 0 and 1
     phi = ""
     psi = ""
-    command = "%sfetch_angles %s l %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[aminoAcidTriplet[1]], peptides.aminoAcidNames[aminoAcidTriplet[0]], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
+    command = "%sfetch_angles %s l %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[leftaa], peptides.aminoAcidNames[middleaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -122,11 +121,15 @@ def ChooseAnglesLeftProb(aminoAcidNumber, peptides, install):
 #######################################################################
 # chooses a piece based on the right neighbour, coil only Dunbrack probabilities
 def ChooseAnglesRightProb(aminoAcidNumber, peptides, install):
-    aminoAcidTriplet = peptides.sequence[aminoAcidNumber-1:aminoAcidNumber+2]
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == len(peptides.sequence):
+        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
+    else:
+        rightaa = peptides.sequence[aminoAcidNumber]
     draw = random.random() # random value generation between 0 and 1
     phi = ""
     psi = ""
-    command = "%sfetch_angles %s r %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[aminoAcidTriplet[1]], peptides.aminoAcidNames[aminoAcidTriplet[2]], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
+    command = "%sfetch_angles %s r %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[middleaa], peptides.aminoAcidNames[rightaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -143,12 +146,20 @@ def ChooseAnglesRightProb(aminoAcidNumber, peptides, install):
 ######################################################################
 # chooses a piece with the derived Dunbrack-Ting probabilities (counting both neighbours with summing up the logarithms of the probabilities)
 def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
-    aminoAcidTriplet = peptides.sequence[aminoAcidNumber-1:aminoAcidNumber+2]
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == 1:
+        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        leftaa = peptides.sequence[aminoAcidNumber-2]
+    if aminoAcidNumber == len(peptides.sequence):
+        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
+    else:
+        rightaa = peptides.sequence[aminoAcidNumber]
 
     draw = random.random() # random value generation between 0 and 1
     phi = ""
     psi = ""
-    command = "%sfetch_both_angles %s %s %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[aminoAcidTriplet[0]], peptides.aminoAcidNames[aminoAcidTriplet[1]], peptides.aminoAcidNames[aminoAcidTriplet[2]], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
+    command = "%sfetch_both_angles %s %s %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[leftaa], peptides.aminoAcidNames[middleaa], peptides.aminoAcidNames[rightaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
     #print(command)
     try:
         rc = subprocess.check_output(command, shell=True)
@@ -167,7 +178,7 @@ def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
 # Collects the angles derived for the given structure
 def CollectAllAngles(peptides, install):
     angles = []
-    for n in range(1,len(peptides.sequence)-1):
+    for n in range(1,len(peptides.sequence)+1):
         if peptides.mode == "LEFT":
             a = ChooseAnglesLeftProb(n, peptides, install)
         elif peptides.mode == "RIGHT":
@@ -186,104 +197,14 @@ def CollectAllAngles(peptides, install):
     peptides.addAngles(angles)
 
 #######################################################################
-# Creates the input file for lsqman with all the commands in it
-def SimpleLsqman(build, peptides, install):
-    lastfname = '%sbb_-139_135.in' % (install.DataPath) # typical beta strand
-    currentfname = '%sbb_-139_135.in' % (install.DataPath) # typical beta strand
-    num21 = 836
-    num12 = 837
-    num13 = 838
-    with open("temp%s.ent" % (peptides.base), "w") as out:
-        out.write("echo on\n")
-        if build == 1:
-            out.write("re m1 %s\n" % (lastfname))
-        else:
-            out.write("re m1 p%s.pdb\n" % (str(build-1)))
-        out.write("re m2 %s\n" % currentfname)
-        out.write("at ex\n")
-        out.write("ex m1 \"a%d-%d\" m2 \"a%d\"\n" % (num12,  num13, num21))
-        out.write("ap m1 m2\n")
-        if build == 1:
-            out.write("wr m1 p%s.pdb\n" % (str(build-1)))
-        out.write("wr m2 p%s.pdb\n" % (str(build)))
-        out.write("del m1\n")
-        out.write("del m2\n")
-        out.write("qu\n")
-        out.write('\n')
-
-#######################################################################
-# Runs lsqman
-def RunLsqman(peptides, install):
-    lsqmancommand = '%s < temp%s.ent\n' % (install.LsqmanPath, peptides.base)
-    os.system(lsqmancommand)
-    os.system("rm temp%s.ent" % (peptides.base))
-
-#######################################################################
-# Assembles the pieces of the initial structure created by lsqman
-def AssemblePiecesSimple(peptides):
-    outfname = "%sinitial_bb.pdb" % (peptides.base)
-    with open(outfname, "w") as out:
-        out.write("MODEL      1\n") # start a model, it is easier to concatenate afterwards
-        newatomnum = 1
-        newresnum = 1
-        newatomnumstring = ''
-        newresnumstring = ''
-    
-        newatomnum = 1
-        newresnum = 1+peptides.offset # starting from residue 15 if an offset of 14 is given
-        newresname = ''
-        for n in range(0,len(peptides.sequence)-2):
-            filename = "p%s.pdb" % (n)
-            if os.path.isfile(filename):
-                with open(filename, "r") as be:
-                    lines = be.readlines()
-                    starting_residue = int(lines[0][22:27]) # the first line is always ATOM
-                    for l in lines:
-                        if l[0:4]=="ATOM":
-                            resnum = int(l[22:27])
-                            if resnum==starting_residue+1: # now we just appended the second amino acid from every piece
-                                if newatomnum>=0 and newatomnum<10: # making the number of spaces right
-                                    newatomnumstring = "    %s " % newatomnum            
-                                elif newatomnum>=10 and newatomnum<100:
-                                    newatomnumstring = "   %s " % newatomnum            
-                                elif newatomnum>=100 and newatomnum<1000:
-                                    newatomnumstring = "  %s " % newatomnum            
-                                elif newatomnum>=1000 and newatomnum<10000:
-                                    newatomnumstring = " %s " % newatomnum            
-                                else:
-                                    newatomnumstring = "%s " % newatomnum   
-                                if newresnum>=0 and newresnum<10:  # making the number of spaces right
-                                    newresnumstring = "  %s  " % newresnum 
-                                elif newresnum>=10 and newresnum<100:
-                                    newresnumstring = " %s  " % newresnum
-                                else:
-                                    newresnumstring = "%s  " % newresnum
-                                stringout = l[0:6]+newatomnumstring+l[12:17]+peptides.aminoAcidNames[peptides.sequence[n+1]]+' A'+newresnumstring+l[27:]
-                                out.write(stringout)
-                                newatomnum = newatomnum+1
-                    newresnum = newresnum+1
-        out.write("TER\n") # writing models for easier concatenation afterwards
-        out.write("ENDMDL\n") # writing models for easier concatenation afterwards
-
-#######################################################################
-# Runs Scwrl4
-def RunSCWRL4(peptides, install):
-    infile = "%sinitial_bb.pdb" % (peptides.base)
-    outfile = "%sinitial.pdb" % (peptides.base)
-    scwrl4command = '%s -i %s -o %s\n' % (install.Scwrl4Path, infile, outfile)
-    os.system(scwrl4command)
-
-#######################################################################
-# Builds up the initial structure
-def BuildInitial(peptides, install):
-    # builds one Peptide from pieces
-    for build in range(1,len(peptides.sequence)-1):
-        SimpleLsqman(build, peptides, install)
-        RunLsqman(peptides, install)
-    AssemblePiecesSimple(peptides)
-    RunSCWRL4(peptides, install)
-    opt_num = GmxOptim(peptides, install)
-    return opt_num
+# Builds up the initial structure with sidechains using ChimeraX
+def Build(peptides, install):
+    with open("build.cxc", "w") as build_script:
+        build_script.write('build start peptide "built" %s ' % (peptides.sequence))
+        for build in range(1,len(peptides.sequence)+1):
+            build_script.write("-139,135 ") # the default initial peptide takes the form of an antiparallel beta strand, so it will never clash on itself
+        build_script.write("rotlib Dunbrack\nsave %s/%sinitial.pdb\n" % (install.WorkingDirectory, peptides.base, ))
+    os.system("%schimerax --nogui --offscreen %s/build.cxc" % (install.ChimeraXPath, install.WorkingDirectory)) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
 
 #######################################################################
 # This optimizes the initial structure with Gromacs
@@ -402,48 +323,43 @@ def GmxLoganalyse(i, peptides, install):
     #    WriteStatus("Could not successfully run energy minimisation on structure %s\n" % i, peptides)
 
 #######################################################################
-def RunChimera(i, peptides, build):
-    # uses Pychimera to run chimera to modify a given phi psi angle in a given structure
-    fname = "%s%s.pdb" % (peptides.base, i)
-    aanum = build+peptides.offset
-    phi = peptides.angles[build][0]   
-    psi = peptides.angles[build][1]
-
-    runCommand("open %s\n" % (fname))
-    try:
-        runCommand("setattr r phi %s :%s\n" % (phi, aanum))
-    except ValueError:
-        WriteLog("pychimera ValueError: bond is part of a cycle for residue %s %s, not changing its phi angle\n" % (aanum, peptides.sequence[aanum-peptides.offset]), peptides)
-    try:
-        runCommand("setattr r psi %s :%s\n" % (psi, aanum))
-    except ValueError:
-        WriteLog("pychimera ValueError: bond is part of a cycle for residue %s %s, not changing its psi angle\n" % (aanum, peptides.sequence[aanum-peptides.offset]), peptides)
-    runCommand("write format pdb #0 %s" % (fname))
-
-#######################################################################
-def SetAngleForall(i, peptides):
+def SetAngleForall(i, peptides, install):
     # loops through the structure in question, setting every dihedral angle to the already predefined values
     copy = "cp optim%s.pdb %s%s.pdb" % (str(peptides.optnum), peptides.base, str(i))
     os.system(copy)
+    with open("rotate.cxc", "w") as rotating_script:
+        with open("rotateProPhi.cxc", "w") as prorot_script:
+            rotating_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            prorot_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i))) # another session due to possible errors
+            for build in range(1,len(peptides.sequence)+1):
+                phi = peptides.angles[build-1][0]   
+                psi = peptides.angles[build-1][1]
+                if peptides.sequence[build-1]=="P":                    
+                    if peptides.proline==0:
+                        WriteLog("Proline res %s phi is not rotated.\n" % (build), peptides)
+                        rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
+                    else:
+                        WriteLog("Trying to rotate Proline res %s phi...\n" % (build), peptides)
+                        prorot_script.write("setattr :%s res phi %s\n" % (build, phi)) # another session due to possible errors
+                        rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
 
-    for build in range(1,len(peptides.sequence)-2):
-        aanum = build+peptides.offset
-        if peptides.sequence[aanum-peptides.offset]=="P":
-            WriteLog("Proline found.\n", peptides)
-            if peptides.proline==0:
-                WriteLog("Proline res %s left alone.\n" % (aanum), peptides)
-                pass # do not rotate prolines if it is set to 0
-            else:
-                RunChimera(i, peptides, build)
-        else:
-            RunChimera(i, peptides, build)
-        
+                else:
+                    rotating_script.write("setattr :%s res phi %s\n" % (build, phi))
+                    rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
+
+            rotating_script.write("save %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            prorot_script.write("save %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i))) # another session due to possible errors
+
+    os.system("%schimerax --nogui --offscreen %s/rotate.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
+    if peptides.proline==1: # rotating proline phi angles
+        os.system("%schimerax --nogui --offscreen %s/rotateProPhi.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script # another session due to possible errors
+
 #######################################################################
 def Rotate(i, peptides, install):
     # This is the main function to govern the fate of one structure, first it derives all the phi psi angles, after that it sets them using chimera and afterwards tries to run Gromacs on it (if not told otherwise)
     CollectAllAngles(peptides, install)
     success = -1
-    SetAngleForall(i, peptides)
+    SetAngleForall(i, peptides, install)
     contacts = CheckContacts(i, peptides, install)
     if contacts == 0:
         success = 1
@@ -452,9 +368,8 @@ def Rotate(i, peptides, install):
             GmxLoganalyse(i, peptides, install)
     if success == 1:
         WriteLog("# Chosen angles for structure %s:\n" % (i), peptides)
-        for k in peptides.angles:
-            number = peptides.angles.index(k)+1
-            WriteLog("%s\t%s\t%s\t%s\n" % (number, peptides.sequence[number], k[0], k[1]), peptides)
+        for k in range(1,len(peptides.sequence)+1):
+            WriteLog("%s\t%s\t%s\t%s\n" % (k, peptides.sequence[k-1], peptides.angles[k-1][0], peptides.angles[k-1][1]), peptides)
     return success
 
 #######################################################################
@@ -513,6 +428,9 @@ def Cleanup(peptides):
     os.system("rm posre.itp")
     os.system("rm md.log")
     os.system("rm ener.edr")
+    os.system ("rm rotate.cxc")
+    os.system("rm build.cxc")
+    os.system("rm rotateProPhi.cxc")
 
 ########################################################################
 ####################### M A I N
@@ -524,7 +442,6 @@ def Main():
     mode = "DERIVED_TRIPLET"
     base = ""
     sequence = "" # if it is not given, it means trouble!
-    offset = 0
     dataSet = "TCBIG"
     cycle = 10
     remain = 0
@@ -540,8 +457,8 @@ def Main():
     # taking command line lettered arguments 
     fullCmdArguments = sys.argv
     argumentList = fullCmdArguments[1:]
-    unixOptions = "b:c:d:g:m:n:o:p:r:s:h"  
-    gnuOptions = ["base=", "cycle=", "dataset=", "gmxcheck=", "mode=", "numofstructures=", "offset=", "proline=", "remain=", "sequence=", "help"]  
+    unixOptions = "b:c:d:g:m:n:p:r:s:h"  
+    gnuOptions = ["base=", "cycle=", "dataset=", "gmxcheck=", "mode=", "numofstructures=", "proline=", "remain=", "sequence=", "help"]  
 
     try:  
         arguments, values = getopt.getopt(argumentList, unixOptions, gnuOptions)
@@ -564,8 +481,6 @@ def Main():
             mode = currentValue
         elif currentArgument in ("-n", "--numofstructures"):
             numberOfStructures = int(currentValue)
-        elif currentArgument in ("-o", "--offset"):
-            offset = int(currentValue)
         elif currentArgument in ("-p", "--proline"):
             pro = int(currentValue) 
         elif currentArgument in ("-r", "--remain"):
@@ -579,10 +494,7 @@ def Main():
 
 ######################
 
-
-    sequence = 'A'+sequence+'A' # appending an Alanine to each terminal of the sequence, it will later be chopped off
-
-    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, offset, dataSet, cycle, remain, gmxCheck, phi0, psi0, sx, sy, pro)
+    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, phi0, psi0, sx, sy, pro)
 
     textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
 
@@ -592,22 +504,15 @@ def Main():
 
     GromacsPath = "/home/gromdev/gromacs-2020/build/bin/" # TODO
     GromacsSuffix = "" # TODO
-    LsqmanPath = "/home/zita/local-bin-lib/usf-linux/bin32/lsqman" # TODO
-    Scwrl4Path = "/usr/local/bin/scwrl4/Scwrl4" # TODO
     DataPath = "/home/zita/Scripts-Research/PEPROB/Data/" # TODO
     WorkingDirectory = os.getcwd()
+    ChimeraXPath = "/usr/bin/" # TODO
 
-    #GromacsPath = "/home/harzi/Gromacs514/Install/bin/" # TODO
-    #GromacsSuffix = "_514p" # TODO
-    #LsqmanPath = "/home/harzi/Lsqman/bin32/lsqman" # TODO
-    #Scwrl4Path = "/home/harzi/scwrl4/Scwrl4" # TODO
-    #DataPath = "/home/harzi/Dunbrack-Ting-derived-triplet-data/" # TODO
-
-    MyInstall = Install(GromacsPath, GromacsSuffix, Scwrl4Path, LsqmanPath, DataPath, WorkingDirectory)
+    MyInstall = Install(GromacsPath, GromacsSuffix, DataPath, WorkingDirectory, ChimeraXPath)
 
     #########
-
-    opt_num=BuildInitial(MyPeptides, MyInstall)
+    Build(MyPeptides, MyInstall)
+    opt_num = GmxOptim(MyPeptides, MyInstall)
     MyPeptides.setOptNum(opt_num)
     status = []
     for i in range(1,MyPeptides.numberOfStructures+1):
