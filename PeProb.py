@@ -58,13 +58,9 @@ class Peptides():
         self.cycle = cycle
         self.remain = remain
         self.gmxCheck = gmxCheck
-        self.optnum = 0 # the frames Gromacs makes with the optimization of the initial helix
         self.angles = [] # phi psi angles for all peptides
         self.proline = pro # whether we want to change the dihedral angles of prolines as well
 
-    def setOptNum(self, num):
-        self.optnum = num
-    
     def addAngles(self, angles):
         self.angles = angles
 
@@ -208,48 +204,6 @@ def Build(peptides, install):
     os.system("%schimerax --nogui --offscreen %s/build.cxc" % (install.ChimeraXPath, install.WorkingDirectory)) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
 
 #######################################################################
-# This optimizes the initial structure with Gromacs
-def GmxOptim(peptides, install):
-    # this function runs a short energy minimisation in GROMACS on the resulting Peptides and gives the result in a pdb file
-    #bash_command = 'bash gmx_optim.sh -g %s -s "%s" -f %sinitial.pdb -d %s' % (install.GromacsPath, install.GromacsSuffix, peptides.base, install.DataPath)
-    #os.system(bash_command)
-    fname = "%sinitial.pdb" % peptides.base
-    os.environ['GMX_MAXBACKUP'] = '-1'
-    c1 = "%sgmx%s pdb2gmx -f %s -o optim.gro -p optim.top -ff amber99sb-ildn -water none -ignh" % (install.GromacsPath, install.GromacsSuffix, fname)
-    os.system(c1)
-    c2 = "%sgmx%s editconf -f optim.gro -o optim_box.gro -bt cubic -d 2" % (install.GromacsPath, install.GromacsSuffix)
-    if os.path.isfile("optim.top"):
-        os.system(c2)
-    else:
-        WriteLog("Trouble with Gromacs optim step 1!\n", peptides)
-        sys.exit()
-    c3 = "%sgmx%s grompp -f %sem.mdp -c optim_box.gro -p optim.top -o em1.tpr" % (install.GromacsPath, install.GromacsSuffix, install.DataPath)
-    if os.path.isfile("optim_box.gro"):
-        os.system(c3)
-    else:
-        WriteLog("Trouble with Gromacs optim step 2!\n", peptides)
-        sys.exit()
-    c4 = "%sgmx%s mdrun -s em1.tpr -o em1.trr -c em1.gro" % (install.GromacsPath, install.GromacsSuffix)
-    if os.path.isfile("em1.tpr"):
-        os.system(c4)
-    else:
-        WriteLog("Trouble with Gromacs optim step 3!\n", peptides)
-        sys.exit()
-    c5 = "echo 0 | %sgmx%s trjconv -f em1.trr -s em1.tpr -o optim.pdb -pbc nojump -sep" % (install.GromacsPath, install.GromacsSuffix)
-    if os.path.isfile("em1.trr"):
-        os.system(c5)
-    else:
-        WriteLog("Trouble with Gromacs optim step 4!\n", peptides)
-        sys.exit()
-    os.system("ls optim*.pdb | wc > optim_num.dat")
-    with open("optim_num.dat", "r") as numf:
-        nu = numf.readlines()
-        nu_ = nu[0].split()
-        number = nu_[0]
-        opt_num = int(number)-1 # to see how many optim?.pdb files were created and opening the last one of them
-    return opt_num
-
-#######################################################################
 def CheckContacts(i, peptides, install):
 # Checks for steric clashes in the built structure
     rc = -3
@@ -326,7 +280,6 @@ def GmxLoganalyse(i, peptides, install):
 #######################################################################
 def SetAngleForall(i, peptides, install):
     # loops through the structure in question, setting every dihedral angle to the already predefined values
-    #copy = "cp optim%s.pdb %s%s.pdb" % (str(peptides.optnum), peptides.base, str(i))
     copy = "cp %s/%sinitial.pdb %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, install.WorkingDirectory, peptides.base, str(i))
     os.system(copy)
     with open("rotate.cxc", "w") as rotating_script:
@@ -338,10 +291,12 @@ def SetAngleForall(i, peptides, install):
                 psi = peptides.angles[build-1][1]
                 if peptides.sequence[build-1]=="P":                    
                     if peptides.proline==0:
-                        WriteLog("Proline res %s phi is not rotated.\n" % (build), peptides)
+                        if i == 1:
+                            WriteLog("Proline res %s phi is not rotated.\n" % (build), peptides)
                         rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
                     else:
-                        WriteLog("Trying to rotate Proline res %s phi...\n" % (build), peptides)
+                        if i == 1:
+                            WriteLog("Trying to rotate Proline res %s phi...\n" % (build), peptides)
                         prorot_script.write("setattr :%s res phi %s\n" % (build, phi)) # another session due to possible errors
                         rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
 
@@ -371,7 +326,7 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
     clashes = -1
     maxOverlap = -1.0
     maxDist = -1.0
-    headerNum = -1
+    headerNum = 7
     with open("clashcheck.cxc", "w") as clashcheck_script:
         if gmxed == 0:
             clashcheck_script.write("open %s/%s%s_sc.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
@@ -381,27 +336,28 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
         clashcheck_script.write("q\n")
     os.system("%schimerax --nogui --offscreen %s/clashcheck.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
     with open("chimerax_clashcheck.dat", "r") as clashcheck_file:
-        for lineNum in range(len(clashcheck_file.readlines())):
-            line = clashcheck_file.readlines()[lineNum]
+        rl = clashcheck_file.readlines()
+        for lineNum in range(len(rl)):
+            line = rl[lineNum].strip()
             line_list = line.split()
             if len(line_list) == 2:
                 try:
                     clashes = int(line_list[0])
                 except:
                     WriteLog("Trouble with the ChimeraX clashcheck file read for peptide %s" % (i), peptides)
-            if line_list[0]=="atom1" and line_list[1]=="atom2" and line_list[3]=="overlap" and line_list[4]=="distance":
-                headerNum = lineNum
-        if headerNum == len(clashcheck_file.readlines()): # if there are no clashes at all, arbitrary values
+            if "distance" in rl[lineNum]:
+                if len(line_list) == 4:
+                    if line_list[0]=="atom1" and line_list[1]=="atom2" and line_list[2]=="overlap" and line_list[3]=="distance":
+                        headerNum = lineNum
+                        continue
+        if headerNum > len(rl)-2: # if there are no clashes at all, arbitrary values
             if clashes!=0:
                 WriteLog("Trouble with chimerax clascheck report reading...", peptides)
-            maxOverlap = 0.0
-            maxDist = 1000.0
         else:
-            firstClash = clashcheck_file.readlines[headerNum+1].split()
-            maxOverlap = firstClash[6]
-            maxDist = firstClash[7]
+            firstClash = rl[headerNum+1].split()
+            maxOverlap = float(firstClash[-2])
+            maxDist = float(firstClash[-1])
         clashReport = [clashes, maxOverlap, maxDist]
-        WriteLog(clashReport, peptides)
         return clashReport
 
 
@@ -416,10 +372,9 @@ def Rotate(i, peptides, install):
         if peptides.gmxCheck == 1:
             RunSCWRL4(i, peptides, install)
             clash_report= ChimeraxClashcheck(i, peptides, install, 0)
-            WriteLog("# Clash report (success?) for structure %s: number of clashes: %s, maximum overlap: %s, distance: %s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
-            if clash_report[1]<2.2 and clash_report[3]>1: # TODO threshold! 
+            if clash_report[1]<2.2 and clash_report[2]>1: # TODO threshold! 
                 success = 1
-                WriteLog("# Clash report for structure %s: number of clashes: %s, maximum overlap: %s, distance: %s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
+                WriteLog("# Clash report for structure %s, number of clashes, maximum overla, distance: %s\t%s\t%s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
                 GmxCheck(i, peptides, install)
                 GmxLoganalyse(i, peptides, install)
                 clash_report= ChimeraxClashcheck(i, peptides, install, 1)
@@ -476,9 +431,6 @@ def Cleanup(peptides):
     os.system("rm check_box.gro")
     os.system("rm check_num.dat")
     os.system("rm check.gro")
-    os.system("rm optim.top")
-    os.system("rm optim_box.gro")
-    os.system("rm optim.gro")
     os.system("rm em*.gro")
     os.system("rm em*.trr")
     os.system("rm em*.tpr")
@@ -576,8 +528,6 @@ def Main():
 
     #########
     Build(MyPeptides, MyInstall)
-    #opt_num = GmxOptim(MyPeptides, MyInstall)
-    #MyPeptides.setOptNum(opt_num)
     status = []
     for i in range(1,MyPeptides.numberOfStructures+1):
         status.append(-1)
