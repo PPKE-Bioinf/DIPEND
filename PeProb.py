@@ -27,7 +27,7 @@ The input parameters:
 -h --help: prints this help message and exits
 -m --mode: choose the building mode (see text above, optional: DERIVED_TRIPLET by default)
 -n --numofstructures: the number of structures to be generated (optional but highly recommended, 1 by default)
--p --proline: whether we want to rotate the phi angels of prolines as well, in order to do so, one has to tweak the code of chimera, 1 by default, 0 if you do not want to tweak your chimera code and you want to leave the prolines alone
+-p --proline: whether we want to rotate the phi angels of prolines as well, in order to do so, one has to tweak the code of chimera, 0 by default, 1 if you want to tweak your chimerax code
 -r --remain: does not delete temporary files (0 (deletes temporary files) by default, set it to 1 if you want the files to remain). Beware! From the Gromacs files, only the very last run is retained even with value 1! (I set the GMX_MAXBACKUP to -1 in order to avoid creating a lot of files, modify the Groamcs running sh files if you need all the Gromacs files!)
 -s --sequence: the sequence of the Peptides to be generated (Required!)
 """)
@@ -49,7 +49,7 @@ class Peptides():
             phiPsiAngles.append(a)
 
 
-    def __init__(self, sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, phi0, psi0, sx, sy, pro):
+    def __init__(self, sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, pro):
         self.sequence = sequence
         self.base = base
         self.mode = mode
@@ -60,9 +60,22 @@ class Peptides():
         self.gmxCheck = gmxCheck
         self.angles = [] # phi psi angles for all peptides
         self.proline = pro # whether we want to change the dihedral angles of prolines as well
+        self.success = [] # 3 values for each structure, first is 1 if there are no CA-CA clashes, the second is 1 if successfully optimized and the third is 1 if the all atom clashcheck is successful on the optimized structure
+        self.current_cycle = 0 # at which round of trying are we?
 
     def addAngles(self, angles):
         self.angles = angles
+    def plusplus_current_cycle(self):
+        self.current_cycle = self.current_cycle + 1
+    def init_success(self):
+        for p in range(1,self.numberOfStructures+1):
+            self.success.append([-1, -1, -1])
+    def add_success1(self, k, number):
+        self.success[k-1][0] = number
+    def add_success2(self, k, number):
+        self.success[k-1][1] = number
+    def add_success3(self, k, number):
+        self.success[k-1][2] = number
 
 ##################### CLASS ########################################
 # the Class of Install to handle program paths
@@ -218,7 +231,7 @@ def CheckContacts(i, peptides, install):
 #######################################################################
 def GmxCheck(i, peptides, install):
     # this function runs a short energy minimisation in GROMACS on the resulting Peptides to see if everything is OK
-    fname = "%s%s_sc.pdb" % (peptides.base, i)
+    fname = "%s%s.pdb" % (peptides.base, i)
     os.environ['GMX_MAXBACKUP'] = '-1'
     c1 = "%sgmx%s pdb2gmx -f %s -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh" % (install.GromacsPath, install.GromacsSuffix, fname)
     os.system(c1)
@@ -272,10 +285,7 @@ def GmxLoganalyse(i, peptides, install):
                         os.system("rm result*.pdb")
                 if "Segmentation fault" in line:
                     converged = 0
-    if converged == 1:
-        WriteStatus("Successful energy minimisation on structure %s\n" % i, peptides)
-    else:
-        WriteStatus("Could not successfully run energy minimisation on structure %s\n" % i, peptides)
+    return converged
 
 #######################################################################
 def SetAngleForall(i, peptides, install):
@@ -291,11 +301,11 @@ def SetAngleForall(i, peptides, install):
                 psi = peptides.angles[build-1][1]
                 if peptides.sequence[build-1]=="P":                    
                     if peptides.proline==0:
-                        if i == 1:
+                        if i == 1 and peptides.current_cycle == 0:
                             WriteLog("Proline res %s phi is not rotated.\n" % (build), peptides)
                         rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
                     else:
-                        if i == 1:
+                        if i == 1 and peptides.current_cycle == 0:
                             WriteLog("Trying to rotate Proline res %s phi...\n" % (build), peptides)
                         prorot_script.write("setattr :%s res phi %s\n" % (build, phi)) # another session due to possible errors
                         rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
@@ -317,7 +327,7 @@ def SetAngleForall(i, peptides, install):
 # Runs Scwrl4
 def RunSCWRL4(i, peptides, install):
     infile = "%s/%s%s.pdb" % (install.WorkingDirectory, peptides.base, str(i))
-    outfile = "%s/%s%s_sc.pdb" % (install.WorkingDirectory, peptides.base, str(i))
+    outfile = "%s/%s%s.pdb" % (install.WorkingDirectory, peptides.base, str(i))
     scwrl4command = '%s -i %s -o %s\n' % (install.Scwrl4Path, infile, outfile)
     os.system(scwrl4command)
 
@@ -325,11 +335,11 @@ def RunSCWRL4(i, peptides, install):
 def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is on the optimized structure
     clashes = -1
     maxOverlap = -1.0
-    maxDist = -1.0
+    maxDist = 1000.0
     headerNum = 7
     with open("clashcheck.cxc", "w") as clashcheck_script:
         if gmxed == 0:
-            clashcheck_script.write("open %s/%s%s_sc.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            clashcheck_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         else:
             clashcheck_script.write("open %s/%s%s_result.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         clashcheck_script.write("clashes #1 saveFile chimerax_clashcheck.dat\n")
@@ -350,7 +360,7 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
                     if line_list[0]=="atom1" and line_list[1]=="atom2" and line_list[2]=="overlap" and line_list[3]=="distance":
                         headerNum = lineNum
                         continue
-        if headerNum > len(rl)-2: # if there are no clashes at all, arbitrary values
+        if headerNum > len(rl)-2: # if there are no clashes at all, arbitrary default values
             if clashes!=0:
                 WriteLog("Trouble with chimerax clascheck report reading...", peptides)
         else:
@@ -365,66 +375,64 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
 def Rotate(i, peptides, install):
     # This is the main function to govern the fate of one structure, first it derives all the phi psi angles, after that it sets them using chimera and afterwards tries to run Gromacs on it (if not told otherwise)
     CollectAllAngles(peptides, install)
-    success = -1
     SetAngleForall(i, peptides, install)
     contacts = CheckContacts(i, peptides, install)
     if contacts == 0:
+        #WriteLog("#Structure %s went through CA-CA 4 A clash check.\n" % (i), peptides)
+        peptides.add_success1(i,1)
         if peptides.gmxCheck == 1:
             RunSCWRL4(i, peptides, install)
-            clash_report= ChimeraxClashcheck(i, peptides, install, 0)
-            if clash_report[1]<2.2 and clash_report[2]>1: # TODO threshold! 
-                success = 1
-                WriteLog("# Clash report for structure %s, number of clashes, maximum overla, distance: %s\t%s\t%s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
-                GmxCheck(i, peptides, install)
-                GmxLoganalyse(i, peptides, install)
+            #clash_report= ChimeraxClashcheck(i, peptides, install, 0)
+            #WriteLog("Clash_report_for_structure,_number_of_clashes,_maximum_overlap,_distance:\t%s\t%s\t%s\t%s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
+            GmxCheck(i, peptides, install)
+            conv = GmxLoganalyse(i, peptides, install)
+            if conv == 1:
+                peptides.add_success2(i,1)
                 clash_report= ChimeraxClashcheck(i, peptides, install, 1)
-                WriteLog("# Clash report for the gmx optimized structure %s: number of clashes: %s, maximum overlap: %s, distance: %s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
-    if success == 1:
+                WriteLog("Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:\t%s\t%s\t%s\t%s\n"  % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
+                if clash_report[0] == 0: # if there are no clashes at all
+                #if clash_report[1]<2.2 and clash_report[2]>1: # this is a less strict condition
+                    peptides.add_success3(i,1)
+
+    if peptides.success[i-1] == [1,1,1]:
         WriteLog("# Chosen angles for structure %s:\n" % (i), peptides)
         for k in range(1,len(peptides.sequence)+1):
             WriteLog("%s\t%s\t%s\t%s\n" % (k, peptides.sequence[k-1], peptides.angles[k-1][0], peptides.angles[k-1][1]), peptides)
-    return success
 
 #######################################################################
 def Rename(peptides):
     # This renames the resulting peptides based on whether the Gromacs optimization was successful (only run if Gromacs optimization has been set)
     WriteLog("Renaming files based on success...\n", peptides)
     num_of_successful = 0
-    success = []
     for k in range(1,peptides.numberOfStructures+1):
         fn = "%s%s_result.pdb" % (peptides.base, k)
-        if os.path.isfile(fn):
-            success.append([k])
+        if peptides.gmxCheck == 1 and os.path.isfile(fn) and peptides.success[k-1] == [1,1,1]:
             num_of_successful = num_of_successful + 1
             os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
             os.system("mv %s%s_result.pdb bak_%s%s_result.pdb" % (peptides.base, k, peptides.base, k))
+        elif peptides.gmxCheck == 0 and peptides.success[k-1][0] == 1:
+            os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
         else:
             os.system("mv %s%s.pdb fail_%s%s.pdb" % (peptides.base, k, peptides.base, k))
     WriteLog("Number of successfully optimized structures: %s\n" % (num_of_successful), peptides)
-    for l in range(1, num_of_successful+1):
-        os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, success[l-1], peptides.base, l))
-        os.system("mv bak_%s%s_result.pdb %s%s_result.pdb" % (peptides.base, success[l-1], peptides.base, l))
+    new_num = 1
+    for l in range(1,peptides.numberOfStructures+1):
+        if peptides.gmxCheck == 1 and peptides.success[l-1] == [1,1,1]:
+            os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, l, peptides.base, new_num))
+            os.system("mv bak_%s%s_result.pdb %s%s_result.pdb" % (peptides.base, l, peptides.base, new_num))
+            WriteLog("Renaming structure %s to structure %s\n" % (l, new_num), peptides)
+            new_num = new_num + 1
+        if peptides.gmxCheck == 0 and peptides.success[l-1][0] == 1:
+            os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, l, peptides.base, new_num))
+            WriteLog("Renaming structure %s to structure %s\n" % (l, new_num), peptides)
+            new_num = new_num + 1
+
 
 #######################################################################
 def Cleanup(peptides):
     WriteLog("Cleaning up...\n", peptides)
     # deletes temporary files crated by the program
-    seql = len(peptides.sequence)-2
-    # the assembled pieces by lsqman
-    if seql>99:
-        os.system("rm p?.pdb")
-        os.system("rm p??.pdb")
-        os.system("rm p???.pdb")
-    elif seql>9:
-        os.system("rm p?.pdb")
-        os.system("rm p??.pdb")
-    else:
-        os.system("rm p?.pdb")
-    # the temporary outfiles generated by this program
     os.system("rm fetch*.dat")
-    os.system("rm optim_num.dat")
-    os.system("rm temp.dat")
-    os.system("rm temp%s.dat" % peptides.base)
     os.system("rm contacts_%s.dat" % peptides.base)
     # the Gromacs generated files
     os.system("rm check.top")
@@ -459,11 +467,7 @@ def Main():
     cycle = 10
     remain = 0
     gmxCheck = 1
-    phi0 = -135
-    psi0 = 135
-    sx = 0.005
-    sy = 0.005
-    pro = 1
+    pro = 0
 
     textForLater = [] # it will be later written to the logfile, but that cannot yet be opened (because it first needs all the input arguments to be set)
 
@@ -507,7 +511,7 @@ def Main():
 
 ######################
 
-    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, phi0, psi0, sx, sy, pro)
+    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, pro)
 
     textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
 
@@ -528,16 +532,16 @@ def Main():
 
     #########
     Build(MyPeptides, MyInstall)
+    MyPeptides.init_success()
     status = []
     for i in range(1,MyPeptides.numberOfStructures+1):
-        status.append(-1)
-    for i in range(1,MyPeptides.numberOfStructures+1):
-        status[i-1]=Rotate(i, MyPeptides, MyInstall)
+        Rotate(i, MyPeptides, MyInstall)
     for j in range(1,MyPeptides.cycle):
-        WriteLog("Trying at %s\n" % (j), MyPeptides)
+        WriteLog("Trying at %s\n" % (MyPeptides.current_cycle), MyPeptides)
+        MyPeptides.plusplus_current_cycle()
         for i in range(1,MyPeptides.numberOfStructures+1):
-            if status[i-1]!=1:
-                status[i-1] = Rotate(i, MyPeptides, MyInstall)
+            if MyPeptides.success[i-1][2]!=1:
+                Rotate(i, MyPeptides, MyInstall)
     if MyPeptides.gmxCheck == 1:    
         Rename(MyPeptides)
     else:
@@ -545,6 +549,10 @@ def Main():
             WriteStatus("%s%s.pdb %s\n" % (base, i, status[i-1]), MyPeptides)
     if MyPeptides.remain == 0:
         Cleanup(MyPeptides)
+
+    #for i in range(1,MyPeptides.numberOfStructures+1):
+        #WriteLog("Structure %s, success 1: %s, succcs 2: %s, success 3: %s\n" % (i, MyPeptides.success[i-1][0], MyPeptides.success[i-1][1], MyPeptides.success[i-1][2]), MyPeptides)
+
     elapsed_time = time.time() - start_time
     WriteLog("Time elapsed: %.2f\n" % (elapsed_time), MyPeptides)
 
