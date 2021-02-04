@@ -281,7 +281,7 @@ def GmxLoganalyse(i, peptides, install):
                         nu_ = nu[0].split()
                         number = nu_[0]
                         opt_num = int(number)-1 # to see how many optim?.pdb files were created and opening the last one of them
-                        os.system("mv result%s.pdb %s%s_result.pdb" % (opt_num, peptides.base, i))  
+                        os.system("mv result%s.pdb %sgmxed_%s.pdb" % (opt_num, peptides.base, i))  
                         os.system("rm result*.pdb")
                 if "Segmentation fault" in line:
                     converged = 0
@@ -341,7 +341,7 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
         if gmxed == 0:
             clashcheck_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         else:
-            clashcheck_script.write("open %s/%s%s_result.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            clashcheck_script.write("open %s/%sgmxed_%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         clashcheck_script.write("clashes #1 saveFile chimerax_clashcheck.dat\n")
         clashcheck_script.write("q\n")
     os.system("%schimerax --nogui --offscreen %s/clashcheck.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
@@ -405,21 +405,23 @@ def Rename(peptides):
     WriteLog("Renaming files based on success...\n", peptides)
     num_of_successful = 0
     for k in range(1,peptides.numberOfStructures+1):
-        fn = "%s%s_result.pdb" % (peptides.base, k)
+        fn = "%sgmxed_%s.pdb" % (peptides.base, k)
         if peptides.gmxCheck == 1 and os.path.isfile(fn) and peptides.success[k-1] == [1,1,1]:
             num_of_successful = num_of_successful + 1
             os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
-            os.system("mv %s%s_result.pdb bak_%s%s_result.pdb" % (peptides.base, k, peptides.base, k))
+            os.system("mv %sgmxed_%s.pdb bak_%sgmxed_%s.pdb" % (peptides.base, k, peptides.base, k))
         elif peptides.gmxCheck == 0 and peptides.success[k-1][0] == 1:
             os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
         else:
             os.system("mv %s%s.pdb fail_%s%s.pdb" % (peptides.base, k, peptides.base, k))
+            if peptides.gmxCheck == 1:
+                os.system("mv %sgmxed_%s.pdb fail_%sgmxed_%s.pdb" % (peptides.base, k, peptides.base, k))
     WriteLog("Number of successfully optimized structures: %s\n" % (num_of_successful), peptides)
     new_num = 1
     for l in range(1,peptides.numberOfStructures+1):
         if peptides.gmxCheck == 1 and peptides.success[l-1] == [1,1,1]:
             os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, l, peptides.base, new_num))
-            os.system("mv bak_%s%s_result.pdb %s%s_result.pdb" % (peptides.base, l, peptides.base, new_num))
+            os.system("mv bak_%sgmxed_%s.pdb %sgmxed_%s.pdb" % (peptides.base, l, peptides.base, new_num))
             WriteLog("Renaming structure %s to structure %s\n" % (l, new_num), peptides)
             new_num = new_num + 1
         if peptides.gmxCheck == 0 and peptides.success[l-1][0] == 1:
