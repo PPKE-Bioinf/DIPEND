@@ -1,0 +1,4 @@
+GromacsPath /home/gromdev/gromacs-2020/build/bin/
+GromacsSuffix   ""
+ChimeraXPath    /usr/bin/chimerax
+Scwrl4Path  /usr/local/bin/scwrl4/Scwrl4

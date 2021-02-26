@@ -114,7 +114,7 @@ def ChooseAnglesLeftProb(aminoAcidNumber, peptides, install):
     draw = random.random() # random value generation between 0 and 1
     phi = ""
     psi = ""
-    command = "%sfetch_angles %s l %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[leftaa], peptides.aminoAcidNames[middleaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
+    command = "%s/fetch_angles %s l %s %.3f %s %s %s" % (sys.path[0], peptides.aminoAcidNames[leftaa], peptides.aminoAcidNames[middleaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -139,7 +139,7 @@ def ChooseAnglesRightProb(aminoAcidNumber, peptides, install):
     draw = random.random() # random value generation between 0 and 1
     phi = ""
     psi = ""
-    command = "%sfetch_angles %s r %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[middleaa], peptides.aminoAcidNames[rightaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
+    command = "%s/fetch_angles %s r %s %.3f %s %s %s" % (sys.path[0], peptides.aminoAcidNames[middleaa], peptides.aminoAcidNames[rightaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -169,7 +169,7 @@ def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
     draw = random.random() # random value generation between 0 and 1
     phi = ""
     psi = ""
-    command = "%sfetch_both_angles %s %s %s %.3f %s %s %s" % (install.DataPath[0:-5], peptides.aminoAcidNames[leftaa], peptides.aminoAcidNames[middleaa], peptides.aminoAcidNames[rightaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
+    command = "%s/fetch_both_angles %s %s %s %.3f %s %s %s" % (sys.path[0], peptides.aminoAcidNames[leftaa], peptides.aminoAcidNames[middleaa], peptides.aminoAcidNames[rightaa], draw, install.DataPath, peptides.dataSet, install.WorkingDirectory) # searches in the binary file for the first phi psi value which has a cumulative sum greater than the random value (cumulative sums are in an ascending order)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -214,13 +214,13 @@ def Build(peptides, install):
             build_script.write("-65,135 ") # the default initial peptide has a psi of an antiparallel beta sheet, and the phi of the most probable proline conformation
         build_script.write("rotlib Dunbrack\nsave %s/%sinitial.pdb\n" % (install.WorkingDirectory, peptides.base, ))
         build_script.write("q\n")
-    os.system("%schimerax --nogui --offscreen %s/build.cxc" % (install.ChimeraXPath, install.WorkingDirectory)) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
+    os.system("%s --nogui --offscreen %s/build.cxc" % (install.ChimeraXPath, install.WorkingDirectory)) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
 
 #######################################################################
 def CheckContacts(i, peptides, install):
 # Checks for steric clashes in the built structure
     rc = -3
-    command = "%scheckcontacts %s %s %s" % (install.DataPath[0:-5], i, peptides.base, install.WorkingDirectory)
+    command = "%s/checkcontacts %s %s %s" % (sys.path[0], i, peptides.base, install.WorkingDirectory)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -345,7 +345,7 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
             clashcheck_script.write("open %s/%sgmxed_%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         clashcheck_script.write("clashes #1 saveFile chimerax_clashcheck.dat\n")
         clashcheck_script.write("q\n")
-    os.system("%schimerax --nogui --offscreen %s/clashcheck.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
+    os.system("%s --nogui --offscreen %s/clashcheck.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
     with open("chimerax_clashcheck.dat", "r") as clashcheck_file:
         rl = clashcheck_file.readlines()
         for lineNum in range(len(rl)):
@@ -522,14 +522,24 @@ def Main():
     for textLine in textForLater:
         WriteLog(textLine, MyPeptides)
 
-    GromacsPath = "/home/gromdev/gromacs-2020/build/bin/" # TODO
-    GromacsSuffix = "" # TODO
-    DataPath = "/home/zita/Scripts-Research/PEPROB/Data/" # TODO
     WorkingDirectory = os.getcwd()
-    ChimeraXPath = "/usr/bin/" # TODO
+    DataPath = sys.path[0]+"/Data/"
 
-    Scwrl4Path = "/usr/local/bin/scwrl4/Scwrl4" # TODO
-    #Scwrl4Path = "/home/harzi/scwrl4/Scwrl4" # TODO
+    pathfname = sys.path[0]+"/paths.txt"
+
+    with open(pathfname, "r") as paths: # please specify the paths in paths.txt
+        for line in paths:
+            line = line.strip()
+            line_ = line.split()
+            if len(line_)>1:
+                if line_[0] == "GromacsPath":
+                    GromacsPath = line_[1]
+                elif line_[0] == "GromacsSuffix":
+                    GromacsSuffix = line_[1]
+                elif line_[0] == "ChimeraXPath":
+                    ChimeraXPath = line_[1]
+                elif line_[0] == "Scwrl4Path":
+                    Scwrl4Path = line_[1]
 
     MyInstall = Install(GromacsPath, GromacsSuffix, DataPath, WorkingDirectory, ChimeraXPath, Scwrl4Path)
 

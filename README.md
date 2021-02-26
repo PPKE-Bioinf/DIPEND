@@ -1,19 +1,12 @@
 Installation:
 Please make sure the paths are set!
-Modify them at PeProb.py from line 505, for example:
-    GromacsPath = "/path/gromacs/bin/"
-    GromacsSuffix = "_mpi"
-    LsqmanPath = "/home/user/Lsqman/bin32/lsqman"
-    Scwrl4Path = "/home/user/scwrl4/Scwrl4"
-    DataPath = "/home/user/PeProb/Data/"
-    ChimeraXPath = "/usr/bin/" 
+Modify them at paths.txt as seen in that file!
 
 Requirements:
 Linux operating system
-python 3.5
-UCSF Chimerax 1.1
-gromacs 2020 or 4.5
-
+python 3.5 or higher
+UCSF Chimerax 1.1 or higher
+gromacs 4.5 or higher
 
 You can download Chimerax here:
 https://www.rbvi.ucsf.edu/chimerax/download.html
