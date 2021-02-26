@@ -15,7 +15,8 @@ You can donwnload GROMACS here:
 https://manual.gromacs.org/documentation/
 
 Example running of the program:
-nohup python3 ./PeProb.py -b test_ -c 100 -d tcbig -g 1 -m LEFT -n 3 -p 0 -r 0 -s QGGGGWGQPHGGGWGQPHGGGWGQPHGGGWGQPHG > out.out 2>&1 &
+nohup python3 /PATH/PeProb/PeProb.py -b test_ -c 100 -d tcbig -g 1 -m LEFT -n 3 -p 0 -r 0 -s QGGGGWGQPHGGGWGQPHGGGWGQPHGGGWGQPHG > out.out 2>&1 &
+where /PATH/ is where you cloned this repository.
 
 Call --help for more info.
 
