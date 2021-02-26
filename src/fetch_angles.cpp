@@ -1,10 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
 using namespace std;
-
-// usage example: ./fetch_angles TRP r HIS 0.76
 
 struct Line{ // a structure to represent one bin
     char neighbour[5]; // left or right
@@ -17,30 +14,15 @@ struct Line{ // a structure to represent one bin
 
     void write_line(Line * data, ofstream& outfilehandle) // writing out the found data
     {
-        //cout << "first amino acid: ";
-        //int a;
-        //for (a=0; a<sizeof((*data).firstaa); a++){cout << (*data).firstaa[a];}
-        //cout << " neighbour: ";
-        //int b;
-        //for (b=0; b<sizeof((*data).neighbour); b++){cout << (*data).neighbour[b];}
-        //cout << " second amino acid: ";
         int c;
         for (c=0; c<sizeof((*data).secondaa); c++){
-            //cout << (*data).secondaa[c]; 
             outfilehandle << (*data).secondaa[c];}
         outfilehandle << ";";
-        //cout << " phi: ";
-        //cout << to_string((*data).phi);
-        outfilehandle << to_string((*data).phi);
+        outfilehandle << (*data).phi;
         outfilehandle << ";";
-        //cout << " psi: ";
-        //cout << to_string((*data).psi);
-        outfilehandle << to_string((*data).psi);
+        outfilehandle << (*data).psi;
         outfilehandle << ";";
-        //cout << " cumul: ";
-        //cout << to_string((*data).cum);
-        outfilehandle << to_string((*data).cum);
-        //cout << endl;
+        outfilehandle << (*data).cum;
         outfilehandle << endl;
     }; // end write_line
 
@@ -57,16 +39,13 @@ int main(int argc, char* argv[]) {
     string filename = "";
     // now we are looking for the corresponding files on my disc
     if (neighb == "r"){
-        //cout << "right\n";
         filename = path+"right-"+dataset+'/'+aa+neighb+".bin"; // example: data/right-conly/GLUl.bin
     }
     if (neighb == "l"){
-        //cout << "left\n";
         filename = path+"left-"+dataset+'/'+aa+neighb+".bin"; // example: data/left-conly/GLUl.bin
+        cout << filename << endl;
     }
     
-    //cout << "filename: " << filename << endl;
-
     ifstream infile(filename, ios::in | ios::binary);
     if(!infile) {
         cout << "Cannot open file!" << endl;

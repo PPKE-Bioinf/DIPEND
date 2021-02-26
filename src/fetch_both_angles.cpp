@@ -5,8 +5,6 @@
 
 using namespace std;
 
-// usage example: ./fetch_both_angles TRP ALA HIS 0.76
-
 struct TripletBin{ // the size of it is 160
     signed int phi;
     signed int psi;
@@ -19,12 +17,9 @@ struct TripletBin{ // the size of it is 160
     {
         outfilehandle << (*data).phi;
         outfilehandle << ";";
-        //cout << " psi: ";
-        //cout << (*data).psi;
         outfilehandle << (*data).psi;
         outfilehandle << ";";
         outfilehandle << (*data).cum;
-        //cout << endl;
         outfilehandle << endl;
     }; // end write_line
 

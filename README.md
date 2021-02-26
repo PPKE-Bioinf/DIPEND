@@ -13,7 +13,18 @@ python 3.5
 UCSF Chimerax 1.1
 gromacs 2020 or 4.5
 
+
+You can download Chimerax here:
+https://www.rbvi.ucsf.edu/chimerax/download.html
+
+You can donwnload GROMACS here:
+https://manual.gromacs.org/documentation/
+
 Example running of the program:
-nohup python3 ./PeProb.py -b test_extended_refactored_ -c 100 -d tcbig -g 1 -m LEFT -n 3 -p 1 -r 0 -s QGGGGWGQPHGGGWGQPHGGGWGQPHGGGWGQPHG > out.out 2>&1 &
+nohup python3 ./PeProb.py -b test_ -c 100 -d tcbig -g 1 -m LEFT -n 3 -p 0 -r 0 -s QGGGGWGQPHGGGWGQPHGGGWGQPHGGGWGQPHG > out.out 2>&1 &
 
 Call --help for more info.
+
+Please do not hesitate to contact me in case of any questions at the following e-mail address:
+harmat.zita@itk.ppke.hu
+

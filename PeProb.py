@@ -220,8 +220,9 @@ def Build(peptides, install):
 def CheckContacts(i, peptides, install):
 # Checks for steric clashes in the built structure
     rc = -3
+    command = "%scheckcontacts %s %s %s" % (install.DataPath[0:-5], i, peptides.base, install.WorkingDirectory)
     try:
-        rc = subprocess.check_output("%scheckcontacts %s %s %s" % (install.DataPath[0:-5], i, peptides.base, install.WorkingDirectory), shell=True)
+        rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
         WriteLog("subprocess.CalledProcessError\n", peptides)
     filename = "contacts_%s.dat" % (peptides.base)
@@ -463,9 +464,9 @@ def Main():
     # default values for the inputs
     numberOfStructures = 1
     mode = "DERIVED_TRIPLET"
-    base = ""
+    base = "structure_"
     sequence = "" # if it is not given, it means trouble!
-    dataSet = "TCBIG"
+    dataSet = "tcbig"
     cycle = 10
     remain = 0
     gmxCheck = 1

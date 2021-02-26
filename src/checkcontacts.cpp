@@ -25,7 +25,6 @@ int main(int argc, char* argv[]) {
     string line;
     ifstream infile; 
     string ifilename = pwd+"/"+base+i+".pdb";
-    //myfile << "Input filename: " << ifilename << endl;
     infile.open(ifilename); 
     int n = 0;
     while (std::getline(infile, line))
