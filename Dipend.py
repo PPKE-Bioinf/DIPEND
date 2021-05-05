@@ -365,6 +365,7 @@ def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
         ang = [int(phi), int(psi)]
     return ang
 
+#######################################################################
 # chooses a piece based on the left neighbour, combining the Dunbrack probabilities and the user defined distribution with the user defined weight
 def ChooseAnglesWeightedLeftProb(aminoAcidNumber, peptides, install):
     ang = [175,175]
@@ -475,7 +476,6 @@ def ChooseAnglesWeightedTripletProb(aminoAcidNumber, peptides, install):
                         weighted_cum = weight*cum_u + (1-weight)*cum_d
                         if weighted_cum>draw:
                             ang = [phi_d, psi_d]
-                            WriteLog("phi %s psi %s du %s us %s we %s dr %s\n" % (phi_u, psi_u, cum_d, cum_u, weighted_cum, draw), peptides)
                             return ang
     return ang
 

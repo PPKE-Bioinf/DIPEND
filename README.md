@@ -20,6 +20,8 @@ where /PATH/ is where you cloned this repository.
 
 Call --help for more info.
 
+When you use the WEIGHTED_LEFT, WEIGHTED_RIGHT or WEIGHTED_TRIPLET modes, you can set Gaussian  distributions for each amino acid, setting a phi psi angle as centers and a standard deviation and a weight between 0 and 1 to set how much it is considered relative to the Dunbrack distribution. If you set 0, only the Dunbrack distribution will be consiedered, if you set 1, only your custom distributin will be considered. The distributions are set in the distribution.in file in the Data folder. You can define amino acids line by line or using the '-' character to define amino acid ranges. You can also leave out amino acids. For them, only the Dunbrack distributions will be considered.
+
 If you would like to compile the c++ executables from the sources instead of using the given executables, please use the following commands:
 g++ fetch_angles.cpp -o fetch_angles -std=c++11
 g++ fetch_both_angles.cpp -o fetch_both_angles -std=c++11
