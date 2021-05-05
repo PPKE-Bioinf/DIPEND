@@ -6,6 +6,8 @@ import random
 import math
 import subprocess
 import time
+from struct import unpack
+import numpy
 
 start_time = time.time() # for measuring purposes
 
@@ -62,6 +64,8 @@ class Peptides():
         self.proline = pro # whether we want to change the dihedral angles of prolines as well
         self.success = [] # 3 values for each structure, first is 1 if there are no CA-CA clashes, the second is 1 if successfully optimized and the third is 1 if the all atom clashcheck is successful on the optimized structure
         self.current_cycle = 0 # at which round of trying are we?
+        self.distributions = []
+        self.weights = []
 
     def addAngles(self, angles):
         self.angles = angles
@@ -76,6 +80,12 @@ class Peptides():
         self.success[k-1][1] = number
     def add_success3(self, k, number):
         self.success[k-1][2] = number
+
+    def add_distributions(self, distributions):
+        self.distributions = distributions
+
+    def add_weights(self, weights):
+        self.weights = weights
 
 ##################### CLASS ########################################
 # the Class of Install to handle program paths
@@ -102,6 +112,178 @@ def WriteStatus(line, peptides):
     statusFileName = "status%s.out" % (peptides.base)
     with open(statusFileName, "a") as statusHandle:
         statusHandle.write(line)
+
+#######################################################################
+# writes user defined custom distributions 
+def WriteDistributions(peptides, install):
+    filename = install.DataPath+"distribution.in"
+    counter = 0
+    distributions = []
+    weights = []
+    for k in range(len(peptides.sequence)):
+        distributions.append(0)
+    for k in range(len(peptides.sequence)):
+        weights.append(0.0)
+    with open(filename, "r") as f:
+        for line in f.readlines(): 
+            if line[0] == "#": 
+                continue # skipping header line
+            line = line.strip()
+            line_ = line.split()
+            counter+= 1
+            try:
+                phi = int(line_[1])
+            except:
+                WriteLog("Error with phi in the distribution file! It should be an integer. This line will be ignored.\n", peptides)
+                continue
+            try:
+                psi = int(line_[2])
+            except:
+                WriteLog("Error with psi in the distribution file! It should be an integer. This line will be ignored.\n", peptides)
+                continue
+            try:
+                stdev = int(line_[3])
+            except:
+                WriteLog("Error with stdev in the distribution file! It should be an integer. This line will be ignored.\n", peptides)
+                continue
+            try:
+                weight = float(line_[4])
+            except:
+                WriteLog("Error with weight in the distribution file! It should be a float. This line will be ignored.\n", peptides)
+                continue
+            if "-" in line_[0]:
+                sp = line_[0].split('-')
+                try:
+                    first = int(sp[0])
+                except:
+                    WriteLog("Error with the residue ranges in the distribution file! First residue is smaller than 1.\n", peptides)
+                    first = 1
+                try:
+                    last = int(sp[1])
+                except:
+                    WriteLog("Error with the residue ranges in the distribution file! Last residue is larger than the whole peptide.\n", peptides)
+                    last = len(peptides.sequence)
+                if first<1:
+                    WriteLog("Error with the residue ranges in the distribution file! First residue is smaller than 1.\n", peptides)
+                    first = 1
+                if last>len(peptides.sequence):
+                    WriteLog("Error with the residue ranges in the distribution file! Last residue is larger than the whole peptide.\n", peptides)
+                    last = len(peptides.sequence)
+                for k in range(first-1, last):
+                    distributions[k] = counter
+                    weights[k] = weight
+            else:
+                try:
+                    k = int(line_[0])
+                except:
+                    WriteLog("Error with the residue writing in the distribution file! This line will be ignored.\n", peptides)
+                    continue
+                distributions[k-1] = counter
+                weights[k-1] = weight
+
+            command = "python3 %s/TwodimensionalNormalDistribution.py %s %s %s %s/%sDistribution_%s.out" % (sys.path[0], phi, psi, stdev, install.WorkingDirectory, peptides.base, counter)
+            try:
+                rc = subprocess.check_output(command, shell=True)
+            except subprocess.CalledProcessError:
+                WriteLog("subprocess.CalledProcessError\n", peptides)
+    peptides.add_distributions(distributions)
+    peptides.add_weights(weights)
+
+#######################################################################        
+# reads the binary file from the database for a given amino acid pair and extracts the angles and cumulative probabilities for this pair
+def ReadDatabaseLR(aminoAcidNumber, peptides, install):
+    distr = []
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == 1:
+        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        leftaa = peptides.sequence[aminoAcidNumber-2]
+    if aminoAcidNumber == len(peptides.sequence):
+        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
+    else:
+        rightaa = peptides.sequence[aminoAcidNumber]
+
+    if peptides.mode == "WEIGHTED_LEFT":
+        filename = install.DataPath+"left-"+peptides.dataSet+'/'+peptides.aminoAcidNames[middleaa]+"l.bin"
+    else:
+        filename = install.DataPath+"right-"+peptides.dataSet+'/'+peptides.aminoAcidNames[middleaa]+"r.bin"
+    small = []
+    with open(filename, 'rb') as reader: # reading as binary file
+        while True:
+            nt_raw = reader.read(5) # reading correspoinding bytes
+            a_raw = reader.read(3)
+            n_raw = reader.read(3)
+            x1_raw = reader.read(1) # padding bytes 1
+            phi_raw = reader.read(4)
+            psi_raw = reader.read(4)
+            x2_raw = reader.read(4) # padding bytes 2
+            cum_raw = reader.read(8)
+
+            nt = nt_raw.decode('utf-8') # decode byte data into string
+            a = a_raw.decode('utf-8')
+            n = n_raw.decode('utf-8')
+
+            try:
+                phi =  unpack('<f', phi_raw) # unpacking byte data into float
+            except:
+                break
+            try:
+                psi =  unpack('<f', psi_raw)
+            except:
+                break
+            try:
+                cum =  unpack('<d', cum_raw) # unpacking byte data into double
+            except:
+                break
+            if not nt_raw or not a_raw or not n_raw or not x1_raw or not x2_raw or not phi_raw or not psi_raw or not cum_raw: # if EOF
+                break
+            if peptides.mode == "WEIGHTED_LEFT":
+                if nt[0]== 'l' and a == peptides.aminoAcidNames[middleaa] and n == peptides.aminoAcidNames[leftaa]: # only retrieving data of the needed amino acid pair
+                    struct = [phi[0], psi[0], cum[0]]
+                    distr.append(struct)
+            else:
+                if nt[0]== 'r' and a == peptides.aminoAcidNames[middleaa] and n == peptides.aminoAcidNames[rightaa]: # only retrieving data of the needed amino acid pair
+                    struct = [phi[0], psi[0], cum[0]]
+                    distr.append(struct)
+    return distr
+
+#######################################################################
+# reads the binary file from the database for an amino acid triplet and extracts the angles and cumulative probabilities
+def ReadDatabaseT(aminoAcidNumber, peptides, install):
+    distr = []
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == 1:
+        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        leftaa = peptides.sequence[aminoAcidNumber-2]
+    if aminoAcidNumber == len(peptides.sequence):
+        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
+    else:
+        rightaa = peptides.sequence[aminoAcidNumber]
+
+    filename = install.DataPath+peptides.dataSet+'/'+middleaa+'/'+leftaa+middleaa+rightaa+".bin"
+
+    with open(filename, 'rb') as reader: # reading as binary file
+        while True:
+            phi_raw = reader.read(4) # reading correspoinding bytes
+            psi_raw = reader.read(4)
+            x = reader.read(8) # padding bytes
+            p1_raw = reader.read(16)
+            p2_raw = reader.read(16)
+            cum_raw = reader.read(16)
+
+            try:
+                phi = unpack('<i',phi_raw) # unpacking byte data into integer
+                psi = unpack('<i',psi_raw)
+                cum = numpy.frombuffer(cum_raw, dtype=numpy.longdouble)
+            except:
+                break
+            if not phi_raw or not psi_raw or not x or not p1_raw or not p2_raw or not cum_raw: # if EOF
+                break
+            small = [phi[0], psi[0], cum[0]]
+            distr.append(small)
+    return distr
+
 
 #######################################################################
 # chooses a piece based on the left neighbour, coil only Dunbrack probabilities
@@ -183,6 +365,120 @@ def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
         ang = [int(phi), int(psi)]
     return ang
 
+# chooses a piece based on the left neighbour, combining the Dunbrack probabilities and the user defined distribution with the user defined weight
+def ChooseAnglesWeightedLeftProb(aminoAcidNumber, peptides, install):
+    ang = [175,175]
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == 1:
+        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        leftaa = peptides.sequence[aminoAcidNumber-2]
+    draw = random.random() # random value generation between 0 and 1
+    data = ReadDatabaseLR(aminoAcidNumber, peptides, install)
+    distrnum = peptides.distributions[aminoAcidNumber-1]
+    weight = peptides.weights[aminoAcidNumber-1]
+    if distrnum == 0:
+        return ChooseAnglesLeftProb(aminoAcidNumber, peptides, install) # no distribution for this amino acid chosen, using the Dunbrack values - same as in LEFT mode
+    else:
+        filename_u = "%s/%sDistribution_%s.out" % (install.WorkingDirectory, peptides.base, distrnum) # this is the user defined distribution
+        with open(filename_u, "r") as handle_u:
+            lines_u = handle_u.readlines()
+            for d in data:
+                phi_d = float(d[0])
+                psi_d = float(d[1])
+                cum_d = float(d[2])
+                for line_u in lines_u:
+                    line_u = line_u.strip()
+                    line_u_ = line_u.split()
+                    phi_u = int(line_u_[0])
+                    psi_u = int(line_u_[1])
+                    cum_u = float(line_u_[3])
+                    if phi_d == phi_u and psi_d == psi_u:
+                        weighted_cum = weight*cum_u + (1-weight)*cum_d
+                        if weighted_cum>draw:
+                            ang = [phi_d, psi_d]
+                            return ang
+    return ang
+
+######################################################################
+# chooses a piece based on the right neighbour, combining the Dunbrack probabilities and the user defined distribution with the user defined weight
+def ChooseAnglesWeightedRightProb(aminoAcidNumber, peptides, install):
+    ang = [175,175]
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == len(peptides.sequence):
+        rightaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        rightaa = peptides.sequence[aminoAcidNumber]
+    draw = random.random() # random value generation between 0 and 1
+    data = ReadDatabaseLR(aminoAcidNumber, peptides, install)
+    distrnum = peptides.distributions[aminoAcidNumber-1]
+    weight = peptides.weights[aminoAcidNumber-1]
+    if distrnum == 0:
+        return ChooseAnglesRightProb(aminoAcidNumber, peptides, install) # no distribution for this amino acid chosen, using the Dunbrack values - same as in RIGHT mode
+    else:
+        filename_u = "%s/%sDistribution_%s.out" % (install.WorkingDirectory, peptides.base, distrnum) # this is the user defined distribution
+        with open(filename_u, "r") as handle_u:
+            lines_u = handle_u.readlines()
+            for d in data:
+                phi_d = int(d[0])
+                psi_d = int(d[1])
+                cum_d = float(d[2])
+                for line_u in lines_u:
+                    line_u = line_u.strip()
+                    line_u_ = line_u.split()
+                    phi_u = int(line_u_[0])
+                    psi_u = int(line_u_[1])
+                    cum_u = float(line_u_[3])
+                    if phi_d == phi_u and psi_d == psi_u:
+                        weighted_cum = weight*cum_u + (1-weight)*cum_d
+                        if weighted_cum>draw:
+                            ang = [phi_d, psi_d]
+                            return ang
+    return ang
+
+######################################################################
+# chooses a piece with the derived Dunbrack-Ting probabilities (counting both neighbours with summing up the logarithms of the probabilities) and with the user defined probabilities weighting the two with the user defined weight
+def ChooseAnglesWeightedTripletProb(aminoAcidNumber, peptides, install):
+    ang = [175,175]
+    middleaa = peptides.sequence[aminoAcidNumber-1]
+    if aminoAcidNumber == 1:
+        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
+    else:
+        leftaa = peptides.sequence[aminoAcidNumber-2]
+    if aminoAcidNumber == len(peptides.sequence):
+        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
+    else:
+        rightaa = peptides.sequence[aminoAcidNumber]
+
+    draw = random.random() # random value generation between 0 and 1
+
+    data = ReadDatabaseT(aminoAcidNumber, peptides, install) # data extracted from the binary database
+    distrnum = peptides.distributions[aminoAcidNumber-1] # which distribution to use
+    weight = peptides.weights[aminoAcidNumber-1] # which weiht to use
+    if distrnum == 0:
+        return ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install) # no distribution for this amino acid chosen, using the Dunbrack values - same as in TRIPLET mode
+    else:
+        filename_u = "%s/%sDistribution_%s.out" % (install.WorkingDirectory, peptides.base, distrnum) # this is the user defined distribution
+        with open(filename_u, "r") as handle_u: # opening the corresponding user defined distribution file
+            lines_u = handle_u.readlines()
+            for d in data: # the extracted from binary
+                phi_d = int(d[0])
+                psi_d = int(d[1])
+                cum_d = float(d[2])
+                for line_u in lines_u:
+                    line_u = line_u.strip()
+                    line_u_ = line_u.split()
+                    phi_u = int(line_u_[0])
+                    psi_u = int(line_u_[1])
+                    cum_u = float(line_u_[3])      
+                    if phi_d == phi_u and psi_d == psi_u:
+                        weighted_cum = weight*cum_u + (1-weight)*cum_d
+                        if weighted_cum>draw:
+                            ang = [phi_d, psi_d]
+                            WriteLog("phi %s psi %s du %s us %s we %s dr %s\n" % (phi_u, psi_u, cum_d, cum_u, weighted_cum, draw), peptides)
+                            return ang
+    return ang
+
 ######################################################################
 # Collects the angles derived for the given structure
 def CollectAllAngles(peptides, install):
@@ -194,9 +490,15 @@ def CollectAllAngles(peptides, install):
             a = ChooseAnglesRightProb(n, peptides, install)
         elif peptides.mode == "DERIVED_TRIPLET" or peptides.mode == "TRIPLET":
             a = ChooseAnglesDerivedProb(n, peptides, install)
+        elif peptides.mode == "WEIGHTED_LEFT":
+            a = ChooseAnglesWeightedLeftProb(n, peptides, install)
+        elif peptides.mode == "WEIGHTED_RIGHT":
+            a = ChooseAnglesWeightedRightProb(n, peptides, install)
+        elif peptides.mode == "WEIGHTED_TRIPLET":
+            a = ChooseAnglesWeightedTripletProb(n, peptides, install)
         else:
             WriteLog("No valid mode given, running with DERIVED_TRIPLET mode\n", peptides)
-            peptides.mode = "DERIVED_TRIPLET"
+            peptides.mode = "TRIPLET"
             a = ChooseAnglesDerivedProb(n, peptides, install)
         if a == []:
             WriteLog("Trouble with amino acid %s in mode %s for amino acid number %s\n" % (peptides.sequence[n], peptides.mode, n), peptides)
@@ -545,8 +847,9 @@ def Main():
 
     #########
     Build(MyPeptides, MyInstall)
+    if MyPeptides.mode == "WEIGHTED_LEFT" or MyPeptides.mode == "WEIGHTED_RIGHT" or MyPeptides.mode == "WEIGHTED_TRIPLET":
+        WriteDistributions(MyPeptides, MyInstall)
     MyPeptides.init_success()
-    status = []
     for i in range(1,MyPeptides.numberOfStructures+1):
         Rotate(i, MyPeptides, MyInstall)
     for j in range(1,MyPeptides.cycle):
@@ -559,7 +862,7 @@ def Main():
         Rename(MyPeptides)
     else:
         for i in range(1,MyPeptides.numberOfStructures+1):
-            WriteStatus("%s%s.pdb %s\n" % (base, i, status[i-1]), MyPeptides)
+            WriteStatus("%s%s.pdb %s\n" % (base, i, MyPeptides.success[i-1][0]), MyPeptides)
     if MyPeptides.remain == 0:
         Cleanup(MyPeptides)
 
