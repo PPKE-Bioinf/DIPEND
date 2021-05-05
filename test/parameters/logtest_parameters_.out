@@ -1,0 +1,7 @@
+Command given: /home/zita/Scripts-Research/DIPEND/Dipend.py -b test_parameters_ -c 5 -d conly -g 0 -m WEIGHTED_LEFT -n 2 -p 1 -r 1 -s GSKKGGGWGQPH out
+Trying to rotate Proline res 11 phi...
+Trying at 0
+Trying at 1
+Trying at 2
+Trying at 3
+Time elapsed: 1172.53

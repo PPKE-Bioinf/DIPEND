@@ -1,0 +1,26 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test-results/parameters/test_parameters_2.pdb
+setattr :1 res phi -180.0
+setattr :1 res psi 0.0
+setattr :2 res phi -95.0
+setattr :2 res psi -175.0
+setattr :3 res phi -95.0
+setattr :3 res psi 170.0
+setattr :4 res phi -65.0
+setattr :4 res psi 135.0
+setattr :5 res phi -95.0
+setattr :5 res psi -175.0
+setattr :6 res phi -160.0
+setattr :6 res psi -95.0
+setattr :7 res phi 150
+setattr :7 res psi 175
+setattr :8 res phi -50.0
+setattr :8 res psi 120.0
+setattr :9 res phi -55.0
+setattr :9 res psi -5.0
+setattr :10 res phi -55.0
+setattr :10 res psi 5.0
+setattr :11 res psi 0.0
+setattr :12 res phi -55
+setattr :12 res psi 150
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test-results/parameters/test_parameters_2.pdb
+q

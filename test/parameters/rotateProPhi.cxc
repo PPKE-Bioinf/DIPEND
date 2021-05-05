@@ -1,0 +1,4 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test-results/parameters/test_parameters_2.pdb
+setattr :11 res phi -50.0
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test-results/parameters/test_parameters_2.pdb
+q

@@ -1,0 +1,46 @@
+Distributions used:
+#Resnum Phi Psi Stdev Weight
+1-5 -60 45 10 0.1
+6 -76 146 100 0.9
+8-11 -55 -1 5 0.7
+
+# weighted left tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_weighted_left_tcbig_ -c 5 -d tcbig -g 1 -m WEIGHTED_LEFT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# weighted left conly
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_weighted_left_conly_ -c 5 -d conly -g 1 -m WEIGHTED_LEFT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# weighted right tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_weighted_right_tcbig_ -c 5 -d tcbig -g 1 -m WEIGHTED_RIGHT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# weighted right conly
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_weighted_right_conly_ -c 5 -d conly -g 1 -m WEIGHTED_RIGHT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# weighted triplet tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_weighted_triplet_tcbig_ -c 5 -d tcbig -g 1 -m WEIGHTED_TRIPLET -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# weighted triplet conly
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_weighted_triplet_conly_ -c 5 -d conly -g 1 -m WEIGHTED_TRIPLET -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# left tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_left_tcbig_ -c 5 -d tcbig -g 1 -m LEFT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# left conly
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_left_conly_ -c 5 -d conly -g 1 -m LEFT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# right tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_right_tcbig_ -c 5 -d tcbig -g 1 -m RIGHT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# right conly
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_right_conly_ -c 5 -d conly -g 1 -m RIGHT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# triplet tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_triplet_tcbig_ -c 5 -d tcbig -g 1 -m TRIPLET -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# triplet conly
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_triplet_conly_ -c 5 -d conly -g 1 -m TRIPLET -n 1 -p 0 -r 0 -s GSKKGGGWGQPH  out 2>&1 &
+
+# g 0 p 1 n 2 r 1
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_parameters_ -c 5 -d conly -g 0 -m WEIGHTED_LEFT -n 2 -p 1 -r 1 -s GSKKGGGWGQPH  out 2>&1 &
+
+

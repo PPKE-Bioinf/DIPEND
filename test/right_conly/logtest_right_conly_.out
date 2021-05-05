@@ -1,0 +1,25 @@
+Command given: /home/zita/Scripts-Research/DIPEND/Dipend.py -b test_right_conly_ -c 5 -d conly -g 1 -m RIGHT -n 1 -p 0 -r 0 -s GSKKGGGWGQPH out
+Proline res 11 phi is not rotated.
+Trying at 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	1	0	-1.0	1000.0
+# Chosen angles for structure 1:
+1	G	65	-150
+2	S	-60	150
+3	K	-85	110
+4	K	-135	10
+5	G	60	40
+6	G	-80	-180
+7	G	135	160
+8	W	-95	10
+9	G	-170	155
+10	Q	-55	145
+11	P	-80	155
+12	H	-85	150
+Trying at 1
+Trying at 2
+Trying at 3
+Renaming files based on success...
+Number of successfully optimized structures: 1
+Renaming structure 1 to structure 1
+Cleaning up...
+Time elapsed: 11.38
