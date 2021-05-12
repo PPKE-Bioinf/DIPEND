@@ -3,6 +3,8 @@
 import math
 import numpy as np
 import sys
+import struct
+
 # splot (1/(3*sqrt(6.28)))*exp(-0.5*((x-0)/3)**2)*(1/(3*sqrt(6.28)))*exp(-0.5*((y-0)/3)**2) w pm3d
 res=5 # resolution in degrees
 grid=int(1+360/res)
@@ -61,14 +63,16 @@ cumulative_probability = 0.0
 # writing the distribution to a file
 # note that we write the map in the conventional format
 # from -180 to 180 but use the adjusted values
-with open(outfname, "w") as f:
+with open(outfname, "wb") as f:
     for phi in range(-180,180,res):
         for psi in range (-180,180,res):
             x=int(phi/res)
             y=int(psi/res)
             # using the scaled values ensures that we have a cumulative robability of 1
-            cumulative_probability +=  values[x][y]/allvalues
-            f.write("%d %d %.2e %.2e\n" % (phi,psi,values[x][y]/allvalues, cumulative_probability))
+            probability = values[x][y]/allvalues
+            cumulative_probability +=  probability
+            packed_values = struct.pack('<ddii',cumulative_probability, probability, phi,psi)
+            f.write(packed_values)
 
 # you can plot the resulting file with gnuplot:
 # splot 'proba.dat' w pm3d

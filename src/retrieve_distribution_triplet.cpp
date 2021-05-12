@@ -5,11 +5,11 @@
 using namespace std;
 
 struct TripletBin{ // the size of it is 160
+    double prob;
+    double lnprob;
+    double cum;
     signed int phi;
     signed int psi;
-    long double prob;
-    long double lnprob;
-    long double cum;
     };
 
     void write_line(TripletBin * data, ofstream& outfilehandle) // writing out the found data

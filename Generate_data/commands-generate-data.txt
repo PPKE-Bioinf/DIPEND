@@ -1,0 +1,110 @@
+g++ neighbour-template_all.c -o neighbour-template_all -std=c++11
+./neighbour-template_all conly l ALA > o
+./neighbour-template_all conly l ARG > o
+./neighbour-template_all conly l ASN > o
+./neighbour-template_all conly l ASP > o
+./neighbour-template_all conly l CYS > o
+./neighbour-template_all conly l GLN > o
+./neighbour-template_all conly l GLU > o
+./neighbour-template_all conly l GLY > o
+./neighbour-template_all conly l HIS > o
+./neighbour-template_all conly l ILE > o
+./neighbour-template_all conly l LEU > o
+./neighbour-template_all conly l LYS > o
+./neighbour-template_all conly l MET > o
+./neighbour-template_all conly l PHE > o
+./neighbour-template_all conly l PRO > o
+./neighbour-template_all conly l SER > o
+./neighbour-template_all conly l THR > o
+./neighbour-template_all conly l TRP > o
+./neighbour-template_all conly l TYR > o
+./neighbour-template_all conly l VAL > o
+
+./neighbour-template_all conly r ALA > o
+./neighbour-template_all conly r ARG > o
+./neighbour-template_all conly r ASN > o
+./neighbour-template_all conly r ASP > o
+./neighbour-template_all conly r CYS > o
+./neighbour-template_all conly r GLN > o
+./neighbour-template_all conly r GLU > o
+./neighbour-template_all conly r GLY > o
+./neighbour-template_all conly r HIS > o
+./neighbour-template_all conly r ILE > o
+./neighbour-template_all conly r LEU > o
+./neighbour-template_all conly r LYS > o
+./neighbour-template_all conly r MET > o
+./neighbour-template_all conly r PHE > o
+./neighbour-template_all conly r PRO > o
+./neighbour-template_all conly r SER > o
+./neighbour-template_all conly r THR > o
+./neighbour-template_all conly r TRP > o
+./neighbour-template_all conly r TYR > o
+./neighbour-template_all conly r VAL > o
+
+./neighbour-template_all TCBIG l ALA > o
+./neighbour-template_all TCBIG l ARG > o
+./neighbour-template_all TCBIG l ASN > o
+./neighbour-template_all TCBIG l ASP > o
+./neighbour-template_all TCBIG l CYS > o
+./neighbour-template_all TCBIG l GLN > o
+./neighbour-template_all TCBIG l GLU > o
+./neighbour-template_all TCBIG l GLY > o
+./neighbour-template_all TCBIG l HIS > o
+./neighbour-template_all TCBIG l ILE > o
+./neighbour-template_all TCBIG l LEU > o
+./neighbour-template_all TCBIG l LYS > o
+./neighbour-template_all TCBIG l MET > o
+./neighbour-template_all TCBIG l PHE > o
+./neighbour-template_all TCBIG l PRO > o
+./neighbour-template_all TCBIG l SER > o
+./neighbour-template_all TCBIG l THR > o
+./neighbour-template_all TCBIG l TRP > o
+./neighbour-template_all TCBIG l TYR > o
+./neighbour-template_all TCBIG l VAL > o
+
+./neighbour-template_all TCBIG r ALA > o
+./neighbour-template_all TCBIG r ARG > o
+./neighbour-template_all TCBIG r ASN > o
+./neighbour-template_all TCBIG r ASP > o
+./neighbour-template_all TCBIG r CYS > o
+./neighbour-template_all TCBIG r GLN > o
+./neighbour-template_all TCBIG r GLU > o
+./neighbour-template_all TCBIG r GLY > o
+./neighbour-template_all TCBIG r HIS > o
+./neighbour-template_all TCBIG r ILE > o
+./neighbour-template_all TCBIG r LEU > o
+./neighbour-template_all TCBIG r LYS > o
+./neighbour-template_all TCBIG r MET > o
+./neighbour-template_all TCBIG r PHE > o
+./neighbour-template_all TCBIG r PRO > o
+./neighbour-template_all TCBIG r SER > o
+./neighbour-template_all TCBIG r THR > o
+./neighbour-template_all TCBIG r TRP > o
+./neighbour-template_all TCBIG r TYR > o
+./neighbour-template_all TCBIG r VAL > o
+
+./neighbour-template_all CONLY l CPR > o
+./neighbour-template_all CONLY r CPR > o
+./neighbour-template_all TCBIG l CPR > o
+./neighbour-template_all TCBIG r CPR > o
+
+
+g++ neighbour-template.c -o neighbour-template -std=c++11
+python3 forall_neighbour.py conly r
+python3 forall_neighbour.py conly l
+python3 forall_neighbour.py TCBIG r
+python3 forall_neighbour.py TCBIG l
+
+python3 forall_neighbour_x.py CONLY r
+python3 forall_neighbour_x.py CONLY l
+python3 forall_neighbour_x.py TCBIG r
+python3 forall_neighbour_x.py TCBIG l
+
+g++ calculate_triplet_cum.c -o calculate_triplet_cum -std=c++11
+python3 forall_triplet.py conly
+python3 forall_triplet_part.py conly
+# in progress
+python3 forall_triplet_x.py CONLY
+python3 forall_triplet.py TCBIG
+# in progress
+python3 forall_triplet_x.py TCBIG
