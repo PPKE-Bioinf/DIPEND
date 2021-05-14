@@ -6,8 +6,8 @@ import random
 import math
 import subprocess
 import time
-from struct import unpack
-#import numpy
+import struct
+import numpy as np
 
 start_time = time.time() # for measuring purposes
 
@@ -118,6 +118,67 @@ def WriteStatus(line, peptides):
         statusHandle.write(line)
 
 #######################################################################
+# makes a two dimensional normal distribution with the given parameters
+def TwoDimensionalNormalDistribution(peptides, install, phi_c, psi_c, stdev_c, fn):
+    # splot (1/(3*sqrt(6.28)))*exp(-0.5*((x-0)/3)**2)*(1/(3*sqrt(6.28)))*exp(-0.5*((y-0)/3)**2) w pm3d
+    res=5 # resolution in degrees
+    grid=int(1+360/res)
+    avg=0 # the average will always be the centre of the map first, will be adjusted later
+    # set the desired Ramachandran angles and their deviation here
+    #phi_avg=-60 
+    #psi_avg=-45
+    #std=15
+    phi_avg = int(phi_c)
+    psi_avg = int(psi_c)
+    std = int(stdev_c)
+    outfname = fn
+    # this will be the array with the final values
+    values=np.zeros((grid,grid))
+    # a function to take care of the circular nature of the Ramachandran map
+    def inrama (a):
+        if a < -180:
+            return a+360
+        if a >= 180:
+            return a-360
+        return a
+    # a sum of all values for scaling at the end (to add up to a probability of 1)
+    allvalues=0
+    offset=0
+    # Calculating the distribution as a product of two 1D distributions
+    for phi in range(-180,180,res):
+        for psi in range (-180,180,res):
+            z= (1/(std*math.sqrt(2*math.pi)))*math.exp(-0.5*((phi-avg)/std)**2)
+            z*=(1/(std*math.sqrt(2*math.pi)))*math.exp(-0.5*((psi-avg)/std)**2)
+            #print(x,y,z)
+            # adjusting the angles to the desired region
+            phi_out=inrama(phi-phi_avg)
+            psi_out=inrama(psi-psi_avg)
+            # calculating the coordinates in the grid
+            x=int(math.floor(phi_out/res))
+            y=int(math.floor(psi_out/res))
+            # for very shallow distributions (large stdev) the values might not be 0 at the map boundaries.
+            # we will subtract this from all values in order to use only the differences between map regions
+            if phi == -180 and psi == -180:
+                #print ("z at edge:",z)
+                offset=z
+            values[x][y]=z-offset
+            allvalues += z-offset
+    cumulative_probability = 0.0
+    # writing the distribution to a file
+    # note that we write the map in the conventional format
+    # from -180 to 180 but use the adjusted values
+    with open(outfname, "wb") as f:
+        for phi in range(-180,180,res):
+            for psi in range (-180,180,res):
+                x=int(phi/res)
+                y=int(psi/res)
+                # using the scaled values ensures that we have a cumulative robability of 1
+                probability = values[x][y]/allvalues
+                cumulative_probability +=  probability
+                packed_values = struct.pack('<ddii',cumulative_probability, probability, phi,psi)
+                f.write(packed_values)
+
+#######################################################################
 # writes user defined custom distributions 
 def WriteDistributions(peptides, install):
     filename = install.DataPath+"distribution.in"
@@ -195,93 +256,17 @@ def WriteDistributions(peptides, install):
                 filenames[k-1] = current_filename
 
             if current_filename == "":
-                command = "python3 %s/TwodimensionalNormalDistribution.py %s %s %s %s/%sDistribution_%s.bin" % (sys.path[0], phi, psi, stdev, install.WorkingDirectory, peptides.base, counter)
-                try:
-                    rc = subprocess.check_output(command, shell=True)
-                except subprocess.CalledProcessError:
-                    WriteLog("subprocess.CalledProcessError\n", peptides)
+                fn = "%s/%sDistribution_%s.bin" % (install.WorkingDirectory, peptides.base, counter)
             else:
-                command = "python3 %s/TwodimensionalNormalDistribution.py %s %s %s %s/%s" % (sys.path[0], phi, psi, stdev, install.WorkingDirectory, current_filename)
-                try:
-                    rc = subprocess.check_output(command, shell=True)
-                except subprocess.CalledProcessError:
-                    WriteLog("subprocess.CalledProcessError\n", peptides)
-
+                fn = current_filename
+            TwoDimensionalNormalDistribution(peptides, install, phi, psi, stdev, fn)
     peptides.add_distributions(distributions)
     peptides.add_weights(weights)
     peptides.add_filenames(filenames)
 
-#######################################################################
-# chooses a piece based on the left neighbour, coil only Dunbrack probabilities
-def ChooseAnglesLeftProb(aminoAcidNumber, peptides, install):
-    middleaa = peptides.sequence[aminoAcidNumber-1]
-    if aminoAcidNumber == 1:
-        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
-    else:
-        leftaa = peptides.sequence[aminoAcidNumber-2]
-    draw = random.random() # random value generation between 0 and 1
-    phi = 175
-    psi = 175
-    ang = [phi, psi] # in case the function does not work at all
-
-    filename = install.DataPath+peptides.dataSet+"-l/"+middleaa+"/l"+leftaa+".bin"
-
-    with open(filename, 'rb') as reader: # reading as binary file
-        while True:
-            cum_raw = reader.read(8) # reading correspoinding bytes
-            phi_raw = reader.read(4)
-            psi_raw = reader.read(4)
-            try:
-                phi_d = unpack('<i',phi_raw)[0] # unpacking byte data into integer
-                psi_d = unpack('<i',psi_raw)[0]
-                cum = unpack('<d',cum_raw)[0]
-            except:
-                break
-            if not phi_raw or not psi_raw or not cum_raw: # if EOF
-                break
-            if cum>draw:
-                phi = phi_d
-                psi = psi_d
-                ang = [phi, psi]
-                return ang
-
-#######################################################################
-# chooses a piece based on the right neighbour, coil only Dunbrack probabilities
-def ChooseAnglesRightProb(aminoAcidNumber, peptides, install):
-    middleaa = peptides.sequence[aminoAcidNumber-1]
-    if aminoAcidNumber == len(peptides.sequence):
-        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
-    else:
-        rightaa = peptides.sequence[aminoAcidNumber]
-    draw = random.random() # random value generation between 0 and 1
-    phi = 175
-    psi = 175
-    ang = [phi, psi] # in case the function does not work at all
-
-    filename = install.DataPath+peptides.dataSet+"-r/"+middleaa+"/r"+rightaa+".bin"
-
-    with open(filename, 'rb') as reader: # reading as binary file
-        while True:
-            cum_raw = reader.read(8) # reading correspoinding bytes
-            phi_raw = reader.read(4)
-            psi_raw = reader.read(4)
-            try:
-                phi_d = unpack('<i',phi_raw)[0] # unpacking byte data into integer
-                psi_d = unpack('<i',psi_raw)[0]
-                cum = unpack('<d',cum_raw)[0]
-            except:
-                break
-            if not phi_raw or not psi_raw or not cum_raw: # if EOF
-                break
-            if cum>draw:
-                phi = phi_d
-                psi = psi_d
-                ang = [phi, psi]
-                return ang
-
 ######################################################################
-# chooses a piece with the derived Dunbrack-Ting probabilities (counting both neighbours with summing up the logarithms of the probabilities)
-def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
+# chooses angles according to the correspoinding weighted sum of the Dunbrack and the user given distribution
+def ChooseAngles(aminoAcidNumber, peptides, install):
     middleaa = peptides.sequence[aminoAcidNumber-1]
     if aminoAcidNumber == 1:
         leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
@@ -292,206 +277,79 @@ def ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install):
     else:
         rightaa = peptides.sequence[aminoAcidNumber]
 
+    if leftaa == 'X': # cis proline is not defined as neighbour, only as central amino acid... using trans proline instead
+        leftaa = 'P'
+    if rightaa == 'X': # cis proline is not defined as neighbour, only as central amino acid... using trans proline instead
+        rightaa = 'P'
+
+    ang = [175,175]
     draw = random.random() # random value generation between 0 and 1
 
-    phi = 175
-    psi = 175
-    ang = [phi, psi] # in case the function does not work at all
+    # default weight for non.weighted modes (Dunbrack P will be calculated with (1-weight))
+    weight=0
+    # distribution for weighted modes
+    if (peptides.mode.startswith("WEIGHTED")):   
+        distrnum = peptides.distributions[aminoAcidNumber-1]
+        weight = peptides.weights[aminoAcidNumber-1]
+        filename_u = peptides.filenames[aminoAcidNumber-1]
+        if filename_u == "": # if no custom filename given
+            filename_u = "%sDistribution_%s.bin" % (peptides.base, peptides.distributions[aminoAcidNumber-1])
 
-    filename = install.DataPath+peptides.dataSet+"/"+middleaa+"/"+leftaa+middleaa+rightaa+".bin"
+        # opening the file here
+        if distrnum>0:
+            reader_u=open(filename_u,'rb')
+        
+    # choosing the proper distribution files according to left, right or both neigbors as set
+    if peptides.mode == "LEFT" or peptides.mode == "WEIGHTED_LEFT":
+        filename_d = install.DataPath+peptides.dataSet+"-l/"+middleaa+"/l"+leftaa+".bin"
+    if peptides.mode == "RIGHT" or peptides.mode == "WEIGHTED_RIGHT":
+        filename_d = install.DataPath+peptides.dataSet+"-r/"+middleaa+"/r"+rightaa+".bin"
+    if peptides.mode == "TRIPLET" or peptides.mode == "WEIGHTED_TRIPLET":
+        filename_d = install.DataPath+peptides.dataSet+"/"+middleaa+"/"+leftaa+middleaa+rightaa+".bin"
 
-    with open(filename, 'rb') as reader: # reading as binary file
-        while True:
-            prob_raw = reader.read(8)
-            lnprob_raw = reader.read(8)
-            cum_raw = reader.read(8)
-            phi_raw = reader.read(4)
-            psi_raw = reader.read(4)
+    reader_d=open(filename_d, 'rb')
+
+    found = False
+
+    while (not found):
+        if peptides.mode == "TRIPLET" or peptides.mode == "DERIVED_TRIPLET" or peptides.mode == "WEIGHTED_TRIPLET":
+            prob_raw_d = reader_d.read(8) # extra data only for triplet
+            lnprob_raw_d = reader_d.read(8) # extra data only for triplet
+            if not prob_raw_d or not lnprob_raw_d:
+                 break
+
+        cum_raw_d = reader_d.read(8)
+        phi_raw_d = reader_d.read(4)
+        psi_raw_d = reader_d.read(4)
+        try:
+            cum_d = struct.unpack('<d',cum_raw_d)[0]
+            phi_d = struct.unpack('<i',phi_raw_d)[0] # unpacking byte data into integer
+            psi_d = struct.unpack('<i',psi_raw_d)[0] # unpacking byte data into integer
+        except:
+            break
+        
+        # default for external dist (=no external distribution)
+        cum_u=0
+        if (peptides.mode.startswith("WEIGHTED")) and distrnum>0: # if there is an external distribution given for this residue
+            cum_raw_u = reader_u.read(8)
+            prob_raw_u = reader_u.read(8)
+            phi_raw_u = reader_u.read(4)
+            psi_raw_u = reader_u.read(4)
             try:
-                phi_d = unpack('<i',phi_raw)[0] # unpacking byte data into integer
-                psi_d = unpack('<i',psi_raw)[0]
-                cum = unpack('<d',cum_raw)[0]
+                cum_u = struct.unpack('<d',cum_raw_u)[0]
+                phi_u = struct.unpack('<i',phi_raw_u)[0] # unpacking byte data into integer
+                psi_u = struct.unpack('<i',psi_raw_u)[0]
             except:
                 break
-            if not phi_raw or not psi_raw or not cum_raw or not prob_raw or not lnprob_raw: # if EOF
-                break
-            if cum>draw:
-                phi = phi_d
-                psi = psi_d
-                ang = [phi, psi]
-                return ang
-    return ang
+            # give a warning if the two angle pairs differ 8should not happen):    
+            if phi_d != phi_u or psi_d != psi_u:
+                WriteLog("Ooops: %5.3f <=> %5.3f | %5.3f <=> %5.3f" % (phi_d,phi_u,psi_d,psi_u), peptides)
 
-#######################################################################
-# chooses a piece based on the left neighbour, combining the Dunbrack probabilities and the user defined distribution with the user defined weight
-def ChooseAnglesWeightedLeftProb(aminoAcidNumber, peptides, install):
-    ang = [175,175]
-    middleaa = peptides.sequence[aminoAcidNumber-1]
-    if aminoAcidNumber == 1:
-        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
-    else:
-        leftaa = peptides.sequence[aminoAcidNumber-2]
-    draw = random.random() # random value generation between 0 and 1
-    distrnum = peptides.distributions[aminoAcidNumber-1]
-    weight = peptides.weights[aminoAcidNumber-1]
-    filename_u = peptides.filenames[aminoAcidNumber-1]
-    if filename_u == "":
-        filename_u = "%sDistribution_%s.bin" % (peptides.base, peptides.distributions[aminoAcidNumber-1])
-    filename_d = install.DataPath+peptides.dataSet+"-l/"+middleaa+"/l"+leftaa+".bin"
-    if distrnum == 0:
-        return ChooseAnglesLeftProb(aminoAcidNumber, peptides, install) # no distribution for this amino acid chosen, using the Dunbrack values - same as in LEFT mode
-    else:
-        if filename_u == "":
-            filename_u = "%s/%sDistribution_%s.bin" % (install.WorkingDirectory, peptides.base, distrnum) # this is the user defined distribution
-        with open(filename_u, 'rb') as reader_u: # reading as binary file
-            while True:
-                cum_raw_u = reader_u.read(8)
-                prob_raw_u = reader_u.read(8)
-                phi_raw_u = reader_u.read(4)
-                psi_raw_u = reader_u.read(4)
-                if not cum_raw_u or not prob_raw_u or not phi_raw_u or not psi_raw_u:
-                    break
-                try:
-                    cum_u = unpack('<d',cum_raw_u)[0]
-                    phi_u = unpack('<i',phi_raw_u)[0] # unpacking byte data into integer
-                    psi_u = unpack('<i',psi_raw_u)[0]
-                except:
-                    break
-                with open(filename_d, 'rb') as reader_d:
-                    while True:
-                        cum_raw_d = reader_d.read(8)
-                        phi_raw_d = reader_d.read(4)
-                        psi_raw_d = reader_d.read(4)
-                        try:
-                            cum_d = unpack('<d',cum_raw_d)[0]
-                            phi_d = unpack('<i',phi_raw_d)[0] # unpacking byte data into integer
-                            psi_d = unpack('<i',psi_raw_d)[0] # unpacking byte data into integer
-                        except:
-                            break
-                        if not cum_raw_d or not phi_raw_d or not psi_raw_d:
-                            break
-                        if phi_d == phi_u and psi_d == psi_u:
-                            weighted_cum = weight*cum_u + (1-weight)*cum_d
-                            if weighted_cum>draw:
-                                ang = [phi_d, psi_d]
-                                return ang
-    return ang
-
-######################################################################
-# chooses a piece based on the right neighbour, combining the Dunbrack probabilities and the user defined distribution with the user defined weight
-def ChooseAnglesWeightedRightProb(aminoAcidNumber, peptides, install):
-    ang = [175,175]
-    middleaa = peptides.sequence[aminoAcidNumber-1]
-    if aminoAcidNumber == len(peptides.sequence):
-        rightaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
-    else:
-        rightaa = peptides.sequence[aminoAcidNumber]
-    draw = random.random() # random value generation between 0 and 1
-    distrnum = peptides.distributions[aminoAcidNumber-1]
-    weight = peptides.weights[aminoAcidNumber-1]
-    filename_u = peptides.filenames[aminoAcidNumber-1]
-    if filename_u == "":
-        filename_u = "%sDistribution_%s.bin" % (peptides.base, peptides.distributions[aminoAcidNumber-1])
-    filename_d = install.DataPath+peptides.dataSet+"-r/"+middleaa+"/r"+rightaa+".bin"
-    if distrnum == 0:
-        return ChooseAnglesRightProb(aminoAcidNumber, peptides, install) # no distribution for this amino acid chosen, using the Dunbrack values - same as in LEFT mode
-    else:
-        if filename_u == "":
-            filename_u = "%s/%sDistribution_%s.bin" % (install.WorkingDirectory, peptides.base, distrnum) # this is the user defined distribution
-        with open(filename_u, 'rb') as reader_u: # reading as binary file
-            while True:
-                cum_raw_u = reader_u.read(8)
-                prob_raw_u = reader_u.read(8)
-                phi_raw_u = reader_u.read(4)
-                psi_raw_u = reader_u.read(4)
-                try:
-                    cum_u = unpack('<d',cum_raw_u)[0]
-                    phi_u = unpack('<i',phi_raw_u)[0] # unpacking byte data into integer
-                    psi_u = unpack('<i',psi_raw_u)[0] # unpacking byte data into integer
-                except:
-                    break
-                if not cum_raw_u or not prob_raw_u or not phi_raw_u or not psi_raw_u:
-                    break
-                with open(filename_d, 'rb') as reader_d:
-                    while True:
-                        cum_raw_d = reader_d.read(8)
-                        phi_raw_d = reader_d.read(4)
-                        psi_raw_d = reader_d.read(4)
-                        try:
-                            cum_d = unpack('<d',cum_raw_d)[0]
-                            phi_d = unpack('<i',phi_raw_d)[0] # unpacking byte data into integer
-                            psi_d = unpack('<i',psi_raw_d)[0] # unpacking byte data into integer
-                        except:
-                            break
-                        if not cum_raw_d or not phi_raw_d or not psi_raw_d:
-                            break
-                        if phi_d == phi_u and psi_d == psi_u:
-                            weighted_cum = weight*cum_u + (1-weight)*cum_d
-                            if weighted_cum>draw:
-                                ang = [phi_d, psi_d]
-                                return ang
-    return ang
-
-######################################################################
-# chooses a piece with the derived Dunbrack-Ting probabilities (counting both neighbours with summing up the logarithms of the probabilities) and with the user defined probabilities weighting the two with the user defined weight
-def ChooseAnglesWeightedTripletProb(aminoAcidNumber, peptides, install):
-    ang = [175,175]
-    middleaa = peptides.sequence[aminoAcidNumber-1]
-    if aminoAcidNumber == 1:
-        leftaa = 'A' # avoiding a boundary problem, the amino acid before the first is set to alanine
-    else:
-        leftaa = peptides.sequence[aminoAcidNumber-2]
-    if aminoAcidNumber == len(peptides.sequence):
-        rightaa = 'A' # avoiding a boundary problem, the amino acid after the last one is set to alanine
-    else:
-        rightaa = peptides.sequence[aminoAcidNumber]
-
-    draw = random.random() # random value generation between 0 and 1
-    distrnum = peptides.distributions[aminoAcidNumber-1]
-    weight = peptides.weights[aminoAcidNumber-1]
-    filename_u = peptides.filenames[aminoAcidNumber-1]
-    if filename_u == "":
-        filename_u = "%sDistribution_%s.bin" % (peptides.base, peptides.distributions[aminoAcidNumber-1])
-    filename_d = install.DataPath+peptides.dataSet+"/"+middleaa+"/"+leftaa+middleaa+rightaa+".bin"
-    if distrnum == 0:
-        return ChooseAnglesDerivedProb(aminoAcidNumber, peptides, install) # no distribution for this amino acid chosen, using the Dunbrack values - same as in LEFT mode
-    else:
-        if filename_u == "":
-            filename_u = "%s/%sDistribution_%s.bin" % (install.WorkingDirectory, peptides.base, distrnum) # this is the user defined distribution
-        with open(filename_u, 'rb') as reader_u: # reading as binary file
-            while True:
-                cum_raw_u = reader_u.read(8)
-                prob_raw_u = reader_u.read(8)
-                phi_raw_u = reader_u.read(4)
-                psi_raw_u = reader_u.read(4)
-                try:
-                    cum_u = unpack('<d',cum_raw_u)[0]
-                    phi_u = unpack('<i',phi_raw_u)[0] # unpacking byte data into integer
-                    psi_u = unpack('<i',psi_raw_u)[0] # unpacking byte data into integer
-                except:
-                    break
-                if not cum_raw_u or not prob_raw_u or not phi_raw_u or not psi_raw_u:
-                    break
-                with open(filename_d, 'rb') as reader_d:
-                    while True:
-                        prob_raw_d = reader_d.read(8)
-                        lnprob_raw_d = reader_d.read(8)
-                        cum_raw_d = reader_d.read(8)
-                        phi_raw_d = reader_d.read(4)
-                        psi_raw_d = reader_d.read(4)
-                        try:
-                            cum_d = unpack('<d',cum_raw_d)[0]
-                            phi_d = unpack('<i',phi_raw_d)[0] # unpacking byte data into integer
-                            psi_d = unpack('<i',psi_raw_d)[0] # unpacking byte data into integer
-                        except:
-                            break
-                        if not cum_raw_d or not phi_raw_d or not psi_raw_d or not lnprob_raw_d or not prob_raw_d:
-                            break
-                        if phi_d == phi_u and psi_d == psi_u:
-                            weighted_cum = weight*cum_u + (1-weight)*cum_d
-                            if weighted_cum>draw:
-                                ang = [phi_d, psi_d]
-                                return ang
+       # calculating final propbability (defaults to cum_d for unweighted modes)     
+        weighted_cum = weight*cum_u + (1-weight)*cum_d
+        if weighted_cum>draw:
+           ang = [phi_d, psi_d] 
+           found=True
     return ang
 
 ######################################################################
@@ -499,23 +357,8 @@ def ChooseAnglesWeightedTripletProb(aminoAcidNumber, peptides, install):
 def CollectAllAngles(peptides, install):
     angles = []
     for n in range(1,len(peptides.sequence)+1):
-        if peptides.mode == "LEFT":
-            a = ChooseAnglesLeftProb(n, peptides, install)
-        elif peptides.mode == "RIGHT":
-            a = ChooseAnglesRightProb(n, peptides, install)
-        elif peptides.mode == "DERIVED_TRIPLET" or peptides.mode == "TRIPLET":
-            a = ChooseAnglesDerivedProb(n, peptides, install)
-        elif peptides.mode == "WEIGHTED_LEFT":
-            a = ChooseAnglesWeightedLeftProb(n, peptides, install)
-        elif peptides.mode == "WEIGHTED_RIGHT":
-            a = ChooseAnglesWeightedRightProb(n, peptides, install)
-        elif peptides.mode == "WEIGHTED_TRIPLET":
-            a = ChooseAnglesWeightedTripletProb(n, peptides, install)
-        else:
-            WriteLog("No valid mode given, running with DERIVED_TRIPLET mode\n", peptides)
-            peptides.mode = "TRIPLET"
-            a = ChooseAnglesDerivedProb(n, peptides, install)
-        if a == []:
+        a = ChooseAngles(n, peptides, install)
+        if a == [] or a == None:
             WriteLog("Trouble with amino acid %s in mode %s for amino acid number %s\n" % (peptides.sequence[n], peptides.mode, n), peptides)
         angles.append(a)
     if len(angles[0])<2:
@@ -606,7 +449,7 @@ def GmxLoganalyse(i, peptides, install):
                         number = nu_[0]
                         opt_num = int(number)-1 # to see how many optim?.pdb files were created and opening the last one of them
                         os.system("mv result%s.pdb %sgmxed_%s.pdb" % (opt_num, peptides.base, i))  
-                        os.system("rm result*.pdb")
+                        #os.system("rm result*.pdb")
                 if "Segmentation fault" in line:
                     converged = 0
     return converged
@@ -758,7 +601,7 @@ def Rename(peptides):
 def Cleanup(peptides):
     WriteLog("Cleaning up...\n", peptides)
     # deletes temporary files crated by the program
-    os.system("rm fetch*.dat")
+    #os.system("rm fetch*.dat")
     os.system("rm contacts_%s.dat" % peptides.base)
     # the Gromacs generated files
     os.system("rm check.top")
@@ -786,7 +629,7 @@ def Main():
 
     # default values for the inputs
     numberOfStructures = 1
-    mode = "DERIVED_TRIPLET"
+    mode = "TRIPLET"
     base = "structure_"
     sequence = "" # if it is not given, it means trouble!
     dataSet = "TCBIG"
