@@ -123,13 +123,13 @@ def TwoDimensionalNormalDistribution(peptides, install, phi_c, psi_c, stdev_c, f
     # splot (1/(3*sqrt(6.28)))*exp(-0.5*((x-0)/3)**2)*(1/(3*sqrt(6.28)))*exp(-0.5*((y-0)/3)**2) w pm3d
     res=5 # resolution in degrees
     grid=int(1+360/res)
-    avg=0 # the average will always be the centre of the map first, will be adjusted later
     # set the desired Ramachandran angles and their deviation here
     #phi_avg=-60 
     #psi_avg=-45
     #std=15
-    phi_avg = int(phi_c)
-    psi_avg = int(psi_c)
+    # shifting the averages to make sure to use the closest grid point 
+    phi_avg = phi_c+(res/2)
+    psi_avg = psi_c+(res/2)
     std = int(stdev_c)
     outfname = fn
     # this will be the array with the final values
@@ -147,15 +147,19 @@ def TwoDimensionalNormalDistribution(peptides, install, phi_c, psi_c, stdev_c, f
     # Calculating the distribution as a product of two 1D distributions
     for phi in range(-180,180,res):
         for psi in range (-180,180,res):
-            z= (1/(std*math.sqrt(2*math.pi)))*math.exp(-0.5*((phi-avg)/std)**2)
-            z*=(1/(std*math.sqrt(2*math.pi)))*math.exp(-0.5*((psi-avg)/std)**2)
+            z= (1/(std*math.sqrt(2*math.pi)))*math.exp(-0.5*(phi/std)**2)
+            z*=(1/(std*math.sqrt(2*math.pi)))*math.exp(-0.5*(psi/std)**2)
             #print(x,y,z)
             # adjusting the angles to the desired region
-            phi_out=inrama(phi-phi_avg)
-            psi_out=inrama(psi-psi_avg)
+            #phi_out=inrama(phi-phi_avg)
+            #psi_out=inrama(psi-psi_avg)
+            phi_out=inrama(phi+phi_avg)
+            psi_out=inrama(psi+psi_avg)
             # calculating the coordinates in the grid
-            x=int(math.floor(phi_out/res))
-            y=int(math.floor(psi_out/res))
+            x=math.floor(phi_out/res)
+            y=math.floor(psi_out/res)
+            #x=int(phi_out/res)
+            #y=int(psi_out/res)
             # for very shallow distributions (large stdev) the values might not be 0 at the map boundaries.
             # we will subtract this from all values in order to use only the differences between map regions
             if phi == -180 and psi == -180:
@@ -167,16 +171,25 @@ def TwoDimensionalNormalDistribution(peptides, install, phi_c, psi_c, stdev_c, f
     # writing the distribution to a file
     # note that we write the map in the conventional format
     # from -180 to 180 but use the adjusted values
+    #fgz=open("proba2.dat","w")
+
     with open(outfname, "wb") as f:
         for phi in range(-180,180,res):
             for psi in range (-180,180,res):
-                x=int(phi/res)
-                y=int(psi/res)
+                # this is unnecessary for the current values but makes the code
+                # more robust if the numbers are modified.
+                x=math.floor(phi/res)
+                y=math.floor(psi/res)              
+                #x=int(phi/res)
+                #y=int(psi/res)
                 # using the scaled values ensures that we have a cumulative robability of 1
                 probability = values[x][y]/allvalues
                 cumulative_probability +=  probability
                 packed_values = struct.pack('<ddii',cumulative_probability, probability, phi,psi)
                 f.write(packed_values)
+                #fgz.write('{0:4d}  {1:4d}  {2:.2e}  {3:.2e} | {4:4d} {5:4d}\n'.format(phi,psi,probability,cumulative_probability,x,y))
+            #fgz.write("\n")
+    #fgz.close()
 
 #######################################################################
 # writes user defined custom distributions 
@@ -448,7 +461,7 @@ def GmxLoganalyse(i, peptides, install):
                         nu_ = nu[0].split()
                         number = nu_[0]
                         opt_num = int(number)-1 # to see how many optim?.pdb files were created and opening the last one of them
-                        os.system("mv result%s.pdb %sgmxed_%s.pdb" % (opt_num, peptides.base, i))  
+                        os.system("mv result%s.pdb %smin_%s.pdb" % (opt_num, peptides.base, i))  
                         #os.system("rm result*.pdb")
                 if "Segmentation fault" in line:
                     converged = 0
@@ -508,7 +521,7 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
         if gmxed == 0:
             clashcheck_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         else:
-            clashcheck_script.write("open %s/%sgmxed_%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            clashcheck_script.write("open %s/%smin_%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
         clashcheck_script.write("clashes #1 saveFile chimerax_clashcheck.dat\n")
         clashcheck_script.write("q\n")
     os.system("%s --nogui --silent %s/clashcheck.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
@@ -572,23 +585,23 @@ def Rename(peptides):
     WriteLog("Renaming files based on success...\n", peptides)
     num_of_successful = 0
     for k in range(1,peptides.numberOfStructures+1):
-        fn = "%sgmxed_%s.pdb" % (peptides.base, k)
+        fn = "%smin_%s.pdb" % (peptides.base, k)
         if peptides.gmxCheck == 1 and os.path.isfile(fn) and peptides.success[k-1] == [1,1,1]:
             num_of_successful = num_of_successful + 1
             os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
-            os.system("mv %sgmxed_%s.pdb bak_%sgmxed_%s.pdb" % (peptides.base, k, peptides.base, k))
+            os.system("mv %smin_%s.pdb bak_%smin_%s.pdb" % (peptides.base, k, peptides.base, k))
         elif peptides.gmxCheck == 0 and peptides.success[k-1][0] == 1:
             os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
         else:
             os.system("mv %s%s.pdb fail_%s%s.pdb" % (peptides.base, k, peptides.base, k))
             if peptides.gmxCheck == 1:
-                os.system("mv %sgmxed_%s.pdb fail_%sgmxed_%s.pdb" % (peptides.base, k, peptides.base, k))
+                os.system("mv %smin_%s.pdb fail_%smin_%s.pdb" % (peptides.base, k, peptides.base, k))
     WriteLog("Number of successfully optimized structures: %s\n" % (num_of_successful), peptides)
     new_num = 1
     for l in range(1,peptides.numberOfStructures+1):
         if peptides.gmxCheck == 1 and peptides.success[l-1] == [1,1,1]:
             os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, l, peptides.base, new_num))
-            os.system("mv bak_%sgmxed_%s.pdb %sgmxed_%s.pdb" % (peptides.base, l, peptides.base, new_num))
+            os.system("mv bak_%smin_%s.pdb %smin_%s.pdb" % (peptides.base, l, peptides.base, new_num))
             WriteLog("Renaming structure %s to structure %s\n" % (l, new_num), peptides)
             new_num = new_num + 1
         if peptides.gmxCheck == 0 and peptides.success[l-1][0] == 1:
@@ -627,16 +640,16 @@ def Cleanup(peptides):
 
 def Main():
 
-    # default values for the inputs
-    numberOfStructures = 1
-    mode = "TRIPLET"
-    base = "structure_"
-    sequence = "" # if it is not given, it means trouble!
-    dataSet = "TCBIG"
-    cycle = 10
-    remain = 0
-    gmxCheck = 1
-    pro = 0
+    # declaring parameters
+    numberOfStructures = -99
+    mode = ""
+    base = ""
+    sequence = ""
+    dataSet = ""
+    cycle = -99
+    remain = -99
+    gmxCheck = -99
+    pro = -99
 
     textForLater = [] # it will be later written to the logfile, but that cannot yet be opened (because it first needs all the input arguments to be set)
 
@@ -680,6 +693,52 @@ def Main():
 
 ######################
 
+    # precedence is given for the command line parameters, if it is given for a parameter, the value for that parameter in the parameter file is ignored
+    parameterfilename = sys.path[0]+"/Data/parameters.in"
+    with open(parameterfilename, "r") as par:
+        parline = par.readlines()
+        for p_ in parline:
+            p_ = p_.strip()
+            p = p_.split()
+            if p[0]=="b" and base=="":
+                base = p[1]
+            elif p[0]=="c" and cycle==-99:
+                try:
+                    cycle = int(p[1])
+                except:
+                    cycle = 10
+                    print("trouble with %s<" % (p[1]))
+            elif p[0]=="d" and dataSet=="":
+                dataSet = p[1]
+            elif p[0]=="g" and gmxCheck==-99:
+                try:
+                    gmxCheck = int(p[1])
+                except:
+                    gmxCheck = 1
+                    print("trouble with %s<" % (p[1]))
+            elif p[0]=="m" and mode=="":
+                mode = p[1]
+            elif  p[0]=="n" and numberOfStructures==-99:
+                try:
+                    numberOfStructures = int(p[1])
+                except:
+                    numberOfStructures = 1
+                    print("trouble with %s<" % (p[1]))
+            elif p[0]=="p" and pro==-99:
+                try:
+                    pro = int(p[1])
+                except:
+                    pro = 0
+                    print("trouble with %s<" % (p[1]))
+            elif p[0]=="r" and remain==-99:
+                try:
+                    remain = int(p[1])
+                except:
+                    remain = 0
+                    print("trouble with %s<" % (p[1]))
+            elif p[0]=="s" and sequence=="":
+                sequence = p[1]
+    
     MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet.upper(), cycle, remain, gmxCheck, pro)
 
     textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
@@ -691,7 +750,7 @@ def Main():
     WorkingDirectory = os.getcwd()
     DataPath = sys.path[0]+"/Data/"
 
-    pathfname = sys.path[0]+"/paths.txt"
+    pathfname = sys.path[0]+"/Data/paths.in"
 
     with open(pathfname, "r") as paths: # please specify the paths in paths.txt
         for line in paths:
