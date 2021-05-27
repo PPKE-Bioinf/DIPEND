@@ -741,11 +741,13 @@ def Main():
     
     MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet.upper(), cycle, remain, gmxCheck, pro)
 
-    textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
+    #textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
 
     # writing the things to the logfile
     for textLine in textForLater:
         WriteLog(textLine, MyPeptides)
+
+    WriteLog("Given parameters:\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \tsequence: %s\n" % (MyPeptides.base, MyPeptides.cycle, MyPeptides.dataSet, MyPeptides.gmxCheck, MyPeptides.mode, MyPeptides.numberOfStructures, MyPeptides.proline, MyPeptides.remain, MyPeptides.sequence), MyPeptides)
 
     WorkingDirectory = os.getcwd()
     DataPath = sys.path[0]+"/Data/"
