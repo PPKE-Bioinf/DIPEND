@@ -111,13 +111,6 @@ def WriteLog(line, peptides):
         logHandle.write(line)
 
 #######################################################################
-# writes to the statusfile # attention: it appends! make sure to delete the file before each run
-def WriteStatus(line, peptides):
-    statusFileName = "status%s.out" % (peptides.base)
-    with open(statusFileName, "a") as statusHandle:
-        statusHandle.write(line)
-
-#######################################################################
 # makes a two dimensional normal distribution with the given parameters
 def TwoDimensionalNormalDistribution(peptides, install, phi_c, psi_c, stdev_c, fn):
     # splot (1/(3*sqrt(6.28)))*exp(-0.5*((x-0)/3)**2)*(1/(3*sqrt(6.28)))*exp(-0.5*((y-0)/3)**2) w pm3d
@@ -493,6 +486,9 @@ def SetAngleForall(i, peptides, install):
                 else:
                     rotating_script.write("setattr :%s res phi %s\n" % (build, phi))
                     rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
+                # taking care of cis Pro
+                if peptides.sequence[build-1]=="X":
+                    rotating_script.write("setattr :%s res omega 0\n" % (build))
 
             rotating_script.write("save %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
             prorot_script.write("save %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i))) # another session due to possible errors
@@ -581,33 +577,72 @@ def Rotate(i, peptides, install):
 
 #######################################################################
 def Rename(peptides):
-    # This renames the resulting peptides based on whether the Gromacs optimization was successful (only run if Gromacs optimization has been set)
+    # This renames the resulting peptides based on whether there are clashes or whether the Gromacs optimization was successful
+
     WriteLog("Renaming files based on success...\n", peptides)
-    num_of_successful = 0
+    # renaming every pdb file - inserting bak_ before it in order not to overwrite something later
     for k in range(1,peptides.numberOfStructures+1):
         fn = "%smin_%s.pdb" % (peptides.base, k)
-        if peptides.gmxCheck == 1 and os.path.isfile(fn) and peptides.success[k-1] == [1,1,1]:
-            num_of_successful = num_of_successful + 1
-            os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
+        os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
+        if os.path.isfile(fn):
             os.system("mv %smin_%s.pdb bak_%smin_%s.pdb" % (peptides.base, k, peptides.base, k))
-        elif peptides.gmxCheck == 0 and peptides.success[k-1][0] == 1:
-            os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
-        else:
-            os.system("mv %s%s.pdb fail_%s%s.pdb" % (peptides.base, k, peptides.base, k))
-            if peptides.gmxCheck == 1:
-                os.system("mv %smin_%s.pdb fail_%smin_%s.pdb" % (peptides.base, k, peptides.base, k))
-    WriteLog("Number of successfully optimized structures: %s\n" % (num_of_successful), peptides)
-    new_num = 1
-    for l in range(1,peptides.numberOfStructures+1):
-        if peptides.gmxCheck == 1 and peptides.success[l-1] == [1,1,1]:
-            os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, l, peptides.base, new_num))
-            os.system("mv bak_%smin_%s.pdb %smin_%s.pdb" % (peptides.base, l, peptides.base, new_num))
-            WriteLog("Renaming structure %s to structure %s\n" % (l, new_num), peptides)
-            new_num = new_num + 1
-        if peptides.gmxCheck == 0 and peptides.success[l-1][0] == 1:
-            os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, l, peptides.base, new_num))
-            WriteLog("Renaming structure %s to structure %s\n" % (l, new_num), peptides)
-            new_num = new_num + 1
+
+    # renaming the successful ones so that their numbering will be consecutive from 1
+    num_of_successful = 1
+    for m in range(1,peptides.numberOfStructures+1):
+        fn_ = "bak_%smin_%s.pdb" % (peptides.base, m)
+        if peptides.gmxCheck == 1:
+            if peptides.success[m-1] == [1,1,1]:
+                WriteLog("Trying to rename structure %s to structure %s\n" % (m, num_of_successful), peptides)
+                if os.path.isfile(fn_):
+                    if not os.path.isfile("%smin_%s.pdb" % (peptides.base, num_of_successful)):
+                        os.system("mv bak_%smin_%s.pdb %smin_%s.pdb" % (peptides.base, m, peptides.base, num_of_successful))
+                    else:
+                        WriteLog("Trouble renaming structure %s to structure %s\n" % (m, num_of_successful), peptides)
+                else:
+                    WriteLog("Trouble executing command: mv bak_%smin_%s.pdb %smin_%s.pdb, file not found!\n" % (peptides.base, m, peptides.base, num_of_successful), peptides)
+                if not os.path.isfile("%s%s.pdb" % (peptides.base, num_of_successful)):
+                    os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, m, peptides.base, num_of_successful))
+                else:
+                     WriteLog("Trouble renaming structure %s to structure %s\n" % (m, num_of_successful), peptides)
+                num_of_successful += 1
+                
+        else: # if not gmx
+            if peptides.success[m-1][0] == 1:
+                WriteLog("Trying to rename structure %s to structure %s\n" % (m, num_of_successful), peptides)
+                if not os.path.isfile("%s%s.pdb" % (peptides.base, num_of_successful)):
+                    os.system("mv bak_%s%s.pdb %s%s.pdb" % (peptides.base, m, peptides.base, num_of_successful))
+                else:
+                    WriteLog("Trouble renaming structure %s to structure %s\n" % (m, num_of_successful), peptides)
+                num_of_successful += 1
+               
+    
+    WriteLog("Number of successfully optimized structures: %s\n" % (num_of_successful-1), peptides) # we incremented it once more at the end
+
+
+    # renameing the failing ones too, continuing the numbering where we left off
+    rename_num = num_of_successful
+    for o in range(1,peptides.numberOfStructures+1):
+        fn_ = "bak_%smin_%s.pdb" % (peptides.base, o)
+        if peptides.gmxCheck == 1:
+            if peptides.success[o-1] != [1,1,1]:
+                WriteLog("Trying to rename structure %s to structure %s\n" % (o, rename_num), peptides)
+                if os.path.isfile(fn_):
+                    if not os.path.isfile("fail_%smin_%s.pdb" % (peptides.base, rename_num)):
+                        os.system("mv bak_%smin_%s.pdb fail_%smin_%s.pdb" % (peptides.base, o, peptides.base, rename_num))
+                if not os.path.isfile("fail_%s%s.pdb" % (peptides.base, rename_num)):
+                    os.system("mv bak_%s%s.pdb fail_%s%s.pdb" % (peptides.base, o, peptides.base, rename_num))
+                else:
+                    WriteLog("Trouble renaming structure %s to structure %s\n" % (o, rename_num, peptides))
+                rename_num += 1
+        else: # if not gmx
+            if peptides.success[o-1][0] != 1:
+                WriteLog("Trying to rename structure %s to structure %s\n" % (o, rename_num), peptides)
+                if not os.path.isfile("fail_%s%s.pdb" % (peptides.base, rename_num)):
+                    os.system("mv bak_%s%s.pdb fail_%s%s.pdb" % (peptides.base, o, peptides.base, rename_num))
+                rename_num += 1
+    if rename_num!=peptides.numberOfStructures+1:
+        WriteLog("Error! Not all structures were renamed.", peptides)
 
 
 #######################################################################
@@ -783,16 +818,9 @@ def Main():
         for i in range(1,MyPeptides.numberOfStructures+1):
             if MyPeptides.success[i-1][2]!=1:
                 Rotate(i, MyPeptides, MyInstall)
-    if MyPeptides.gmxCheck == 1:    
-        Rename(MyPeptides)
-    else:
-        for i in range(1,MyPeptides.numberOfStructures+1):
-            WriteStatus("%s%s.pdb %s\n" % (base, i, MyPeptides.success[i-1][0]), MyPeptides)
+    Rename(MyPeptides)
     if MyPeptides.remain == 0:
         Cleanup(MyPeptides)
-
-    #for i in range(1,MyPeptides.numberOfStructures+1):
-        #WriteLog("Structure %s, success 1: %s, succcs 2: %s, success 3: %s\n" % (i, MyPeptides.success[i-1][0], MyPeptides.success[i-1][1], MyPeptides.success[i-1][2]), MyPeptides)
 
     elapsed_time = time.time() - start_time
     WriteLog("Time elapsed: %.2f\n" % (elapsed_time), MyPeptides)
