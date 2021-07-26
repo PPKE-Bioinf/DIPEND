@@ -10,6 +10,9 @@ gromacs 4.5 or higher
 You can download Chimerax here:
 https://www.rbvi.ucsf.edu/chimerax/download.html
 
+You can download Scwrl4 here:
+http://dunbrack.fccc.edu/SCWRL3.php/
+
 You can donwnload GROMACS here:
 https://manual.gromacs.org/documentation/
 
