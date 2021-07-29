@@ -15,23 +15,27 @@ start_time = time.time() # for measuring purposes
 
 def Help():
     # prints helping message
-    print("""this script takes the sequence of a disordered Peptides and tries to build it by starting from a long helix, using scwrl4 to build sidechains and optimize it using GROMACS. After that, the program is setting the phi psi angles one by one, checking for CA-CA clashes.
-Random mode - RANDOM: phi and psi angles are chosen randomly, regardless of sequence
-Left Probability mode - LEFT: phi and psi angles are chosen by the probabilities of the Dunbrack Lab based on the left neighbour alone
-Right Probability mode - RIGHT: phi and psi angles are chosen by the probabilities of the Dunbrack Lab based on the right neighbour alone
-Derived Triplet Probability mode - DERIVED_TRIPLET: triplet probabilities were calculated from the data of Dunbrack Ting et al. with their instructions (summing the log probabilities, calculating back the probabilities and summing them to create cumulative probabilities), using their bins to choose with a random number
+    print("""Dipend.py 
 
-The input parameters:
--b --base: the beginning of the output filenames (optional, empty string by default)
+DIPEND is a Python-based pipeline to build random structures for intrinsically disordered protein segments, making use of neighbor-dependent backbone conformation preferences described in Ting et al. PLoS Comput Biol 6(4): e1000763. 
+
+It uses ChimeraX, Scwrl4 and GROMACS as external tools.
+
+Input parameteres can be supplied as options or listed in the Data/parameters.in file.
+
+-b --base: the beginning of the output filenames (optional, structure_ by default)
 -c --cycle: how many times it goes through trying to build the sequences (optional, 10 by deault)
 -d --dataset: which dataset from Ting et al. 2010 to use: Conly or TCBIG (optional, TCBIG by default)
 -g --gmxcheck: perform Gromacs check at the end for each successfully generated structure (1 yes by default, set it to any other value to skip Gromacs check)
 -h --help: prints this help message and exits
--m --mode: choose the building mode (see text above, optional: DERIVED_TRIPLET by default)
+-k --keep: does not delete temporary files (0 (deletes temporary files) by default, set it to 1 if you want the files to remain). Beware! From the Gromacs files, only the very last run is retained even with value 1! (I set the GMX_MAXBACKUP to -1 in order to avoid creating a lot of files, modify the Gromacs sh files if you need all the Gromacs files!)
+-m --mode: choose the building mode (see text above, optional: TRIPLET by default)
+     LEFT/RIGHT/TRIPLET modes use the left- or right-neighbor based or the combined probabnilites described in Ting et al. 
+     WEIGHTED_LEFT/WEIGHTED_RIGHT/WEIGHTED_TRIPLET combines the above probabilities with user-specified residue-specific distributions 
+     defined in the file Data/distributions.in
 -n --numofstructures: the number of structures to be generated (optional but highly recommended, 1 by default)
--p --proline: whether we want to rotate the phi angels of prolines as well, in order to do so, one has to tweak the code of chimera, 0 by default, 1 if you want to tweak your chimerax code
--r --remain: does not delete temporary files (0 (deletes temporary files) by default, set it to 1 if you want the files to remain). Beware! From the Gromacs files, only the very last run is retained even with value 1! (I set the GMX_MAXBACKUP to -1 in order to avoid creating a lot of files, modify the Groamcs running sh files if you need all the Gromacs files!)
--s --sequence: the sequence of the Peptides to be generated (Required!)
+-p --proline: whether we want to rotate the phi angles of prolines as well, in order to do so, one has to tweak the code of chimerax, 0 by default, 1 if you want to tweak your chimerax code
+-s --sequence: the sequence of the protein to be generated (required!)
 """)
     sys.exit()
 
@@ -51,14 +55,14 @@ class Peptides():
             phiPsiAngles.append(a)
 
 
-    def __init__(self, sequence, base, mode, numberOfStructures, dataSet, cycle, remain, gmxCheck, pro):
+    def __init__(self, sequence, base, mode, numberOfStructures, dataSet, cycle, keep, gmxCheck, pro):
         self.sequence = sequence
         self.base = base
         self.mode = mode
         self.numberOfStructures = numberOfStructures
         self.dataSet = dataSet
         self.cycle = cycle
-        self.remain = remain
+        self.keep = keep
         self.gmxCheck = gmxCheck
         self.angles = [] # phi psi angles for all peptides
         self.proline = pro # whether we want to change the dihedral angles of prolines as well
@@ -239,13 +243,13 @@ def WriteDistributions(peptides, install):
                 try:
                     last = int(sp[1])
                 except:
-                    WriteLog("Error with the residue ranges in the distribution file! Last residue is larger than the whole peptide.\n", peptides)
+                    WriteLog("Error with the residue ranges in the distribution file! Last residue is larger than the lenght of the sequence.\n", peptides)
                     last = len(peptides.sequence)
                 if first<1:
                     WriteLog("Error with the residue ranges in the distribution file! First residue is smaller than 1.\n", peptides)
                     first = 1
                 if last>len(peptides.sequence):
-                    WriteLog("Error with the residue ranges in the distribution file! Last residue is larger than the whole peptide.\n", peptides)
+                    WriteLog("Error with the residue ranges in the distribution file! Last residue is larger than the length of the sequence.\n", peptides)
                     last = len(peptides.sequence)
                 for k in range(first-1, last):
                     distributions[k] = counter
@@ -682,17 +686,17 @@ def Main():
     sequence = ""
     dataSet = ""
     cycle = -99
-    remain = -99
+    keep = -99
     gmxCheck = -99
     pro = -99
 
     textForLater = [] # it will be later written to the logfile, but that cannot yet be opened (because it first needs all the input arguments to be set)
 
-    # taking command line lettered arguments 
+    # taking command line arguments 
     fullCmdArguments = sys.argv
     argumentList = fullCmdArguments[1:]
     unixOptions = "b:c:d:g:m:n:p:r:s:h"  
-    gnuOptions = ["base=", "cycle=", "dataset=", "gmxcheck=", "mode=", "numofstructures=", "proline=", "remain=", "sequence=", "help"]  
+    gnuOptions = ["base=", "cycle=", "dataset=", "gmxcheck=", "keep=", "mode=", "numofstructures=", "proline=", "sequence=", "help"]  
 
     try:  
         arguments, values = getopt.getopt(argumentList, unixOptions, gnuOptions)
@@ -711,14 +715,14 @@ def Main():
             dataSet = currentValue
         elif currentArgument in ("-g", "--gmxcheck"):
             gmxCheck = int(currentValue)
+        elif currentArgument in ("-k", "--keep"):
+            keep = int(currentValue)
         elif currentArgument in ("-m", "--mode"):
             mode = currentValue
         elif currentArgument in ("-n", "--numofstructures"):
             numberOfStructures = int(currentValue)
         elif currentArgument in ("-p", "--proline"):
             pro = int(currentValue) 
-        elif currentArgument in ("-r", "--remain"):
-            remain = int(currentValue)
         elif currentArgument in ("-s", "--sequence"):
             sequence = currentValue
         elif currentArgument in ("-h", "--help"):
@@ -735,7 +739,9 @@ def Main():
         for p_ in parline:
             p_ = p_.strip()
             p = p_.split()
-            if p[0]=="b" and base=="":
+            if p[0]=="#":
+                continue # skip comment lines
+            elif p[0]=="b" and base=="":
                 base = p[1]
             elif p[0]=="c" and cycle==-99:
                 try:
@@ -751,6 +757,12 @@ def Main():
                 except:
                     gmxCheck = 1
                     print("trouble with %s<" % (p[1]))
+            elif p[0]=="k" and keep==-99:
+                try:
+                    keep = int(p[1])
+                except:
+                    keep = 0
+                    print("trouble with %s<" % (p[1]))
             elif p[0]=="m" and mode=="":
                 mode = p[1]
             elif  p[0]=="n" and numberOfStructures==-99:
@@ -765,16 +777,10 @@ def Main():
                 except:
                     pro = 0
                     print("trouble with %s<" % (p[1]))
-            elif p[0]=="r" and remain==-99:
-                try:
-                    remain = int(p[1])
-                except:
-                    remain = 0
-                    print("trouble with %s<" % (p[1]))
             elif p[0]=="s" and sequence=="":
                 sequence = p[1]
     
-    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet.upper(), cycle, remain, gmxCheck, pro)
+    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet.upper(), cycle, keep, gmxCheck, pro)
 
     #textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
 
@@ -782,7 +788,7 @@ def Main():
     for textLine in textForLater:
         WriteLog(textLine, MyPeptides)
 
-    WriteLog("Given parameters:\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \tsequence: %s\n" % (MyPeptides.base, MyPeptides.cycle, MyPeptides.dataSet, MyPeptides.gmxCheck, MyPeptides.mode, MyPeptides.numberOfStructures, MyPeptides.proline, MyPeptides.remain, MyPeptides.sequence), MyPeptides)
+    WriteLog("Given parameters:\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \tsequence: %s\n" % (MyPeptides.base, MyPeptides.cycle, MyPeptides.dataSet, MyPeptides.gmxCheck, MyPeptides.mode, MyPeptides.numberOfStructures, MyPeptides.proline, MyPeptides.keep, MyPeptides.sequence), MyPeptides)
 
     WorkingDirectory = os.getcwd()
     DataPath = sys.path[0]+"/Data/"
@@ -819,7 +825,7 @@ def Main():
             if MyPeptides.success[i-1][2]!=1:
                 Rotate(i, MyPeptides, MyInstall)
     Rename(MyPeptides)
-    if MyPeptides.remain == 0:
+    if MyPeptides.keep == 0:
         Cleanup(MyPeptides)
 
     elapsed_time = time.time() - start_time
