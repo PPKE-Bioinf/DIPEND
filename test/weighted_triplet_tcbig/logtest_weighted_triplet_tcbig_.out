@@ -1,25 +1,30 @@
-Command given: /home/zita/Scripts-Research/DIPEND/Dipend.py -b test_weighted_triplet_tcbig_ -c 5 -d tcbig -g 1 -m WEIGHTED_TRIPLET -n 1 -p 0 -r 0 -s GSKKGGGWGQPH out
-Proline res 11 phi is not rotated.
-Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	1	0	-1.0	1000.0
-# Chosen angles for structure 1:
-1	G	-135	-70
-2	S	-70	55
-3	K	-110	-170
-4	K	-105	-10
-5	G	115	-120
-6	G	-40	50
-7	G	-115	45
-8	W	115	-20
-9	G	-65	-10
-10	Q	-50	-15
-11	P	-65	-10
-12	H	-100	115
+Given parameters:
+ 	base: test_weighted_triplet_tcbig_
+ 	cycle: 10
+ 	dataset: TCBIG
+ 	gromacs optimization: 1
+ 	mode: WEIGHTED_TRIPLET
+ 	number of structures: 2
+ 	proline phi rotation: 0
+ 	remaining temporary files: 0
+ 	sequence: GSKXKGXGGWGQPH
+Proline res 4 phi is not rotated.
+Proline res 7 phi is not rotated.
+Proline res 13 phi is not rotated.
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	2	1	0.794	1.846
 Trying at 0
 Trying at 1
 Trying at 2
 Trying at 3
+Trying at 4
+Trying at 5
+Trying at 6
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	1	1	0.642	2.058
+Trying at 7
+Trying at 8
 Renaming files based on success...
-Number of successfully optimized structures: 1
-Renaming structure 1 to structure 1
+Number of successfully optimized structures: 0
+Trying to rename structure 1 to structure 1
+Trying to rename structure 2 to structure 2
 Cleaning up...
-Time elapsed: 102.33
+Time elapsed: 47.21

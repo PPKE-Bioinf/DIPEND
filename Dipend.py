@@ -695,7 +695,7 @@ def Main():
     # taking command line arguments 
     fullCmdArguments = sys.argv
     argumentList = fullCmdArguments[1:]
-    unixOptions = "b:c:d:g:m:n:p:r:s:h"  
+    unixOptions = "b:c:d:g:k:m:n:p:s:h"  
     gnuOptions = ["base=", "cycle=", "dataset=", "gmxcheck=", "keep=", "mode=", "numofstructures=", "proline=", "sequence=", "help"]  
 
     try:  
@@ -799,6 +799,8 @@ def Main():
         for line in paths:
             line = line.strip()
             line_ = line.split()
+            if line_[0][0]=="#":
+                continue # skip comment lines
             if len(line_)>1:
                 if line_[0] == "GromacsPath":
                     GromacsPath = line_[1]

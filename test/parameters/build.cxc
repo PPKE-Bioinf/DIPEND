@@ -1,3 +1,3 @@
-build start peptide "built" GSKKGGGWGQPH -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 rotlib Dunbrack
-save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test-results/parameters/test_parameters_initial.pdb
+build start peptide "built" GSKKGQPHGSKKGQPHGSKKGQPHGSKKGQPH -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 -65,135 rotlib Dunbrack
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/parameters/test_parameters_initial.pdb
 q

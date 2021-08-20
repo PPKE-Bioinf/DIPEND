@@ -1,0 +1,586 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 85, in new_rotation
+    moving_side = bond.smaller_side
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/atomic/molobject.py", line 218, in smaller_side
+    return f(self._c_pointer)
+ValueError: Bond::side() called on bond in ring or cycle
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/ChimeraX_main.py", line 755, in init
+    commands.run(sess, 'open %s' % StringArg.unparse(arg))
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 100, in cmd_open
+    return Command(session, registry=registry).run(provider_cmd_text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 154, in provider_open
+    name or model_name_from_path(fi.file_name)), provider_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/open_command/cmd.py", line 372, in collated_open
+    return func(*func_args, **func_kw)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core_formats/__init__.py", line 37, in open
+    return open_command_script(session, data, file_name)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/scripting.py", line 139, in open_command_script
+    run(session, text)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/run.py", line 31, in run
+    results = command.run(text, log=log)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/core/commands/cli.py", line 2805, in run
+    result = ci.function(session, **kw_args)
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/std_commands/setattr.py", line 104, in set_attr
+    setattr(item, attr_name, value)
+  File "cymol.pyx", line 1240, in chimerax.atomic.cymol.CyResidue.phi.__set__
+  File "cymol.pyx", line 1612, in chimerax.atomic.cymol._set_angle
+  File "/usr/lib/ucsf-chimerax/lib/python3.7/site-packages/chimerax/bond_rot/manager.py", line 87, in new_rotation
+    raise BondRotationError("Bond %s is part of a ring/cycle and cannot be rotated" % bond)
+chimerax.bond_rot.manager.BondRotationError: Bond /A PRO 7 N ↔ CA is part of a ring/cycle and cannot be rotated

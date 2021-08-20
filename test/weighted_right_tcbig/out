@@ -1,0 +1,914 @@
+nohup: ignoring input
+
+Using parameters from /usr/local/bin/scwrl4//Scwrl4.ini
+
+<Timing tag = "Loading_PDB_file"  duration = "0.000" />
+
+Using rotamer library: /usr/local/bin/scwrl4/bbDepRotLib.bin
+
+Residue A   1  is being treated as N-terminal
+
+Residue A  14  is being treated as C-terminal
+
+<Timing tag = "Adding_residues"  duration = "0.000" />
+
+<Timing tag = "Creating_Default_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.020" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 61328
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.040" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Computing_Interaction_Graph"  duration = "0.060" />
+ 
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.000" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 0
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.000" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+
+Running Goldstein's DEE (version G)
+:::::::::::::::::::::::::::::::::::
+
+Initial number of residues - 9
+Initial number of rotamers - 147
+
+	11 redundant edges eliminated
+
+	Isolated residues removed - 3 
+
+round 1:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 6 
+	Rotamers eliminated  -  110
+
+round 2:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 0 
+	Rotamers eliminated  -  0
+Energy accumulated during DEE = 18.689
+<Timing tag = "DEE"  duration = "0.000" />
+
+Searching for clusters... 0 clusters found
+
+Total minimal energy of the graph = 18.689
+
+<Timing tag = "Combinatorial_Search"  duration = "0.000" />
+
+<Timing tag = "Deriving_Optimum"  duration = "0.000" />
+
+<Timing tag = "Saving_to_PDB_file"  duration = "0.000" />
+
+
+Deleting workspace.
+
+<Timing tag = "Scwrl4_Execution"  duration = "0.060" />
+
+                      :-) GROMACS - gmx pdb2gmx, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx pdb2gmx, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx pdb2gmx -f test_weighted_right_tcbig_2.pdb -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh
+
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.r2b
+All occupancies are one
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/atomtypes.atp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.n.tdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.c.tdb
+Analysing hydrogen-bonding network for automated assignment of histidine
+ protonation. 21 donors and 16 acceptors were found.
+There are 29 hydrogen bonds
+Will use HISE for residue 14
+8 out of 8 lines of specbond.dat converted successfully
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.arn
+Making bonds...
+Number of bonds was 199, now 198
+Generating angles, dihedrals and pairs...
+Before cleaning: 513 pairs
+Before cleaning: 538 dihedrals
+Keeping all generated dihedrals
+Making cmap torsions...
+There are  538 dihedrals,   40 impropers,  362 angles
+           510 pairs,      198 bonds and     0 virtual sites
+Total mass 1391.572 a.m.u.
+Total charge 2.000 e
+Writing topology
+
+Writing coordinate file...
+
+GROMACS reminds you: "Naive you are if you believe life favours those who aren't naive." (Piet Hein)
+
+
+Using the Amber99sb-ildn force field in directory amber99sb-ildn.ff
+
+going to rename amber99sb-ildn.ff/aminoacids.r2b
+going to rename amber99sb-ildn.ff/dna.r2b
+going to rename amber99sb-ildn.ff/rna.r2b
+Reading test_weighted_right_tcbig_2.pdb...
+Read '', 99 atoms
+Analyzing pdb file
+Splitting chemical chains based on TER records or chain id changing.
+There are 1 chains and 0 blocks of water and 14 residues with 99 atoms
+
+  chain  #res #atoms
+  1 'A'    14     99  
+
+Reading residue database... (Amber99sb-ildn)
+Processing chain 1 'A' (99 atoms, 14 residues)
+Identified residue GLY1 as a starting terminus.
+Identified residue HIS14 as a ending terminus.
+Checking for duplicate atoms....
+Generating any missing hydrogen atoms and/or adding termini.
+Now there are 14 residues with 193 atoms
+		--------- PLEASE NOTE ------------
+You have successfully generated a topology from: test_weighted_right_tcbig_2.pdb.
+The Amber99sb-ildn force field is used.
+		--------- ETON ESAELP ------------
+                      :-) GROMACS - gmx editconf, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx editconf, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx editconf -f check.gro -o check_box.gro -bt cubic -d 2
+
+
+GROMACS reminds you: "Don't be afraid of hard work. Nothing worthwhile comes easily. Don't let others discourage you or tell you that you can't do it. In my day I was told women didn't go into chemistry. I saw no reason why we couldn't." (Gertrude Elion)
+
+Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 193 atoms
+Volume: 6.8841 nm^3, corresponds to roughly 3000 electrons
+No velocities found
+    system size :  1.738  1.880  2.106 (nm)
+    diameter    :  2.382               (nm)
+    center      :  3.524  2.482 -0.793 (nm)
+    box vectors :  1.738  1.880  2.107 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  :   6.88               (nm^3)
+    shift       : -0.333  0.709  3.984 (nm)
+new center      :  3.191  3.191  3.191 (nm)
+new box vectors :  6.382  6.382  6.382 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  : 259.92               (nm^3)
+                       :-) GROMACS - gmx grompp, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx grompp -f /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp -c check_box.gro -p check.top -o em2.tpr
+
+Ignoring obsolete mdp entry 'cpp'
+Ignoring obsolete mdp entry 'ns_type'
+
+NOTE 1 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  nstcomm < nstcalcenergy defeats the purpose of nstcalcenergy, setting
+  nstcomm to nstcalcenergy
+
+Setting the LD random seed to -291699848
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+
+NOTE 2 [file check.top, line 1911]:
+  System has non-zero total charge: 2.000000
+  Total charge should normally be an integer. See
+  http://www.gromacs.org/Documentation/Floating_Point_Arithmetic
+  for discussion on how close it should be to an integer.
+  
+
+
+Number of degrees of freedom in T-Coupling group Protein is 576.00
+
+NOTE 3 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There were 3 notes
+
+GROMACS reminds you: "Measuring programming progress by lines of code is like measuring aircraft building progress by weight." (Bill Gates)
+
+Analysing residue names:
+There are:    14    Protein residues
+Analysing Protein...
+This run will generate roughly 0 Mb of data
+                       :-) GROMACS - gmx mdrun, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx mdrun -s em2.tpr -o em2.trr -c em2.gro
+
+Reading file em2.tpr, VERSION 2020 (single precision)
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 8 OpenMP threads 
+
+
+Polak-Ribiere Conjugate Gradients:
+   Tolerance (Fmax)   =  2.00000e+02
+   Number of steps    =          500
+   F-max             =  2.44338e+04 on atom 9
+   F-Norm            =  3.37761e+03
+
+
+writing lowest energy coordinates.
+
+Polak-Ribiere Conjugate Gradients converged to Fmax < 200 in 40 steps
+Potential Energy  =  4.1820508e+02
+Maximum force     =  1.7727904e+02 on atom 183
+Norm of force     =  5.9290508e+01
+
+GROMACS reminds you: "We are continually faced by great opportunities brilliantly disguised as insoluble problems." (Lee Iacocca)
+
+                      :-) GROMACS - gmx trjconv, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx trjconv -f em2.trr -s em2.tpr -o result.pdb -pbc nojump -sep
+
+Will write pdb: Protein data bank file
+Reading file em2.tpr, VERSION 2020 (single precision)
+Reading file em2.tpr, VERSION 2020 (single precision)
+Group     0 (         System) has   193 elements
+Group     1 (        Protein) has   193 elements
+Group     2 (      Protein-H) has    99 elements
+Group     3 (        C-alpha) has    14 elements
+Group     4 (       Backbone) has    42 elements
+Group     5 (      MainChain) has    57 elements
+Group     6 (   MainChain+Cb) has    66 elements
+Group     7 (    MainChain+H) has    70 elements
+Group     8 (      SideChain) has   123 elements
+Group     9 (    SideChain-H) has    42 elements
+Select a group: trr version: GMX_trn_file (single precision)
+Reading frame       0 time   40.000    ->  frame      0 time   40.000      Last frame          0 time   40.000   
+
+
+GROMACS reminds you: "I Wonder, Should I Get Up..." (J. Lennon)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 0: 'System'
+
+Using parameters from /usr/local/bin/scwrl4//Scwrl4.ini
+
+<Timing tag = "Loading_PDB_file"  duration = "0.000" />
+
+Using rotamer library: /usr/local/bin/scwrl4/bbDepRotLib.bin
+
+Residue A   1  is being treated as N-terminal
+
+Residue A  14  is being treated as C-terminal
+
+<Timing tag = "Adding_residues"  duration = "0.000" />
+
+<Timing tag = "Creating_Default_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.020" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 44289
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.040" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Computing_Interaction_Graph"  duration = "0.060" />
+ 
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.000" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 0
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.000" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+
+Running Goldstein's DEE (version G)
+:::::::::::::::::::::::::::::::::::
+
+Initial number of residues - 9
+Initial number of rotamers - 164
+
+	8 redundant edges eliminated
+
+	Isolated residues removed - 1 
+
+round 1:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 5 
+	Rotamers eliminated  -  150
+
+round 2:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 0 
+	Rotamers eliminated  -  1
+
+round 3:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 0 
+	Rotamers eliminated  -  0
+Energy accumulated during DEE = 29.7871
+<Timing tag = "DEE"  duration = "0.000" />
+
+Searching for clusters... 1 clusters found
+
+Processing cluster of 3 vertices
+
+Redundant nodes eliminated : 1
+Tree-decomposition has been built. Width+1 = 1
+
+Total combinations to search = 2.8e+1
+   1        :   ->    7   4
+   0(   1 ) :    4  ->    1
+
+ArtPts =  0	MaxDegree =  1	MaxBag =  1	AvgBag = 2
+
+===============================
+Launching bottom-to-top process
+Combinations:
+	in intersections -   4
+	in exclusions   -  33.2
+	total to search  -  12
+
+Maximal size of a key is 4 elements
+
+Processing nodes .
+<Timing tag = "Bottom_To_Top"  duration = "0.000" />
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 1.6e+1
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 27.9103
+
+
+Total minimal energy of the graph = 57.6974
+
+<Timing tag = "Combinatorial_Search"  duration = "0.000" />
+
+<Timing tag = "Deriving_Optimum"  duration = "0.000" />
+
+<Timing tag = "Saving_to_PDB_file"  duration = "0.000" />
+
+
+Deleting workspace.
+
+<Timing tag = "Scwrl4_Execution"  duration = "0.060" />
+
+                      :-) GROMACS - gmx pdb2gmx, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx pdb2gmx, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx pdb2gmx -f test_weighted_right_tcbig_2.pdb -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh
+
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.r2b
+All occupancies are one
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/atomtypes.atp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.n.tdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.c.tdb
+Analysing hydrogen-bonding network for automated assignment of histidine
+ protonation. 21 donors and 16 acceptors were found.
+There are 28 hydrogen bonds
+Will use HISE for residue 14
+8 out of 8 lines of specbond.dat converted successfully
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.arn
+Making bonds...
+Number of bonds was 199, now 198
+Generating angles, dihedrals and pairs...
+Before cleaning: 513 pairs
+Before cleaning: 538 dihedrals
+Keeping all generated dihedrals
+Making cmap torsions...
+There are  538 dihedrals,   40 impropers,  362 angles
+           510 pairs,      198 bonds and     0 virtual sites
+Total mass 1391.572 a.m.u.
+Total charge 2.000 e
+Writing topology
+
+Writing coordinate file...
+
+GROMACS reminds you: "If There Is No Guitar In The House, You Know It's Owner Can Not Be Trusted" (Gogol Bordello)
+
+
+Using the Amber99sb-ildn force field in directory amber99sb-ildn.ff
+
+going to rename amber99sb-ildn.ff/aminoacids.r2b
+going to rename amber99sb-ildn.ff/dna.r2b
+going to rename amber99sb-ildn.ff/rna.r2b
+Reading test_weighted_right_tcbig_2.pdb...
+Read '', 99 atoms
+Analyzing pdb file
+Splitting chemical chains based on TER records or chain id changing.
+There are 1 chains and 0 blocks of water and 14 residues with 99 atoms
+
+  chain  #res #atoms
+  1 'A'    14     99  
+
+Reading residue database... (Amber99sb-ildn)
+Processing chain 1 'A' (99 atoms, 14 residues)
+Identified residue GLY1 as a starting terminus.
+Identified residue HIS14 as a ending terminus.
+Checking for duplicate atoms....
+Generating any missing hydrogen atoms and/or adding termini.
+Now there are 14 residues with 193 atoms
+		--------- PLEASE NOTE ------------
+You have successfully generated a topology from: test_weighted_right_tcbig_2.pdb.
+The Amber99sb-ildn force field is used.
+		--------- ETON ESAELP ------------
+                      :-) GROMACS - gmx editconf, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx editconf, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx editconf -f check.gro -o check_box.gro -bt cubic -d 2
+
+
+GROMACS reminds you: "There is no place like ~" (Anonymous)
+
+Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 193 atoms
+Volume: 5.39422 nm^3, corresponds to roughly 2400 electrons
+No velocities found
+    system size :  2.216  1.206  2.018 (nm)
+    diameter    :  2.340               (nm)
+    center      :  3.786  2.764 -0.770 (nm)
+    box vectors :  2.217  1.206  2.019 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  :   5.39               (nm^3)
+    shift       : -0.615  0.406  3.940 (nm)
+new center      :  3.170  3.170  3.170 (nm)
+new box vectors :  6.340  6.340  6.340 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  : 254.88               (nm^3)
+                       :-) GROMACS - gmx grompp, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx grompp -f /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp -c check_box.gro -p check.top -o em2.tpr
+
+Ignoring obsolete mdp entry 'cpp'
+Ignoring obsolete mdp entry 'ns_type'
+
+NOTE 1 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  nstcomm < nstcalcenergy defeats the purpose of nstcalcenergy, setting
+  nstcomm to nstcalcenergy
+
+Setting the LD random seed to 648734679
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+
+NOTE 2 [file check.top, line 1911]:
+  System has non-zero total charge: 2.000000
+  Total charge should normally be an integer. See
+  http://www.gromacs.org/Documentation/Floating_Point_Arithmetic
+  for discussion on how close it should be to an integer.
+  
+
+
+Number of degrees of freedom in T-Coupling group Protein is 576.00
+
+NOTE 3 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There were 3 notes
+
+GROMACS reminds you: "Every electron is sacred." (Greg McMullan, on Cryo-EM detectors)
+
+Analysing residue names:
+There are:    14    Protein residues
+Analysing Protein...
+This run will generate roughly 0 Mb of data
+                       :-) GROMACS - gmx mdrun, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx mdrun -s em2.tpr -o em2.trr -c em2.gro
+
+Reading file em2.tpr, VERSION 2020 (single precision)
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 8 OpenMP threads 
+
+
+Polak-Ribiere Conjugate Gradients:
+   Tolerance (Fmax)   =  2.00000e+02
+   Number of steps    =          500
+   F-max             =  9.96763e+08 on atom 16
+   F-Norm            =  1.02253e+08
+
+
+writing lowest energy coordinates.
+
+Polak-Ribiere Conjugate Gradients converged to Fmax < 200 in 98 steps
+Potential Energy  =  5.0931787e+02
+Maximum force     =  1.9322726e+02 on atom 80
+Norm of force     =  4.7349220e+01
+
+GROMACS reminds you: "I was told I'd never make it to VP rank because I was too outspoken. Maybe so, but I think men will always find an excuse for keeping women in their 'place.' So, let's make that place the executive suite and start more of our own companies." (Jean Bartik, ENIAC developer)
+
+                      :-) GROMACS - gmx trjconv, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/weighted_right_tcbig
+Command line:
+  gmx trjconv -f em2.trr -s em2.tpr -o result.pdb -pbc nojump -sep
+
+Will write pdb: Protein data bank file
+Reading file em2.tpr, VERSION 2020 (single precision)
+Reading file em2.tpr, VERSION 2020 (single precision)
+Group     0 (         System) has   193 elements
+Group     1 (        Protein) has   193 elements
+Group     2 (      Protein-H) has    99 elements
+Group     3 (        C-alpha) has    14 elements
+Group     4 (       Backbone) has    42 elements
+Group     5 (      MainChain) has    57 elements
+Group     6 (   MainChain+Cb) has    66 elements
+Group     7 (    MainChain+H) has    70 elements
+Group     8 (      SideChain) has   123 elements
+Group     9 (    SideChain-H) has    42 elements
+Select a group: trr version: GMX_trn_file (single precision)
+Reading frame       0 time   98.000    ->  frame      0 time   98.000      Last frame          0 time   98.000   
+
+
+GROMACS reminds you: "Take away paradox from the thinker and you have a professor." (Soren Kirkegaard)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 0: 'System'

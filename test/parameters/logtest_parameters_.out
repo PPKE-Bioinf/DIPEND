@@ -1,7 +1,24 @@
-Command given: /home/zita/Scripts-Research/DIPEND/Dipend.py -b test_parameters_ -c 5 -d conly -g 0 -m WEIGHTED_LEFT -n 2 -p 1 -r 1 -s GSKKGGGWGQPH out
-Trying to rotate Proline res 11 phi...
+Given parameters:
+ 	base: test_parameters_
+ 	cycle: 5
+ 	dataset: CONLY
+ 	gromacs optimization: 0
+ 	mode: WEIGHTED_LEFT
+ 	number of structures: 3
+ 	proline phi rotation: 1
+ 	remaining temporary files: 1
+ 	sequence: GSKKGQPHGSKKGQPHGSKKGQPHGSKKGQPH
+Trying to rotate Proline res 7 phi...
+Trying to rotate Proline res 15 phi...
+Trying to rotate Proline res 23 phi...
+Trying to rotate Proline res 31 phi...
 Trying at 0
 Trying at 1
 Trying at 2
 Trying at 3
-Time elapsed: 1172.53
+Renaming files based on success...
+Trying to rename structure 1 to structure 1
+Trying to rename structure 2 to structure 2
+Trying to rename structure 3 to structure 3
+Number of successfully optimized structures: 3
+Time elapsed: 70.12
