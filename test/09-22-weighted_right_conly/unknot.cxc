@@ -1,0 +1,10 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/09-22-weighted_right_conly/0922_test_weighted_right_conly_5.pdb
+setattr :9 res phi -19
+setattr :9 res psi 41
+setattr :16 res phi -89
+setattr :16 res psi 134
+setattr :104 res phi -19
+setattr :104 res psi 156
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/09-22-weighted_right_conly/0922_test_weighted_right_conly_5_4.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/09-22-weighted_right_conly/0922_test_weighted_right_conly_5.pdb
+q

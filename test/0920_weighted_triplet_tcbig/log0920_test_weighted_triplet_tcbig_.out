@@ -1,0 +1,60 @@
+Given parameters:
+ 	angle to add: 30
+ 	base: 0920_test_weighted_triplet_tcbig_
+ 	cycle: 10
+ 	dataset: TCBIG
+ 	gromacs optimization: 1
+ 	mode: WEIGHTED_TRIPLET
+ 	number of structures: 2
+ 	proline phi rotation: 0
+ 	remaining temporary files: 0
+ 	random addition: 5
+ 	unkot max: 6
+ 	sequence: TTIKIMDPGVGDGATAAKSKRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKSQKSSAASPAALSGYKMTLLALIKESIPNQAKRQKFEMQVGGIRNEQDFKNLRREIIRSAAQ
+Proline res 8 phi is not rotated.
+Proline res 27 phi is not rotated.
+Proline res 33 phi is not rotated.
+Proline res 39 phi is not rotated.
+Proline res 54 phi is not rotated.
+Proline res 57 phi is not rotated.
+Proline res 69 phi is not rotated.
+Proline res 88 phi is not rotated.
+i: 1, contacts: 1
+i: 2, contacts: 1
+Trying at 0
+i: 1, contacts: 1
+i: 2, contacts: 1
+Trying at 1
+i: 1, contacts: 1
+i: 2, contacts: 1
+Trying at 2
+i: 1, contacts: 1
+i: 2, contacts: 1
+Trying at 3
+i: 1, contacts: 1
+angles_to_unknot: 4, max_tries: 16
+i: 2, contacts: 1
+Trying at 4
+i: 1, contacts: 1
+angles_to_unknot: 4, max_tries: 16
+i: 2, contacts: 1
+Trying at 5
+i: 1, contacts: 1
+i: 2, contacts: 1
+Trying at 6
+i: 1, contacts: 1
+angles_to_unknot: 5, max_tries: 32
+i: 2, contacts: 1
+Trying at 7
+i: 1, contacts: 1
+i: 2, contacts: 1
+angles_to_unknot: 6, max_tries: 64
+Trying at 8
+i: 1, contacts: 1
+i: 2, contacts: 1
+Renaming files based on success...
+Number of successfully optimized structures: 0
+Trying to rename structure 1 to structure 1
+Trying to rename structure 2 to structure 2
+Cleaning up...
+Time elapsed: 347.14

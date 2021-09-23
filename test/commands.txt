@@ -54,3 +54,8 @@ nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_triplet_conly_ -d conl
 # different parameters
 nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_parameters_ -d conly -m WEIGHTED_LEFT -s GSKKGQPHGSKKGQPHGSKKGQPHGSKKGQPH -c 5 -n 3 -g 0 -k 1 -p 1 > out 2>&1 &
 
+# 0920 weighted triplet tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b 0920_test_weighted_triplet_tcbig_ -d tcbig -m WEIGHTED_TRIPLET -n 2 -a 30 -r 5 -u 6 -s TTIKIMDPGVGDGATAAKSKRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKSQKSSAASPAALSGYKMTLLALIKESIPNQAKRQKFEMQVGGIRNEQDFKNLRREIIRSAAQ > out 2>&1 &
+
+# 0922 weighted triplet tcbig
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b 0922_test_weighted_right_conly_ -d conly -m WEIGHTED_RIGHT -n 5 -s TTIKIMDPGVGDGATAAKSKRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKSQKSSAASPAALSGYKMTLLALIKESIPNQAKRQKFEMQVGGIRNEQDFKNLRREIIRSAAQ > out 2>&1 &

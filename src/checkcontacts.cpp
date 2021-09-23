@@ -4,6 +4,8 @@
 #include <iterator>
 #include <algorithm>
 #include <math.h>
+#include <stdio.h>
+#include <vector>
 
 using namespace std;
 
@@ -18,9 +20,12 @@ int main(int argc, char* argv[]) {
     int cutoff = 4;
     int upperCutoff = 20;
 
-    ofstream myfile;
-    string outfilename = pwd+"/contacts_"+base+".dat";
-    myfile.open(outfilename);
+
+    ofstream datfile,lstfile;
+    string datfilename = pwd+"/contacts_"+base+".dat";
+    string lstfilename = pwd+"/contacts_"+base+".lst"; 
+    datfile.open(datfilename);
+    lstfile.open(lstfilename); 
 
     string line;
     ifstream infile; 
@@ -36,6 +41,7 @@ int main(int argc, char* argv[]) {
     infile.close();
 
     string line2;
+    char residuepairs[50]; // GZ
     ifstream infile2;
     infile2.open(ifilename);
 
@@ -57,9 +63,12 @@ int main(int argc, char* argv[]) {
     while (std::getline(infile2, line))
     {
     if (line.substr(0,4)=="ATOM" && line.substr(13,2)=="CA"){
-            CA[m][0]=stod(line.substr(31,6));
-            CA[m][1]=stod(line.substr(39,6));
-            CA[m][2]=stod(line.substr(47,6));
+            //CA[m][0]=stod(line.substr(31,6));
+            //CA[m][1]=stod(line.substr(39,6));
+            //CA[m][2]=stod(line.substr(47,6));
+            CA[m][0]=stod(line.substr(30,8));
+            CA[m][1]=stod(line.substr(38,8));
+            CA[m][2]=stod(line.substr(46,8));
             m = m+1;
         }
     }
@@ -82,6 +91,8 @@ int main(int argc, char* argv[]) {
             if (d<=cutoff && d!=0){ // this would mean the peptide chain twisting on itself in a "knot", a problem
                 knot = 1;
                 value = 1;
+            	sprintf(residuepairs,"%d %d %7.3f\n",b,a,d); // GZ
+		lstfile << residuepairs;
             }
             if (a-b<4 && d>upperCutoff && CA[a][0]!=0){ // this would mean a discontinuation of the peptide chain, a serious problem
                 tear = 1;
@@ -93,9 +104,10 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    myfile << value << endl;
+    datfile << value << endl;
 
-    myfile.close();
+    datfile.close();
+    lstfile.close();
 
     return 0;
 

@@ -23,6 +23,7 @@ It uses ChimeraX, Scwrl4 and GROMACS as external tools.
 
 Input parameteres can be supplied as options or listed in the Data/parameters.in file.
 
+-a --angletoadd: the angle to perturb the dihedral angles in case of a clash (30 degrees by default)
 -b --base: the beginning of the output filenames (optional, structure_ by default)
 -c --cycle: how many times it goes through trying to build the sequences (optional, 10 by deault)
 -d --dataset: which dataset from Ting et al. 2010 to use: Conly or TCBIG (optional, TCBIG by default)
@@ -35,13 +36,15 @@ Input parameteres can be supplied as options or listed in the Data/parameters.in
      defined in the file Data/distributions.in
 -n --numofstructures: the number of structures to be generated (optional but highly recommended, 1 by default)
 -p --proline: whether we want to rotate the phi angles of prolines as well, in order to do so, one has to tweak the code of chimerax, 0 by default, 1 if you want to tweak your chimerax code
+-r --random: an angle to randomly perturb the dihedral angles (5 degrees by default)
 -s --sequence: the sequence of the protein to be generated (required!)
+-u --unknotmax: the maximum number angle pairs to combinatorically perturb (6 by default) 
 """)
     sys.exit()
 
 ##################### CLASS ########################################
 # the Class of the Peptides to handle input parameters
-#class Peptides(sequence, base, mode, numberOfStructures, dataSet, length):
+#class Peptides(sequence, base, mode, numberofstructures, dataset, length):
 class Peptides():
 
     aminoAcidNames = {"A": "ALA", "R": "ARG", "N": "ASN", "D": "ASP", "C": "CYS", "Q": "GLN", "E": "GLU", "G": "GLY", "H": "HIS", "I": "ILE", "L": "LEU", "K": "LYS", "M": "MET", "F": "PHE", "P": "PRO", "S": "SER", "T": "THR", "W": "TRP", "X": "CPR", "Y": "TYR", "V": "VAL"} # X and CPR are for CYS Proline
@@ -55,29 +58,32 @@ class Peptides():
             phiPsiAngles.append(a)
 
 
-    def __init__(self, sequence, base, mode, numberOfStructures, dataSet, cycle, keep, gmxCheck, pro):
+    def __init__(self, sequence, base, mode, numberofstructures, dataset, cycle, keep, gmxcheck, pro, random, angleadd, unknot):
         self.sequence = sequence
         self.base = base
         self.mode = mode
-        self.numberOfStructures = numberOfStructures
-        self.dataSet = dataSet
+        self.numberofstructures = numberofstructures
+        self.dataset = dataset
         self.cycle = cycle
         self.keep = keep
-        self.gmxCheck = gmxCheck
+        self.gmxcheck = gmxcheck
         self.angles = [] # phi psi angles for all peptides
         self.proline = pro # whether we want to change the dihedral angles of prolines as well
         self.success = [] # 3 values for each structure, first is 1 if there are no CA-CA clashes, the second is 1 if successfully optimized and the third is 1 if the all atom clashcheck is successful on the optimized structure
-        self.current_cycle = 0 # at which round of trying are we?
+        self.currentcycle = 0 # at which round of trying are we?
         self.distributions = []
         self.weights = []
         self.filenames = []
+        self.addrandom = random
+        self.angletoadd = angleadd
+        self.unknotmax = unknot
 
     def addAngles(self, angles):
         self.angles = angles
-    def plusplus_current_cycle(self):
-        self.current_cycle = self.current_cycle + 1
+    def plusplus_currentcycle(self):
+        self.currentcycle = self.currentcycle + 1
     def init_success(self):
-        for p in range(1,self.numberOfStructures+1):
+        for p in range(1,self.numberofstructures+1):
             self.success.append([-1, -1, -1])
     def add_success1(self, k, number):
         self.success[k-1][0] = number
@@ -98,13 +104,13 @@ class Peptides():
 ##################### CLASS ########################################
 # the Class of Install to handle program paths
 class Install():
-    def __init__(self, GromacsPath, GromacsSuffix, DataPath, WorkingDirectory, ChimeraXPath, Scwrl4Path):
-        self.GromacsPath = GromacsPath
-        self.GromacsSuffix = GromacsSuffix
-        self.DataPath = DataPath
-        self.WorkingDirectory = WorkingDirectory
-        self.ChimeraXPath = ChimeraXPath
-        self.Scwrl4Path = Scwrl4Path
+    def __init__(self, gromacspath, gromacssuffix, datapath, workingdirectory, chimeraxpath, scwrl4path):
+        self.gromacspath = gromacspath
+        self.gromacssuffix = gromacssuffix
+        self.datapath = datapath
+        self.workingdirectory = workingdirectory
+        self.chimeraxpath = chimeraxpath
+        self.scwrl4path = scwrl4path
 
 #######################################################################
 # writes to the logfile # attention: it appends! make sure to delete the file before each run
@@ -191,7 +197,7 @@ def TwoDimensionalNormalDistribution(peptides, install, phi_c, psi_c, stdev_c, f
 #######################################################################
 # writes user defined custom distributions 
 def WriteDistributions(peptides, install):
-    filename = install.DataPath+"distribution.in"
+    filename = install.datapath+"distribution.in"
     counter = 0
     distributions = []
     weights = []
@@ -266,7 +272,7 @@ def WriteDistributions(peptides, install):
                 filenames[k-1] = current_filename
 
             if current_filename == "":
-                fn = "%s/%sDistribution_%s.bin" % (install.WorkingDirectory, peptides.base, counter)
+                fn = "%s/%sDistribution_%s.bin" % (install.workingdirectory, peptides.base, counter)
             else:
                 fn = current_filename
             TwoDimensionalNormalDistribution(peptides, install, phi, psi, stdev, fn)
@@ -311,11 +317,11 @@ def ChooseAngles(aminoAcidNumber, peptides, install):
         
     # choosing the proper distribution files according to left, right or both neigbors as set
     if peptides.mode == "LEFT" or peptides.mode == "WEIGHTED_LEFT":
-        filename_d = install.DataPath+peptides.dataSet+"-l/"+middleaa+"/l"+leftaa+".bin"
+        filename_d = install.datapath+peptides.dataset+"-l/"+middleaa+"/l"+leftaa+".bin"
     if peptides.mode == "RIGHT" or peptides.mode == "WEIGHTED_RIGHT":
-        filename_d = install.DataPath+peptides.dataSet+"-r/"+middleaa+"/r"+rightaa+".bin"
+        filename_d = install.datapath+peptides.dataset+"-r/"+middleaa+"/r"+rightaa+".bin"
     if peptides.mode == "TRIPLET" or peptides.mode == "WEIGHTED_TRIPLET":
-        filename_d = install.DataPath+peptides.dataSet+"/"+middleaa+"/"+leftaa+middleaa+rightaa+".bin"
+        filename_d = install.datapath+peptides.dataset+"/"+middleaa+"/"+leftaa+middleaa+rightaa+".bin"
 
     reader_d=open(filename_d, 'rb')
 
@@ -388,15 +394,15 @@ def Build(peptides, install):
         build_script.write('build start peptide "built" %s ' % (newseq))
         for build in range(1,len(peptides.sequence)+1):
             build_script.write("-65,135 ") # the default initial peptide has a psi of an antiparallel beta sheet, and the phi of the most probable proline conformation
-        build_script.write("rotlib Dunbrack\nsave %s/%sinitial.pdb\n" % (install.WorkingDirectory, peptides.base, ))
+        build_script.write("rotlib Dunbrack\nsave %s/%sinitial.pdb\n" % (install.workingdirectory, peptides.base, ))
         build_script.write("q\n")
-    os.system("%s --nogui --silent %s/build.cxc" % (install.ChimeraXPath, install.WorkingDirectory)) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
+    os.system("%s --nogui --silent %s/build.cxc" % (install.chimeraxpath, install.workingdirectory)) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
 
 #######################################################################
 def CheckContacts(i, peptides, install):
 # Checks for steric clashes in the built structure
     rc = -3
-    command = "%s/checkcontacts %s %s %s" % (sys.path[0], i, peptides.base, install.WorkingDirectory)
+    command = "%s/checkcontacts %s %s %s" % (sys.path[0], i, peptides.base, install.workingdirectory)
     try:
         rc = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError:
@@ -406,25 +412,75 @@ def CheckContacts(i, peptides, install):
     return rc
 
 #######################################################################
+def AnalyzeContacts(i, peptides, install):
+    filename = "contacts_%s.lst" % (peptides.base)
+    # for faster processing, we will make uese of:
+    # all lines will contain exactly 3 columns
+    # residue numbers are ordered (increasing)
+    contact_min_num=0
+    resid_a=[-1 for k in range(100)]
+    resid_b=[-1 for k in range(100)]
+    mindist=[5 for k in range(100)]
+    resid_m=[-1 for k in range(100)]
+    #resid_m=[]
+    linenum=0
+    for line in open(filename, "r").readlines():
+      resa,resb,distance=line.split()
+      resa=int(resa)
+      resb=int(resb)
+      distance=float(distance)
+      if linenum == 0:
+          contact_min_num=0
+          resid_a[0] = resa
+          resid_b[0] = resb
+          mindist[0] = distance
+          
+      elif resa-resid_a[contact_min_num] <= 1 or resb-resid_b[contact_min_num] <= 1: 
+          #print("Ezmi?")               
+          if distance < mindist[contact_min_num]:
+              mindist[contact_min_num] = distance
+
+      else:
+         contact_min_num+=1
+         if contact_min_num >= 100:
+             contact_min_num=-1
+             break
+         resid_a[contact_min_num] = resa
+         resid_b[contact_min_num] = resb
+         mindist[contact_min_num] = distance   
+
+      #print ("cm: ",contact_min_num," a:",resa," am: ",resid_a[contact_min_num]," b: ",resb, " bm: ",resid_b[contact_min_num])
+      linenum += 1
+
+      
+    for cm in range (0,contact_min_num+1):
+         #resid_m.append(int((resid_a+resid_b)/2))
+  
+         resid_m[cm]=int((resid_a[cm]+resid_b[cm])/2)
+         #print ("CONTACT: ",cm, " residues: ",resid_a[cm],resid_b[cm]," resid_m ",resid_m[cm]," dist: ",mindist[cm])
+
+    return resid_m
+
+#######################################################################
 def GmxCheck(i, peptides, install):
     # this function runs a short energy minimisation in GROMACS on the resulting Peptides to see if everything is OK
     fname = "%s%s.pdb" % (peptides.base, i)
     os.environ['GMX_MAXBACKUP'] = '-1'
-    c1 = "%sgmx%s pdb2gmx -f %s -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh" % (install.GromacsPath, install.GromacsSuffix, fname)
+    c1 = "%sgmx%s pdb2gmx -f %s -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh" % (install.gromacspath, install.gromacssuffix, fname)
     os.system(c1)
-    c2 = "%sgmx%s editconf -f check.gro -o check_box.gro -bt cubic -d 2" % (install.GromacsPath, install.GromacsSuffix)
+    c2 = "%sgmx%s editconf -f check.gro -o check_box.gro -bt cubic -d 2" % (install.gromacspath, install.gromacssuffix)
     if os.path.isfile("check.top"):
         os.system(c2)
     else:
         WriteLog("Trouble with Gromacs check step 1!\n", peptides)
         sys.exit()
-    c3 = "%sgmx%s grompp -f %sem.mdp -c check_box.gro -p check.top -o em2.tpr" % (install.GromacsPath, install.GromacsSuffix, install.DataPath)
+    c3 = "%sgmx%s grompp -f %sem.mdp -c check_box.gro -p check.top -o em2.tpr" % (install.gromacspath, install.gromacssuffix, install.datapath)
     if os.path.isfile("check_box.gro"):
         os.system(c3)
     else:
         WriteLog("Trouble with Gromacs check step 2!\n", peptides)
         sys.exit()
-    c4 = "%sgmx%s mdrun -s em2.tpr -o em2.trr -c em2.gro" % (install.GromacsPath, install.GromacsSuffix)
+    c4 = "%sgmx%s mdrun -s em2.tpr -o em2.trr -c em2.gro" % (install.gromacspath, install.gromacssuffix)
     if os.path.isfile("em2.tpr"):
         os.system(c4)
     else:
@@ -446,7 +502,7 @@ def GmxLoganalyse(i, peptides, install):
             for line in inhandle.readlines(): # GROMACS log
                 if "converged to Fmax" in line:
                     converged = 1
-                    c5 = "echo 0 | %sgmx%s trjconv -f em2.trr -s em2.tpr -o result.pdb -pbc nojump -sep" % (install.GromacsPath, install.GromacsSuffix)
+                    c5 = "echo 0 | %sgmx%s trjconv -f em2.trr -s em2.tpr -o result.pdb -pbc nojump -sep" % (install.gromacspath, install.gromacssuffix)
                     if os.path.isfile("em2.trr"):
                         os.system(c5)
                     else:
@@ -467,22 +523,23 @@ def GmxLoganalyse(i, peptides, install):
 #######################################################################
 def SetAngleForall(i, peptides, install):
     # loops through the structure in question, setting every dihedral angle to the already predefined values
-    copy = "cp %s/%sinitial.pdb %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, install.WorkingDirectory, peptides.base, str(i))
+    random_addition = peptides.addrandom
+    copy = "cp %s/%sinitial.pdb %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, install.workingdirectory, peptides.base, str(i))
     os.system(copy)
     with open("rotate.cxc", "w") as rotating_script:
         with open("rotateProPhi.cxc", "w") as prorot_script:
-            rotating_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
-            prorot_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i))) # another session due to possible errors
+            rotating_script.write("open %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i)))
+            prorot_script.write("open %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i))) # another session due to possible errors
             for build in range(1,len(peptides.sequence)+1):
-                phi = peptides.angles[build-1][0]   
-                psi = peptides.angles[build-1][1]
+                phi = peptides.angles[build-1][0]   #+random_add
+                psi = peptides.angles[build-1][1]   #+random_add
                 if peptides.sequence[build-1]=="P" or peptides.sequence[build-1]=="X":               
                     if peptides.proline==0:
-                        if i == 1 and peptides.current_cycle == 0:
+                        if i == 1 and peptides.currentcycle == 0:
                             WriteLog("Proline res %s phi is not rotated.\n" % (build), peptides)
                         rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
                     else:
-                        if i == 1 and peptides.current_cycle == 0:
+                        if i == 1 and peptides.currentcycle == 0:
                             WriteLog("Trying to rotate Proline res %s phi...\n" % (build), peptides)
                         prorot_script.write("setattr :%s res phi %s\n" % (build, phi)) # another session due to possible errors
                         rotating_script.write("setattr :%s res psi %s\n" % (build, psi))
@@ -494,21 +551,21 @@ def SetAngleForall(i, peptides, install):
                 if peptides.sequence[build-1]=="X":
                     rotating_script.write("setattr :%s res omega 0\n" % (build))
 
-            rotating_script.write("save %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
-            prorot_script.write("save %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i))) # another session due to possible errors
+            rotating_script.write("save %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i)))
+            prorot_script.write("save %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i))) # another session due to possible errors
             rotating_script.write("q\n")
             prorot_script.write("q\n")
 
-    os.system("%s --nogui --silent %s/rotate.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
+    os.system("%s --nogui --silent %s/rotate.cxc" % (install.chimeraxpath, install.workingdirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
     if peptides.proline==1: # rotating proline phi angles
-        os.system("%s --nogui --silent %s/rotateProPhi.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script # another session due to possible errors
+        os.system("%s --nogui --silent %s/rotateProPhi.cxc" % (install.chimeraxpath, install.workingdirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script # another session due to possible errors
 
 #######################################################################
 # Runs Scwrl4
 def RunSCWRL4(i, peptides, install):
-    infile = "%s/%s%s.pdb" % (install.WorkingDirectory, peptides.base, str(i))
-    outfile = "%s/%s%s.pdb" % (install.WorkingDirectory, peptides.base, str(i))
-    scwrl4command = '%s -i %s -o %s\n' % (install.Scwrl4Path, infile, outfile)
+    infile = "%s/%s%s.pdb" % (install.workingdirectory, peptides.base, str(i))
+    outfile = "%s/%s%s.pdb" % (install.workingdirectory, peptides.base, str(i))
+    scwrl4command = '%s -i %s -o %s\n' % (install.scwrl4path, infile, outfile)
     os.system(scwrl4command)
 
 #######################################################################
@@ -519,12 +576,12 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
     headerNum = 7
     with open("clashcheck.cxc", "w") as clashcheck_script:
         if gmxed == 0:
-            clashcheck_script.write("open %s/%s%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            clashcheck_script.write("open %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i)))
         else:
-            clashcheck_script.write("open %s/%smin_%s.pdb\n" % (install.WorkingDirectory, peptides.base, str(i)))
+            clashcheck_script.write("open %s/%smin_%s.pdb\n" % (install.workingdirectory, peptides.base, str(i)))
         clashcheck_script.write("clashes #1 saveFile chimerax_clashcheck.dat\n")
         clashcheck_script.write("q\n")
-    os.system("%s --nogui --silent %s/clashcheck.cxc" % (install.ChimeraXPath, install.WorkingDirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
+    os.system("%s --nogui --silent %s/clashcheck.cxc" % (install.chimeraxpath, install.workingdirectory, )) # unfortunately, it seems to me, that ChimeraX comes with its own Python 53.7, and I did not find a way to integrate its functions into the python used by my kernel, so I decided to invoke it from bash with a chimerax command script
     with open("chimerax_clashcheck.dat", "r") as clashcheck_file:
         rl = clashcheck_file.readlines()
         for lineNum in range(len(rl)):
@@ -555,12 +612,82 @@ def ChimeraxClashcheck(i, peptides, install, gmxed): # gmxed means whether it is
 def Rotate(i, peptides, install):
     # This is the main function to govern the fate of one structure, first it derives all the phi psi angles, after that it sets them using chimera and afterwards tries to run Gromacs on it (if not told otherwise)
     CollectAllAngles(peptides, install)
+    # trying to generate structures with defined angles and added noise until
+    # there are no contacts or the max number of tries is reached
+    try_unknot=1
+    random_tries=0
+    angle_to_add=peptides.angletoadd # should be put to the options properly
+    # note that the actual number of tries will be 2^(max_unknot_angles)
+    max_unknot_angles = peptides.unknotmax # -> 64 tries allowed
+
     SetAngleForall(i, peptides, install)
     contacts = CheckContacts(i, peptides, install)
+
+    WriteLog("i: %s, contacts: %s\n" % (i, contacts), peptides)
+    if contacts > 0:
+        angle_to_unknot_num=0
+        max_tries=1
+        anglenam_to_unknot = ["" for r in range(0,max_unknot_angles+3)]
+        angleres_to_unknot = [0 for r in range(0,max_unknot_angles+3)]        
+        angleval_to_unknot = [0 for r in range(0,max_unknot_angles+3)]
+        for residm in AnalyzeContacts(i, peptides, install):
+            if residm >= 0 and angle_to_unknot_num <= max_unknot_angles:
+                if peptides.sequence[residm]=="P" or peptides.sequence[residm]=="X":
+                    anglenam_to_unknot[angle_to_unknot_num]="psi"
+                    angleres_to_unknot[angle_to_unknot_num]=residm+1
+                    angleval_to_unknot[angle_to_unknot_num]=peptides.angles[residm][1]
+                    angle_to_unknot_num += 1
+                    max_tries *= 2
+                else:
+                    anglenam_to_unknot[angle_to_unknot_num]="phi"
+                    angleres_to_unknot[angle_to_unknot_num]=residm+1
+                    angleval_to_unknot[angle_to_unknot_num]=peptides.angles[residm][0]
+                    anglenam_to_unknot[angle_to_unknot_num+1]="psi"
+                    angleres_to_unknot[angle_to_unknot_num+1]=residm+1
+                    angleval_to_unknot[angle_to_unknot_num+1]=peptides.angles[residm][1]
+                    angle_to_unknot_num += 2
+                    max_tries *= 4
+                    
+        if angle_to_unknot_num <= max_unknot_angles:
+            # systematically generate a binary code
+            WriteLog("angles_to_unknot: %s, max_tries: %s\n" % (angle_to_unknot_num, max_tries),peptides)
+            code=[0 for r in range(0,angle_to_unknot_num)]
+            try_unknot=0
+            contacts=1
+            while try_unknot < max_tries and contacts > 0:
+
+                with open("unknot.cxc", "w") as unknot_script:
+                    unknot_script.write("open %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i)))
+                    for p in range(0,angle_to_unknot_num):
+                        if code[p] == 1:
+                            angle_val=angleval_to_unknot[p]-angle_to_add
+                        else:
+                            angle_val=angleval_to_unknot[p]+angle_to_add
+                        unknot_script.write("setattr :%s res %s %s\n" % (angleres_to_unknot[p], anglenam_to_unknot[p],angle_val))
+                    unknot_script.write("save %s/%s%s_%s.pdb\n" % (install.workingdirectory, peptides.base, str(i), str(try_unknot)))
+                    unknot_script.write("save %s/%s%s.pdb\n" % (install.workingdirectory, peptides.base, str(i)))               
+                    unknot_script.write("q\n")
+                #print("invoking unknot.cxc")
+                os.system("%s --nogui --silent %s/unknot.cxc" % (install.chimeraxpath, install.workingdirectory)) 
+                contacts = CheckContacts(i, peptides, install)
+                WriteLog("code: %s contacts: %s\n" % (code, contacts),peptides) 
+                try_unknot += 1
+                # increase code
+                pos=angle_to_unknot_num-1
+                if code[pos]==0:
+                    code[pos]+=1
+                else:
+                    while code[pos] == 1:
+                        code[pos]=0
+                        pos -= 1
+                    code[pos]=1
+ 
+       
+    # continuing only when no contacts   
     if contacts == 0:
         #WriteLog("#Structure %s went through CA-CA 4 A clash check.\n" % (i), peptides)
         peptides.add_success1(i,1)
-        if peptides.gmxCheck == 1:
+        if peptides.gmxcheck == 1:
             RunSCWRL4(i, peptides, install)
             #clash_report= ChimeraxClashcheck(i, peptides, install, 0)
             #WriteLog("Clash_report_for_structure,_number_of_clashes,_maximum_overlap,_distance:\t%s\t%s\t%s\t%s\n" % (i, clash_report[0], clash_report[1], clash_report[2]), peptides)
@@ -585,7 +712,7 @@ def Rename(peptides):
 
     WriteLog("Renaming files based on success...\n", peptides)
     # renaming every pdb file - inserting bak_ before it in order not to overwrite something later
-    for k in range(1,peptides.numberOfStructures+1):
+    for k in range(1,peptides.numberofstructures+1):
         fn = "%smin_%s.pdb" % (peptides.base, k)
         os.system("mv %s%s.pdb bak_%s%s.pdb" % (peptides.base, k, peptides.base, k))
         if os.path.isfile(fn):
@@ -593,9 +720,9 @@ def Rename(peptides):
 
     # renaming the successful ones so that their numbering will be consecutive from 1
     num_of_successful = 1
-    for m in range(1,peptides.numberOfStructures+1):
+    for m in range(1,peptides.numberofstructures+1):
         fn_ = "bak_%smin_%s.pdb" % (peptides.base, m)
-        if peptides.gmxCheck == 1:
+        if peptides.gmxcheck == 1:
             if peptides.success[m-1] == [1,1,1]:
                 WriteLog("Trying to rename structure %s to structure %s\n" % (m, num_of_successful), peptides)
                 if os.path.isfile(fn_):
@@ -626,9 +753,9 @@ def Rename(peptides):
 
     # renameing the failing ones too, continuing the numbering where we left off
     rename_num = num_of_successful
-    for o in range(1,peptides.numberOfStructures+1):
+    for o in range(1,peptides.numberofstructures+1):
         fn_ = "bak_%smin_%s.pdb" % (peptides.base, o)
-        if peptides.gmxCheck == 1:
+        if peptides.gmxcheck == 1:
             if peptides.success[o-1] != [1,1,1]:
                 WriteLog("Trying to rename structure %s to structure %s\n" % (o, rename_num), peptides)
                 if os.path.isfile(fn_):
@@ -645,7 +772,7 @@ def Rename(peptides):
                 if not os.path.isfile("fail_%s%s.pdb" % (peptides.base, rename_num)):
                     os.system("mv bak_%s%s.pdb fail_%s%s.pdb" % (peptides.base, o, peptides.base, rename_num))
                 rename_num += 1
-    if rename_num!=peptides.numberOfStructures+1:
+    if rename_num!=peptides.numberofstructures+1:
         WriteLog("Error! Not all structures were renamed.", peptides)
 
 
@@ -680,23 +807,26 @@ def Cleanup(peptides):
 def Main():
 
     # declaring parameters
-    numberOfStructures = -99
+    numberofstructures = -99
     mode = ""
     base = ""
     sequence = ""
-    dataSet = ""
+    dataset = ""
     cycle = -99
     keep = -99
-    gmxCheck = -99
+    gmxcheck = -99
     pro = -99
+    addrandom = -99
+    angletoadd = -99
+    unknotmax = -99
 
     textForLater = [] # it will be later written to the logfile, but that cannot yet be opened (because it first needs all the input arguments to be set)
 
     # taking command line arguments 
     fullCmdArguments = sys.argv
     argumentList = fullCmdArguments[1:]
-    unixOptions = "b:c:d:g:k:m:n:p:s:h"  
-    gnuOptions = ["base=", "cycle=", "dataset=", "gmxcheck=", "keep=", "mode=", "numofstructures=", "proline=", "sequence=", "help"]  
+    unixOptions = "a:b:c:d:g:k:m:n:p:s:r:u:h"  
+    gnuOptions = ["angletoadd=", "base=", "cycle=", "dataset=", "gmxcheck=", "keep=", "mode=", "numofstructures=", "proline=", "sequence=", "random=", "unknotmax", "help"]  
 
     try:  
         arguments, values = getopt.getopt(argumentList, unixOptions, gnuOptions)
@@ -707,24 +837,30 @@ def Main():
 
     # evaluate given options for the inputs
     for currentArgument, currentValue in arguments:
-        if currentArgument in ("-b", "--base"):
+        if currentArgument in ("-a", "--angletoadd"):
+            angletoadd = int(currentValue)
+        elif currentArgument in ("-b", "--base"):
             base = currentValue
         elif currentArgument in ("-c", "--cycle"):
             cycle = int(currentValue)
         elif currentArgument in ("-d", "--dataset"):
-            dataSet = currentValue
+            dataset = currentValue
         elif currentArgument in ("-g", "--gmxcheck"):
-            gmxCheck = int(currentValue)
+            gmxcheck = int(currentValue)
         elif currentArgument in ("-k", "--keep"):
             keep = int(currentValue)
         elif currentArgument in ("-m", "--mode"):
             mode = currentValue
         elif currentArgument in ("-n", "--numofstructures"):
-            numberOfStructures = int(currentValue)
+            numberofstructures = int(currentValue)
         elif currentArgument in ("-p", "--proline"):
             pro = int(currentValue) 
         elif currentArgument in ("-s", "--sequence"):
             sequence = currentValue
+        elif currentArgument in ("-r", "--random"):
+            addrandom = int(currentValue)
+        elif currentArgument in ("-u", "--unknotmax"):
+            unknotmax = int(currentValue)
         elif currentArgument in ("-h", "--help"):
             Help()
         else: # I think, it is already handled in the try statement above
@@ -741,6 +877,12 @@ def Main():
             p = p_.split()
             if p[0]=="#":
                 continue # skip comment lines
+            elif p[0]=="a" and angletoadd==-99:
+                try:
+                    angletoadd = int(p[1])
+                except:
+                    angletoadd = 30
+                    print("trouble with %s<" % (p[1]))       
             elif p[0]=="b" and base=="":
                 base = p[1]
             elif p[0]=="c" and cycle==-99:
@@ -749,13 +891,13 @@ def Main():
                 except:
                     cycle = 10
                     print("trouble with %s<" % (p[1]))
-            elif p[0]=="d" and dataSet=="":
-                dataSet = p[1]
-            elif p[0]=="g" and gmxCheck==-99:
+            elif p[0]=="d" and dataset=="":
+                dataset = p[1]
+            elif p[0]=="g" and gmxcheck==-99:
                 try:
-                    gmxCheck = int(p[1])
+                    gmxcheck = int(p[1])
                 except:
-                    gmxCheck = 1
+                    gmxcheck = 1
                     print("trouble with %s<" % (p[1]))
             elif p[0]=="k" and keep==-99:
                 try:
@@ -765,11 +907,11 @@ def Main():
                     print("trouble with %s<" % (p[1]))
             elif p[0]=="m" and mode=="":
                 mode = p[1]
-            elif  p[0]=="n" and numberOfStructures==-99:
+            elif  p[0]=="n" and numberofstructures==-99:
                 try:
-                    numberOfStructures = int(p[1])
+                    numberofstructures = int(p[1])
                 except:
-                    numberOfStructures = 1
+                    numberofstructures = 1
                     print("trouble with %s<" % (p[1]))
             elif p[0]=="p" and pro==-99:
                 try:
@@ -777,10 +919,22 @@ def Main():
                 except:
                     pro = 0
                     print("trouble with %s<" % (p[1]))
+            elif p[0]=="r" and addrandom==-99:
+                try:
+                    addrandom = int(p[1])
+                except:
+                    addrandom = 5
+                    print("trouble with %s<" % (p[1]))
+            elif p[0]=="u" and unknotmax==-99:
+                try:
+                    unknotmax = int(p[1])
+                except:
+                    unknotmax = 6
+                    print("trouble with %s<" % (p[1]))       
             elif p[0]=="s" and sequence=="":
                 sequence = p[1]
     
-    MyPeptides = Peptides(sequence, base, mode, numberOfStructures, dataSet.upper(), cycle, keep, gmxCheck, pro)
+    MyPeptides = Peptides(sequence, base, mode, numberofstructures, dataset.upper(), cycle, keep, gmxcheck, pro, addrandom, angletoadd, unknotmax)
 
     #textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
 
@@ -788,10 +942,10 @@ def Main():
     for textLine in textForLater:
         WriteLog(textLine, MyPeptides)
 
-    WriteLog("Given parameters:\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \tsequence: %s\n" % (MyPeptides.base, MyPeptides.cycle, MyPeptides.dataSet, MyPeptides.gmxCheck, MyPeptides.mode, MyPeptides.numberOfStructures, MyPeptides.proline, MyPeptides.keep, MyPeptides.sequence), MyPeptides)
+    WriteLog("Given parameters:\n \tangle to add: %s\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \trandom addition: %s\n \tunkot max: %s\n \tsequence: %s\n" % (MyPeptides.angletoadd, MyPeptides.base, MyPeptides.cycle, MyPeptides.dataset, MyPeptides.gmxcheck, MyPeptides.mode, MyPeptides.numberofstructures, MyPeptides.proline, MyPeptides.keep, MyPeptides.addrandom, MyPeptides.unknotmax, MyPeptides.sequence), MyPeptides)
 
-    WorkingDirectory = os.getcwd()
-    DataPath = sys.path[0]+"/Data/"
+    workingdirectory = os.getcwd()
+    datapath = sys.path[0]+"/Data/"
 
     pathfname = sys.path[0]+"/Data/paths.in"
 
@@ -803,27 +957,27 @@ def Main():
                 continue # skip comment lines
             if len(line_)>1:
                 if line_[0] == "GromacsPath":
-                    GromacsPath = line_[1]
+                    gromacspath = line_[1]
                 elif line_[0] == "GromacsSuffix":
-                    GromacsSuffix = line_[1]
+                    gromacssuffix = line_[1]
                 elif line_[0] == "ChimeraXPath":
-                    ChimeraXPath = line_[1]
+                    chimeraxpath = line_[1]
                 elif line_[0] == "Scwrl4Path":
-                    Scwrl4Path = line_[1]
+                    scwrl4path = line_[1]
 
-    MyInstall = Install(GromacsPath, GromacsSuffix, DataPath, WorkingDirectory, ChimeraXPath, Scwrl4Path)
+    MyInstall = Install(gromacspath, gromacssuffix, datapath, workingdirectory, chimeraxpath, scwrl4path)
 
     #########
     Build(MyPeptides, MyInstall)
     if MyPeptides.mode == "WEIGHTED_LEFT" or MyPeptides.mode == "WEIGHTED_RIGHT" or MyPeptides.mode == "WEIGHTED_TRIPLET":
         WriteDistributions(MyPeptides, MyInstall)
     MyPeptides.init_success()
-    for i in range(1,MyPeptides.numberOfStructures+1):
+    for i in range(1,MyPeptides.numberofstructures+1):
         Rotate(i, MyPeptides, MyInstall)
     for j in range(1,MyPeptides.cycle):
-        WriteLog("Trying at %s\n" % (MyPeptides.current_cycle), MyPeptides)
-        MyPeptides.plusplus_current_cycle()
-        for i in range(1,MyPeptides.numberOfStructures+1):
+        WriteLog("Trying at %s\n" % (MyPeptides.currentcycle), MyPeptides)
+        MyPeptides.plusplus_currentcycle()
+        for i in range(1,MyPeptides.numberofstructures+1):
             if MyPeptides.success[i-1][2]!=1:
                 Rotate(i, MyPeptides, MyInstall)
     Rename(MyPeptides)

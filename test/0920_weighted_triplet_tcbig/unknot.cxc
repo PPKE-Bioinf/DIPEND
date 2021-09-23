@@ -1,0 +1,10 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/0920_weighted_triplet_tcbig/0920_test_weighted_triplet_tcbig_2.pdb
+setattr :34 res phi 20
+setattr :34 res psi -75
+setattr :68 res phi 130
+setattr :68 res psi -180
+setattr :70 res phi -70
+setattr :70 res psi -80
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/0920_weighted_triplet_tcbig/0920_test_weighted_triplet_tcbig_2_63.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/0920_weighted_triplet_tcbig/0920_test_weighted_triplet_tcbig_2.pdb
+q
