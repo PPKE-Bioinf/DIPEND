@@ -1,0 +1,9 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/right_tcbig/test_right_tcbig_2.pdb
+setattr :33 res psi 119
+setattr :93 res phi -201
+setattr :93 res psi 129
+setattr :112 res phi -86
+setattr :112 res psi -76
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/right_tcbig/test_right_tcbig_2_31.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/right_tcbig/test_right_tcbig_2.pdb
+q

@@ -1,0 +1,6 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/right_conly/test_right_conly_3.pdb
+setattr :90 res phi -29
+setattr :90 res psi 176
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/right_conly/test_right_conly_3_0.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/right_conly/test_right_conly_3.pdb
+q

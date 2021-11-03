@@ -1,0 +1,3277 @@
+nohup: ignoring input
+
+Using parameters from /usr/local/bin/scwrl4//Scwrl4.ini
+
+<Timing tag = "Loading_PDB_file"  duration = "0.000" />
+
+Using rotamer library: /usr/local/bin/scwrl4/bbDepRotLib.bin
+
+Residue A   1  is being treated as N-terminal
+
+Residue A 122  is being treated as C-terminal
+
+<Timing tag = "Adding_residues"  duration = "0.000" />
+
+<Timing tag = "Creating_Default_Rotamers"  duration = "0.020" />
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.040" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 892826
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.560" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Computing_Interaction_Graph"  duration = "0.600" />
+ 
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.020" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.000" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 0
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.000" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+
+Running Goldstein's DEE (version G)
+:::::::::::::::::::::::::::::::::::
+
+Initial number of residues - 100
+Initial number of rotamers - 1323
+
+	157 redundant edges eliminated
+
+	Isolated residues removed - 10 
+
+round 1:
+	20 redundant edges eliminated
+
+	Isolated residues removed - 56 
+	Rotamers eliminated  -  1081
+
+round 2:
+	4 redundant edges eliminated
+
+	Isolated residues removed - 14 
+	Rotamers eliminated  -  71
+
+round 3:
+	1 redundant edges eliminated
+
+	Isolated residues removed - 1 
+	Rotamers eliminated  -  7
+
+round 4:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 0 
+	Rotamers eliminated  -  0
+Energy accumulated during DEE = 291.778
+<Timing tag = "DEE"  duration = "0.000" />
+
+Searching for clusters... 4 clusters found
+
+Processing cluster of 8 vertices
+
+Redundant nodes eliminated : 2
+Tree-decomposition has been built. Width+1 = 2
+
+Total combinations to search = 2.02e+2
+   5        :   ->   42  39  40
+   4(   5 ) :   39  40  ->   38
+   3(   4 ) :   39  38  ->   47
+   2(   4 ) :   40  38  ->   34
+   1(   2 ) :   34  38  ->   35
+   0(   5 ) :   42  ->   43
+
+ArtPts =  0	MaxDegree =  3	MaxBag =  2	AvgBag = 2.83333
+
+===============================
+Launching bottom-to-top process
+Combinations:
+	in intersections -  47
+	in exclusions   -  123.2
+	total to search  - 1e+02
+
+Maximal size of a key is 20 elements
+
+Processing nodes .....
+<Timing tag = "Bottom_To_Top"  duration = "0.000" />
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 1e+2
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 21.6734
+
+
+Processing cluster of 3 vertices
+
+Redundant nodes eliminated : 1
+Tree-decomposition has been built. Width+1 = 1
+
+Total combinations to search = 8
+   1        :   ->   66  72
+   0(   1 ) :   72  ->   73
+
+ArtPts =  0	MaxDegree =  1	MaxBag =  1	AvgBag = 2
+
+===============================
+Launching bottom-to-top process
+Combinations:
+	in intersections -   2
+	in exclusions   -  23.2
+	total to search  -   4
+
+Maximal size of a key is 2 elements
+
+Processing nodes .
+<Timing tag = "Bottom_To_Top"  duration = "0.000" />
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 4
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 7.37049
+
+
+Processing cluster of 6 vertices
+
+Redundant nodes eliminated : 2
+Tree-decomposition has been built. Width+1 = 2
+
+Total combinations to search = 3.1e+1
+   3        :   ->   18  15  17
+   2(   3 ) :   18  ->   96
+   1(   2 ) :   96  ->   19
+   0(   3 ) :   17  ->   20
+
+ArtPts =  0	MaxDegree =  2	MaxBag =  2	AvgBag = 2.25
+
+===============================
+Launching bottom-to-top process
+Combinations:
+	in intersections -   8
+	in exclusions   -  73.2
+	total to search  -  19
+
+Maximal size of a key is 3 elements
+
+Processing nodes ...
+<Timing tag = "Bottom_To_Top"  duration = "0.000" />
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 1.2e+1
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 19.2974
+
+
+Processing cluster of 2 vertices
+
+Redundant nodes eliminated : 1
+Tree-decomposition has been built. Width+1 = 1
+
+Total combinations to search = 6
+   0        :   ->   95  93
+
+ArtPts =  0	MaxDegree =  0	MaxBag =  1	AvgBag = 2
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 6
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 4.02383
+
+
+Total minimal energy of the graph = 344.143
+
+<Timing tag = "Combinatorial_Search"  duration = "0.000" />
+
+<Timing tag = "Deriving_Optimum"  duration = "0.020" />
+
+<Timing tag = "Saving_to_PDB_file"  duration = "0.020" />
+
+
+Deleting workspace.
+
+<Timing tag = "Scwrl4_Execution"  duration = "0.660" />
+
+                      :-) GROMACS - gmx pdb2gmx, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx pdb2gmx, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx pdb2gmx -f test_triplet_conly_4.pdb -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh
+
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.r2b
+All occupancies are one
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/atomtypes.atp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.n.tdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.c.tdb
+8 out of 8 lines of specbond.dat converted successfully
+Special Atom Distance matrix:
+                    MET6   MET77
+                    SD45   SD551
+   MET77   SD551   6.847
+   MET98   SD722   5.538   2.758
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.arn
+Making bonds...
+Number of bonds was 1903, now 1902
+Generating angles, dihedrals and pairs...
+Before cleaning: 5026 pairs
+Before cleaning: 5239 dihedrals
+Keeping all generated dihedrals
+Making cmap torsions...
+There are 5239 dihedrals,  330 impropers, 3476 angles
+          5014 pairs,     1902 bonds and     0 virtual sites
+Total mass 13137.350 a.m.u.
+Total charge 6.000 e
+Writing topology
+
+Writing coordinate file...
+
+GROMACS reminds you: "History has expired" (PubMed Central)
+
+
+Using the Amber99sb-ildn force field in directory amber99sb-ildn.ff
+
+going to rename amber99sb-ildn.ff/aminoacids.r2b
+going to rename amber99sb-ildn.ff/dna.r2b
+going to rename amber99sb-ildn.ff/rna.r2b
+Reading test_triplet_conly_4.pdb...
+Read '', 921 atoms
+Analyzing pdb file
+Splitting chemical chains based on TER records or chain id changing.
+There are 1 chains and 0 blocks of water and 122 residues with 921 atoms
+
+  chain  #res #atoms
+  1 'A'   122    921  
+
+Reading residue database... (Amber99sb-ildn)
+Processing chain 1 'A' (921 atoms, 122 residues)
+Identified residue THR1 as a starting terminus.
+Identified residue GLN122 as a ending terminus.
+Checking for duplicate atoms....
+Generating any missing hydrogen atoms and/or adding termini.
+Now there are 122 residues with 1891 atoms
+		--------- PLEASE NOTE ------------
+You have successfully generated a topology from: test_triplet_conly_4.pdb.
+The Amber99sb-ildn force field is used.
+		--------- ETON ESAELP ------------
+                      :-) GROMACS - gmx editconf, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx editconf, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx editconf -f check.gro -o check_box.gro -bt cubic -d 2
+
+
+GROMACS reminds you: "When a distinguished but elderly scientist states that something is possible, he is almost certainly right. When he states that something is impossible, he is very probably wrong." (Arthur C. Clarke)
+
+Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 1891 atoms
+Volume: 169.93 nm^3, corresponds to roughly 76400 electrons
+No velocities found
+    system size :  5.418  7.608  4.123 (nm)
+    diameter    :  8.348               (nm)
+    center      : 27.131 20.078-11.114 (nm)
+    box vectors :  5.418  7.608  4.122 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  : 169.93               (nm^3)
+    shift       :-20.957-13.904 17.288 (nm)
+new center      :  6.174  6.174  6.174 (nm)
+new box vectors : 12.348 12.348 12.348 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  :1882.84               (nm^3)
+                       :-) GROMACS - gmx grompp, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx grompp -f /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp -c check_box.gro -p check.top -o em2.tpr
+
+Ignoring obsolete mdp entry 'cpp'
+Ignoring obsolete mdp entry 'ns_type'
+
+NOTE 1 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  nstcomm < nstcalcenergy defeats the purpose of nstcalcenergy, setting
+  nstcomm to nstcalcenergy
+
+Setting the LD random seed to -1764689945
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+
+NOTE 2 [file check.top, line 18030]:
+  System has non-zero total charge: 6.000000
+  Total charge should normally be an integer. See
+  http://www.gromacs.org/Documentation/Floating_Point_Arithmetic
+  for discussion on how close it should be to an integer.
+  
+
+
+Number of degrees of freedom in T-Coupling group Protein is 5670.00
+
+NOTE 3 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There were 3 notes
+
+GROMACS reminds you: "The researcher's art is first of all to find himself a good boss." (Andre Lwoff)
+
+Analysing residue names:
+There are:   122    Protein residues
+Analysing Protein...
+This run will generate roughly 0 Mb of data
+                       :-) GROMACS - gmx mdrun, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx mdrun -s em2.tpr -o em2.trr -c em2.gro
+
+Reading file em2.tpr, VERSION 2020 (single precision)
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 8 OpenMP threads 
+
+
+Polak-Ribiere Conjugate Gradients:
+   Tolerance (Fmax)   =  2.00000e+02
+   Number of steps    =          500
+   F-max             =  1.79542e+06 on atom 767
+   F-Norm            =  1.04678e+05
+
+
+writing lowest energy coordinates.
+
+Polak-Ribiere Conjugate Gradients converged to Fmax < 200 in 172 steps
+Potential Energy  = -5.6966426e+03
+Maximum force     =  1.9373416e+02 on atom 379
+Norm of force     =  3.1193598e+01
+
+GROMACS reminds you: "Facts are stubborn things, but statistics are more pliable." (Laurence Peter)
+
+                      :-) GROMACS - gmx trjconv, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx trjconv -f em2.trr -s em2.tpr -o result.pdb -pbc nojump -sep
+
+Will write pdb: Protein data bank file
+Reading file em2.tpr, VERSION 2020 (single precision)
+Reading file em2.tpr, VERSION 2020 (single precision)
+Group     0 (         System) has  1891 elements
+Group     1 (        Protein) has  1891 elements
+Group     2 (      Protein-H) has   921 elements
+Group     3 (        C-alpha) has   122 elements
+Group     4 (       Backbone) has   366 elements
+Group     5 (      MainChain) has   489 elements
+Group     6 (   MainChain+Cb) has   603 elements
+Group     7 (    MainChain+H) has   605 elements
+Group     8 (      SideChain) has  1286 elements
+Group     9 (    SideChain-H) has   432 elements
+Select a group: trr version: GMX_trn_file (single precision)
+Reading frame       0 time  172.000    ->  frame      0 time  172.000      Last frame          0 time  172.000   
+
+
+GROMACS reminds you: "I Snipe Like Wesley" (Urban Dance Squad)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 0: 'System'
+
+Using parameters from /usr/local/bin/scwrl4//Scwrl4.ini
+
+<Timing tag = "Loading_PDB_file"  duration = "0.000" />
+
+Using rotamer library: /usr/local/bin/scwrl4/bbDepRotLib.bin
+
+Residue A   1  is being treated as N-terminal
+
+Residue A 122  is being treated as C-terminal
+
+<Timing tag = "Adding_residues"  duration = "0.000" />
+
+<Timing tag = "Creating_Default_Rotamers"  duration = "0.020" />
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.040" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 941845
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.640" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Computing_Interaction_Graph"  duration = "0.680" />
+ 
+
+<Timing tag = "Building_Atoms_Sets"  duration = "0.000" />
+
+<Timing tag = "Building_Flexible_Subrotamers"  duration = "0.000" />
+
+<Timing tag = "Computing_Symmetry_Operators"  duration = "0.000" />
+
+<Timing tag = "Updating_Self_Energies"  duration = "0.020" />
+
+<Timing tag = "Computing_Active_Rotamers"  duration = "0.000" />
+
+<Timing tag = "Resolving_Disulfide_Bonds"  duration = "0.000" />
+
+
+Total number of subrotamer interactions = 0
+
+<Timing tag = "Updating_Pairwise_Energies"  duration = "0.000" />
+
+<Timing tag = "Normalizing_Atoms_Sets"  duration = "0.000" />
+
+
+Running Goldstein's DEE (version G)
+:::::::::::::::::::::::::::::::::::
+
+Initial number of residues - 98
+Initial number of rotamers - 1232
+
+	154 redundant edges eliminated
+
+	Isolated residues removed - 9 
+
+round 1:
+	13 redundant edges eliminated
+
+	Isolated residues removed - 54 
+	Rotamers eliminated  -  1027
+
+round 2:
+	2 redundant edges eliminated
+
+	Isolated residues removed - 9 
+	Rotamers eliminated  -  55
+
+round 3:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 3 
+	Rotamers eliminated  -  13
+
+round 4:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 1 
+	Rotamers eliminated  -  4
+
+round 5:
+	0 redundant edges eliminated
+
+	Isolated residues removed - 0 
+	Rotamers eliminated  -  0
+Energy accumulated during DEE = 436.5
+<Timing tag = "DEE"  duration = "0.000" />
+
+Searching for clusters... 6 clusters found
+
+Processing cluster of 3 vertices
+
+Redundant nodes eliminated : 2
+Tree-decomposition has been built. Width+1 = 2
+
+Total combinations to search = 1.2e+1
+   0        :   ->   73  57  75
+
+ArtPts =  0	MaxDegree =  0	MaxBag =  2	AvgBag = 3
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 1.2e+1
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 12.127
+
+
+Processing cluster of 3 vertices
+
+Redundant nodes eliminated : 2
+Tree-decomposition has been built. Width+1 = 2
+
+Total combinations to search = 8
+   0        :   ->   37  40  49
+
+ArtPts =  0	MaxDegree =  0	MaxBag =  2	AvgBag = 3
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 8
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 24.7227
+
+
+Processing cluster of 6 vertices
+
+Redundant nodes eliminated : 2
+Tree-decomposition has been built. Width+1 = 2
+
+Total combinations to search = 6e+2
+   3        :   ->   74  82  80
+   2(   3 ) :   82  80  ->   84
+   1(   2 ) :   84  ->   83
+   0(   3 ) :   74  ->   72
+
+ArtPts =  0	MaxDegree =  2	MaxBag =  2	AvgBag = 2.5
+
+===============================
+Launching bottom-to-top process
+Combinations:
+	in intersections -  48
+	in exclusions   -  123.2
+	total to search  - 2e+02
+
+Maximal size of a key is 22 elements
+
+Processing nodes ...
+<Timing tag = "Bottom_To_Top"  duration = "0.000" />
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 3.96e+2
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 22.2114
+
+
+Processing cluster of 6 vertices
+
+Redundant nodes eliminated : 1
+Tree-decomposition has been built. Width+1 = 1
+
+Total combinations to search = 4.7e+1
+   4        :   ->   31  35
+   3(   4 ) :   35  ->   29
+   2(   4 ) :   31  ->   32
+   1(   2 ) :   32  ->   33
+   0(   2 ) :   31  ->   34
+
+ArtPts =  0	MaxDegree =  3	MaxBag =  1	AvgBag = 2
+
+===============================
+Launching bottom-to-top process
+Combinations:
+	in intersections -  14
+	in exclusions   -  103.2
+	total to search  -  35
+
+Maximal size of a key is 4 elements
+
+Processing nodes ....
+<Timing tag = "Bottom_To_Top"  duration = "0.000" />
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 1.2e+1
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 48.4544
+
+
+Processing cluster of 2 vertices
+
+Redundant nodes eliminated : 1
+Tree-decomposition has been built. Width+1 = 1
+
+Total combinations to search = 4
+   0        :   ->    7   8
+
+ArtPts =  0	MaxDegree =  0	MaxBag =  1	AvgBag = 2
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 4
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 5.36862
+
+
+Processing cluster of 2 vertices
+
+Redundant nodes eliminated : 1
+Tree-decomposition has been built. Width+1 = 1
+
+Total combinations to search = 1e+1
+   0        :   ->   19  17
+
+ArtPts =  0	MaxDegree =  0	MaxBag =  1	AvgBag = 2
+
+<Trace tag = "Deciding_on_the_root_node" >
+
+Number of combinations = 1e+1
+<Timing tag = "Deciding_on_the_root_node"  duration = "0.000" />
+</Trace>
+<Trace tag = "Top_To_Bottom" >
+
+<Timing tag = "Top_To_Bottom"  duration = "0.000" />
+</Trace>
+Energy of this cluster = 11.9425
+
+
+Total minimal energy of the graph = 561.327
+
+<Timing tag = "Combinatorial_Search"  duration = "0.000" />
+
+<Timing tag = "Deriving_Optimum"  duration = "0.020" />
+
+<Timing tag = "Saving_to_PDB_file"  duration = "0.000" />
+
+
+Deleting workspace.
+
+<Timing tag = "Scwrl4_Execution"  duration = "0.720" />
+
+                      :-) GROMACS - gmx pdb2gmx, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx pdb2gmx, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx pdb2gmx -f test_triplet_conly_5.pdb -o check.gro -p check.top -ff amber99sb-ildn -water none -ignh
+
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.r2b
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.r2b
+All occupancies are one
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/atomtypes.atp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.rtp
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.hdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.n.tdb
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.c.tdb
+8 out of 8 lines of specbond.dat converted successfully
+Special Atom Distance matrix:
+                    MET6   MET77
+                    SD45   SD551
+   MET77   SD551   3.675
+   MET98   SD722   2.816   1.987
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+
+WARNING: Duplicate line found in or between hackblock and rtp entries
+
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/aminoacids.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/dna.arn
+Opening force field file /home/gromdev/gromacs-2020/share/top/amber99sb-ildn.ff/rna.arn
+Making bonds...
+Number of bonds was 1903, now 1902
+Generating angles, dihedrals and pairs...
+Before cleaning: 5026 pairs
+Before cleaning: 5239 dihedrals
+Keeping all generated dihedrals
+Making cmap torsions...
+There are 5239 dihedrals,  330 impropers, 3476 angles
+          5014 pairs,     1902 bonds and     0 virtual sites
+Total mass 13137.350 a.m.u.
+Total charge 6.000 e
+Writing topology
+
+Writing coordinate file...
+
+GROMACS reminds you: "Hold On Like Cliffhanger" (Urban Dance Squad)
+
+
+Using the Amber99sb-ildn force field in directory amber99sb-ildn.ff
+
+going to rename amber99sb-ildn.ff/aminoacids.r2b
+going to rename amber99sb-ildn.ff/dna.r2b
+going to rename amber99sb-ildn.ff/rna.r2b
+Reading test_triplet_conly_5.pdb...
+Read '', 921 atoms
+Analyzing pdb file
+Splitting chemical chains based on TER records or chain id changing.
+There are 1 chains and 0 blocks of water and 122 residues with 921 atoms
+
+  chain  #res #atoms
+  1 'A'   122    921  
+
+Reading residue database... (Amber99sb-ildn)
+Processing chain 1 'A' (921 atoms, 122 residues)
+Identified residue THR1 as a starting terminus.
+Identified residue GLN122 as a ending terminus.
+Checking for duplicate atoms....
+Generating any missing hydrogen atoms and/or adding termini.
+Now there are 122 residues with 1891 atoms
+		--------- PLEASE NOTE ------------
+You have successfully generated a topology from: test_triplet_conly_5.pdb.
+The Amber99sb-ildn force field is used.
+		--------- ETON ESAELP ------------
+                      :-) GROMACS - gmx editconf, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx editconf, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx editconf -f check.gro -o check_box.gro -bt cubic -d 2
+
+
+GROMACS reminds you: "I managed to get two hours of work done before work" (E. Lindahl)
+
+Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 1891 atoms
+Volume: 240.513 nm^3, corresponds to roughly 108200 electrons
+No velocities found
+    system size :  5.560  7.009  6.172 (nm)
+    diameter    :  8.473               (nm)
+    center      : 29.149 18.479-11.194 (nm)
+    box vectors :  5.560  7.009  6.172 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  : 240.51               (nm^3)
+    shift       :-22.912-12.243 17.430 (nm)
+new center      :  6.236  6.236  6.236 (nm)
+new box vectors : 12.473 12.473 12.473 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  :1940.46               (nm^3)
+                       :-) GROMACS - gmx grompp, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx grompp -f /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp -c check_box.gro -p check.top -o em2.tpr
+
+Ignoring obsolete mdp entry 'cpp'
+Ignoring obsolete mdp entry 'ns_type'
+
+NOTE 1 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  nstcomm < nstcalcenergy defeats the purpose of nstcalcenergy, setting
+  nstcomm to nstcalcenergy
+
+Setting the LD random seed to 1446441665
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+
+NOTE 2 [file check.top, line 18030]:
+  System has non-zero total charge: 6.000000
+  Total charge should normally be an integer. See
+  http://www.gromacs.org/Documentation/Floating_Point_Arithmetic
+  for discussion on how close it should be to an integer.
+  
+
+
+Number of degrees of freedom in T-Coupling group Protein is 5670.00
+
+NOTE 3 [file /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/Data/em.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There were 3 notes
+
+GROMACS reminds you: "They don't have any beavers in India, so they have to simulate them" (The Tubes)
+
+Analysing residue names:
+There are:   122    Protein residues
+Analysing Protein...
+This run will generate roughly 0 Mb of data
+                       :-) GROMACS - gmx mdrun, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx mdrun -s em2.tpr -o em2.trr -c em2.gro
+
+Reading file em2.tpr, VERSION 2020 (single precision)
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 8 OpenMP threads 
+
+
+Polak-Ribiere Conjugate Gradients:
+   Tolerance (Fmax)   =  2.00000e+02
+   Number of steps    =          500
+   F-max             =  1.35647e+10 on atom 226
+   F-Norm            =  6.14018e+08
+
+
+writing lowest energy coordinates.
+
+Polak-Ribiere Conjugate Gradients converged to Fmax < 200 in 229 steps
+Potential Energy  = -6.1548359e+03
+Maximum force     =  1.7393745e+02 on atom 910
+Norm of force     =  3.2757471e+01
+
+GROMACS reminds you: "And after some more talk we agreed that the wisdom of rats had been grossly overrated, being in fact no greater than that of men" (Joseph Conrad)
+
+                      :-) GROMACS - gmx trjconv, 2020 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020
+Executable:   /home/gromdev/gromacs-2020/build/bin/gmx
+Data prefix:  /home/gromdev/gromacs-2020 (source tree)
+Working dir:  /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly
+Command line:
+  gmx trjconv -f em2.trr -s em2.tpr -o result.pdb -pbc nojump -sep
+
+Will write pdb: Protein data bank file
+Reading file em2.tpr, VERSION 2020 (single precision)
+Reading file em2.tpr, VERSION 2020 (single precision)
+Group     0 (         System) has  1891 elements
+Group     1 (        Protein) has  1891 elements
+Group     2 (      Protein-H) has   921 elements
+Group     3 (        C-alpha) has   122 elements
+Group     4 (       Backbone) has   366 elements
+Group     5 (      MainChain) has   489 elements
+Group     6 (   MainChain+Cb) has   603 elements
+Group     7 (    MainChain+H) has   605 elements
+Group     8 (      SideChain) has  1286 elements
+Group     9 (    SideChain-H) has   432 elements
+Select a group: trr version: GMX_trn_file (single precision)
+Reading frame       0 time  229.000    ->  frame      0 time  229.000      Last frame          0 time  229.000   
+
+
+GROMACS reminds you: "All approaches at a higher level are suspect until confirmed at the molecular level." (Francis Crick)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 0: 'System'

@@ -1,0 +1,8 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/weighted_left_tcbig/test_weighted_left_tcbig_5.pdb
+setattr :38 res phi 91
+setattr :38 res psi 56
+setattr :65 res phi -86
+setattr :65 res psi 1
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/weighted_left_tcbig/test_weighted_left_tcbig_5_2.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/weighted_left_tcbig/test_weighted_left_tcbig_5.pdb
+q

@@ -1,0 +1,10 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly/test_triplet_conly_5.pdb
+setattr :26 res phi -136
+setattr :26 res psi -74
+setattr :59 res phi -39
+setattr :59 res psi 139
+setattr :98 res phi 114
+setattr :98 res psi -151
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly/test_triplet_conly_5_39.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/unknot/triplet_conly/test_triplet_conly_5.pdb
+q

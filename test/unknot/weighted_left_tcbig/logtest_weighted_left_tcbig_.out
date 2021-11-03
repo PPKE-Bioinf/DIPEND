@@ -1,0 +1,971 @@
+Given parameters:
+ 	angle to add: 31
+ 	base: test_weighted_left_tcbig_
+ 	cycle: 10
+ 	dataset: TCBIG
+ 	gromacs optimization: 1
+ 	mode: WEIGHTED_LEFT
+ 	number of structures: 5
+ 	proline phi rotation: 0
+ 	remaining temporary files: 0
+ 	random addition: 6
+ 	unkot max: 7
+ 	sequence: TTIKIMDPGVGDGATAAKSKRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKSQKSSAASPAALSGYKMTLLALIKESIPNQAKRQKFEMQVGGIRNEQDFKNLRREIIRSAAQ
+Proline res 8 phi is not rotated.
+Proline res 27 phi is not rotated.
+Proline res 33 phi is not rotated.
+Proline res 39 phi is not rotated.
+Proline res 54 phi is not rotated.
+Proline res 57 phi is not rotated.
+Proline res 69 phi is not rotated.
+Proline res 88 phi is not rotated.
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+angles_to_unknot: 6, max_tries: 64
+code: [0, 0, 0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 0, 0, 1] contacts: 1
+code: [0, 0, 0, 0, 1, 0] contacts: 1
+code: [0, 0, 0, 0, 1, 1] contacts: 1
+code: [0, 0, 0, 1, 0, 0] contacts: 1
+code: [0, 0, 0, 1, 0, 1] contacts: 1
+code: [0, 0, 0, 1, 1, 0] contacts: 1
+code: [0, 0, 0, 1, 1, 1] contacts: 1
+code: [0, 0, 1, 0, 0, 0] contacts: 1
+code: [0, 0, 1, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0, 1, 0] contacts: 1
+code: [0, 0, 1, 0, 1, 1] contacts: 1
+code: [0, 0, 1, 1, 0, 0] contacts: 1
+code: [0, 0, 1, 1, 0, 1] contacts: 1
+code: [0, 0, 1, 1, 1, 0] contacts: 1
+code: [0, 0, 1, 1, 1, 1] contacts: 1
+code: [0, 1, 0, 0, 0, 0] contacts: 1
+code: [0, 1, 0, 0, 0, 1] contacts: 1
+code: [0, 1, 0, 0, 1, 0] contacts: 1
+code: [0, 1, 0, 0, 1, 1] contacts: 1
+code: [0, 1, 0, 1, 0, 0] contacts: 1
+code: [0, 1, 0, 1, 0, 1] contacts: 1
+code: [0, 1, 0, 1, 1, 0] contacts: 1
+code: [0, 1, 0, 1, 1, 1] contacts: 1
+code: [0, 1, 1, 0, 0, 0] contacts: 1
+code: [0, 1, 1, 0, 0, 1] contacts: 1
+code: [0, 1, 1, 0, 1, 0] contacts: 1
+code: [0, 1, 1, 0, 1, 1] contacts: 1
+code: [0, 1, 1, 1, 0, 0] contacts: 1
+code: [0, 1, 1, 1, 0, 1] contacts: 1
+code: [0, 1, 1, 1, 1, 0] contacts: 1
+code: [0, 1, 1, 1, 1, 1] contacts: 1
+code: [1, 0, 0, 0, 0, 0] contacts: 1
+code: [1, 0, 0, 0, 0, 1] contacts: 1
+code: [1, 0, 0, 0, 1, 0] contacts: 1
+code: [1, 0, 0, 0, 1, 1] contacts: 1
+code: [1, 0, 0, 1, 0, 0] contacts: 1
+code: [1, 0, 0, 1, 0, 1] contacts: 1
+code: [1, 0, 0, 1, 1, 0] contacts: 1
+code: [1, 0, 0, 1, 1, 1] contacts: 1
+code: [1, 0, 1, 0, 0, 0] contacts: 1
+code: [1, 0, 1, 0, 0, 1] contacts: 1
+code: [1, 0, 1, 0, 1, 0] contacts: 1
+code: [1, 0, 1, 0, 1, 1] contacts: 1
+code: [1, 0, 1, 1, 0, 0] contacts: 1
+code: [1, 0, 1, 1, 0, 1] contacts: 1
+code: [1, 0, 1, 1, 1, 0] contacts: 1
+code: [1, 0, 1, 1, 1, 1] contacts: 1
+code: [1, 1, 0, 0, 0, 0] contacts: 1
+code: [1, 1, 0, 0, 0, 1] contacts: 1
+code: [1, 1, 0, 0, 1, 0] contacts: 1
+code: [1, 1, 0, 0, 1, 1] contacts: 1
+code: [1, 1, 0, 1, 0, 0] contacts: 1
+code: [1, 1, 0, 1, 0, 1] contacts: 1
+code: [1, 1, 0, 1, 1, 0] contacts: 1
+code: [1, 1, 0, 1, 1, 1] contacts: 1
+code: [1, 1, 1, 0, 0, 0] contacts: 1
+code: [1, 1, 1, 0, 0, 1] contacts: 1
+code: [1, 1, 1, 0, 1, 0] contacts: 1
+code: [1, 1, 1, 0, 1, 1] contacts: 1
+code: [1, 1, 1, 1, 0, 0] contacts: 1
+code: [1, 1, 1, 1, 0, 1] contacts: 1
+code: [1, 1, 1, 1, 1, 0] contacts: 1
+code: [1, 1, 1, 1, 1, 1] contacts: 1
+i: 4, contacts: 1
+angles_to_unknot: 4, max_tries: 16
+code: [0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0] contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	4	0	-1.0	1000.0
+# Chosen angles for structure 4:
+1	T	-120	-5
+2	T	-75	170
+3	I	-70	125
+4	K	-80	-20
+5	I	-75	45
+6	M	-170	130
+7	D	-75	135
+8	P	-60	0
+9	G	-55	-5
+10	V	-50	5
+11	G	-55	-10
+12	D	-55	130
+13	G	75	5
+14	A	-65	155
+15	T	-170	170
+16	A	-170	160
+17	A	-60	-25
+18	K	-130	150
+19	S	-95	120
+20	K	-140	155
+21	R	-115	115
+22	L	-90	5
+23	F	-135	150
+24	K	-100	-45
+25	E	-60	-25
+26	A	-65	-15
+27	P	-65	150
+28	V	-130	130
+29	V	-130	130
+30	V	-70	-40
+31	S	-60	140
+32	G	80	-155
+33	P	-60	155
+34	V	-50	-40
+35	I	-85	140
+36	G	-65	-60
+37	D	-150	175
+38	N	-100	10
+39	P	-60	-25
+40	I	-130	-40
+41	V	-90	100
+42	D	-80	70
+43	A	-65	-15
+44	D	-100	115
+45	T	-105	-15
+46	I	-105	15
+47	Q	-65	-20
+48	L	-55	-45
+49	D	-95	15
+50	E	-110	140
+51	L	-55	-30
+52	A	-95	0
+53	R	-65	135
+54	P	-70	170
+55	S	-80	145
+56	L	-145	65
+57	P	-55	150
+58	K	-110	125
+59	T	-110	175
+60	K	-55	135
+61	S	-65	-15
+62	Q	-50	-50
+63	K	-100	40
+64	S	-70	-5
+65	S	-65	-20
+66	A	-45	-55
+67	A	-80	70
+68	S	-55	-35
+69	P	-80	5
+70	A	-65	135
+71	A	-105	-10
+72	L	-85	135
+73	S	-140	120
+74	G	85	165
+75	Y	-135	5
+76	K	-125	130
+77	M	-110	-5
+78	T	-65	130
+79	L	-50	135
+80	L	-65	-50
+81	A	-95	135
+82	L	-55	-35
+83	I	-55	-45
+84	K	-70	130
+85	E	-80	-35
+86	S	-50	130
+87	I	-105	5
+88	P	-80	125
+89	N	-70	-15
+90	Q	-65	-20
+91	A	-60	-15
+92	K	-65	140
+93	R	-110	130
+94	Q	-110	150
+95	K	-150	135
+96	F	-105	-55
+97	E	-80	125
+98	M	-55	-40
+99	Q	-60	135
+100	V	-135	145
+101	G	-65	140
+102	G	90	20
+103	I	-120	150
+104	R	-55	-40
+105	N	-60	-25
+106	E	-95	-15
+107	Q	-60	135
+108	D	-110	5
+109	F	-115	15
+110	K	-60	140
+111	N	-105	-175
+112	L	-70	-45
+113	R	-65	125
+114	R	-85	130
+115	E	-85	-20
+116	I	-80	155
+117	I	-120	125
+118	R	-95	140
+119	S	-55	-35
+120	A	-80	-20
+121	A	-65	155
+122	Q	-90	150
+i: 5, contacts: 1
+angles_to_unknot: 4, max_tries: 16
+code: [0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0] contacts: 1
+code: [0, 0, 1, 1] contacts: 1
+code: [0, 1, 0, 0] contacts: 1
+code: [0, 1, 0, 1] contacts: 1
+code: [0, 1, 1, 0] contacts: 1
+code: [0, 1, 1, 1] contacts: 1
+code: [1, 0, 0, 0] contacts: 1
+code: [1, 0, 0, 1] contacts: 1
+code: [1, 0, 1, 0] contacts: 1
+code: [1, 0, 1, 1] contacts: 1
+code: [1, 1, 0, 0] contacts: 1
+code: [1, 1, 0, 1] contacts: 1
+code: [1, 1, 1, 0] contacts: 1
+code: [1, 1, 1, 1] contacts: 1
+Trying at 0
+i: 1, contacts: 1
+i: 2, contacts: 1
+angles_to_unknot: 6, max_tries: 64
+code: [0, 0, 0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 0, 0, 1] contacts: 1
+code: [0, 0, 0, 0, 1, 0] contacts: 1
+code: [0, 0, 0, 0, 1, 1] contacts: 1
+code: [0, 0, 0, 1, 0, 0] contacts: 1
+code: [0, 0, 0, 1, 0, 1] contacts: 1
+code: [0, 0, 0, 1, 1, 0] contacts: 1
+code: [0, 0, 0, 1, 1, 1] contacts: 1
+code: [0, 0, 1, 0, 0, 0] contacts: 1
+code: [0, 0, 1, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0, 1, 0] contacts: 1
+code: [0, 0, 1, 0, 1, 1] contacts: 1
+code: [0, 0, 1, 1, 0, 0] contacts: 1
+code: [0, 0, 1, 1, 0, 1] contacts: 1
+code: [0, 0, 1, 1, 1, 0] contacts: 1
+code: [0, 0, 1, 1, 1, 1] contacts: 1
+code: [0, 1, 0, 0, 0, 0] contacts: 1
+code: [0, 1, 0, 0, 0, 1] contacts: 1
+code: [0, 1, 0, 0, 1, 0] contacts: 1
+code: [0, 1, 0, 0, 1, 1] contacts: 1
+code: [0, 1, 0, 1, 0, 0] contacts: 1
+code: [0, 1, 0, 1, 0, 1] contacts: 1
+code: [0, 1, 0, 1, 1, 0] contacts: 1
+code: [0, 1, 0, 1, 1, 1] contacts: 1
+code: [0, 1, 1, 0, 0, 0] contacts: 1
+code: [0, 1, 1, 0, 0, 1] contacts: 1
+code: [0, 1, 1, 0, 1, 0] contacts: 1
+code: [0, 1, 1, 0, 1, 1] contacts: 1
+code: [0, 1, 1, 1, 0, 0] contacts: 1
+code: [0, 1, 1, 1, 0, 1] contacts: 1
+code: [0, 1, 1, 1, 1, 0] contacts: 1
+code: [0, 1, 1, 1, 1, 1] contacts: 1
+code: [1, 0, 0, 0, 0, 0] contacts: 1
+code: [1, 0, 0, 0, 0, 1] contacts: 1
+code: [1, 0, 0, 0, 1, 0] contacts: 1
+code: [1, 0, 0, 0, 1, 1] contacts: 1
+code: [1, 0, 0, 1, 0, 0] contacts: 1
+code: [1, 0, 0, 1, 0, 1] contacts: 1
+code: [1, 0, 0, 1, 1, 0] contacts: 1
+code: [1, 0, 0, 1, 1, 1] contacts: 1
+code: [1, 0, 1, 0, 0, 0] contacts: 1
+code: [1, 0, 1, 0, 0, 1] contacts: 1
+code: [1, 0, 1, 0, 1, 0] contacts: 1
+code: [1, 0, 1, 0, 1, 1] contacts: 1
+code: [1, 0, 1, 1, 0, 0] contacts: 1
+code: [1, 0, 1, 1, 0, 1] contacts: 1
+code: [1, 0, 1, 1, 1, 0] contacts: 1
+code: [1, 0, 1, 1, 1, 1] contacts: 1
+code: [1, 1, 0, 0, 0, 0] contacts: 1
+code: [1, 1, 0, 0, 0, 1] contacts: 1
+code: [1, 1, 0, 0, 1, 0] contacts: 1
+code: [1, 1, 0, 0, 1, 1] contacts: 1
+code: [1, 1, 0, 1, 0, 0] contacts: 1
+code: [1, 1, 0, 1, 0, 1] contacts: 1
+code: [1, 1, 0, 1, 1, 0] contacts: 1
+code: [1, 1, 0, 1, 1, 1] contacts: 1
+code: [1, 1, 1, 0, 0, 0] contacts: 1
+code: [1, 1, 1, 0, 0, 1] contacts: 1
+code: [1, 1, 1, 0, 1, 0] contacts: 1
+code: [1, 1, 1, 0, 1, 1] contacts: 1
+code: [1, 1, 1, 1, 0, 0] contacts: 1
+code: [1, 1, 1, 1, 0, 1] contacts: 1
+code: [1, 1, 1, 1, 1, 0] contacts: 1
+code: [1, 1, 1, 1, 1, 1] contacts: 1
+i: 3, contacts: 1
+angles_to_unknot: 4, max_tries: 16
+code: [0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 1] contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	3	0	-1.0	1000.0
+# Chosen angles for structure 3:
+1	T	-125	160
+2	T	-100	5
+3	I	-145	135
+4	K	-60	140
+5	I	-100	110
+6	M	-140	70
+7	D	-80	130
+8	P	-55	5
+9	G	-60	0
+10	V	-45	0
+11	G	-60	160
+12	D	-65	145
+13	G	80	10
+14	A	-60	140
+15	T	-100	-15
+16	A	-90	85
+17	A	-65	-25
+18	K	-80	-30
+19	S	-160	-180
+20	K	-75	-15
+21	R	-70	105
+22	L	-135	70
+23	F	-70	125
+24	K	-75	-5
+25	E	-60	-35
+26	A	-65	-20
+27	P	-80	170
+28	V	-90	-35
+29	V	-140	120
+30	V	-90	135
+31	S	-145	160
+32	G	-70	-165
+33	P	-65	145
+34	V	-135	35
+35	I	-110	110
+36	G	80	0
+37	D	-145	80
+38	N	-90	175
+39	P	-75	140
+40	I	-135	115
+41	V	65	25
+42	D	-95	-15
+43	A	-105	120
+44	D	-85	-10
+45	T	-60	-20
+46	I	-105	0
+47	Q	-55	-35
+48	L	-60	-30
+49	D	-135	135
+50	E	-60	-35
+51	L	-65	-35
+52	A	-75	-10
+53	R	-105	-125
+54	P	-45	125
+55	S	-105	10
+56	L	-70	-20
+57	P	-55	-30
+58	K	-125	-155
+59	T	-100	-105
+60	K	-140	130
+61	S	-150	155
+62	Q	-115	150
+63	K	-110	-10
+64	S	-140	-100
+65	S	-75	165
+66	A	-50	130
+67	A	-65	155
+68	S	-70	-40
+69	P	-50	-35
+70	A	-70	155
+71	A	-75	-10
+72	L	-65	-15
+73	S	-130	140
+74	G	95	5
+75	Y	-65	-25
+76	K	-70	150
+77	M	-150	155
+78	T	-80	-20
+79	L	-115	130
+80	L	-90	-20
+81	A	-65	-15
+82	L	-60	-25
+83	I	-130	155
+84	K	-75	-15
+85	E	-115	125
+86	S	-95	140
+87	I	-110	140
+88	P	-60	155
+89	N	-90	95
+90	Q	-70	140
+91	A	-160	160
+92	K	-80	95
+93	R	-85	-10
+94	Q	-75	130
+95	K	-95	125
+96	F	-95	115
+97	E	-130	155
+98	M	-65	-20
+99	Q	-115	-70
+100	V	-85	120
+101	G	105	0
+102	G	90	160
+103	I	-80	-50
+104	R	-150	-180
+105	N	-110	80
+106	E	-45	-50
+107	Q	-125	145
+108	D	-95	15
+109	F	-135	95
+110	K	-110	10
+111	N	-115	10
+112	L	-95	160
+113	R	-155	155
+114	R	-65	135
+115	E	-65	-25
+116	I	-115	125
+117	I	-65	140
+118	R	-145	-170
+119	S	-50	-25
+120	A	-90	-10
+121	A	-75	155
+122	Q	-85	-15
+i: 5, contacts: 1
+Trying at 1
+i: 1, contacts: 1
+i: 2, contacts: 1
+angles_to_unknot: 6, max_tries: 64
+code: [0, 0, 0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 0, 0, 1] contacts: 1
+code: [0, 0, 0, 0, 1, 0] contacts: 1
+code: [0, 0, 0, 0, 1, 1] contacts: 1
+code: [0, 0, 0, 1, 0, 0] contacts: 1
+code: [0, 0, 0, 1, 0, 1] contacts: 1
+code: [0, 0, 0, 1, 1, 0] contacts: 1
+code: [0, 0, 0, 1, 1, 1] contacts: 1
+code: [0, 0, 1, 0, 0, 0] contacts: 1
+code: [0, 0, 1, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0, 1, 0] contacts: 1
+code: [0, 0, 1, 0, 1, 1] contacts: 1
+code: [0, 0, 1, 1, 0, 0] contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	2	0	-1.0	1000.0
+# Chosen angles for structure 2:
+1	T	-110	-175
+2	T	-130	160
+3	I	-75	145
+4	K	-85	160
+5	I	-70	-10
+6	M	0	-175
+7	D	-65	150
+8	P	-60	5
+9	G	-50	-5
+10	V	-55	0
+11	G	-55	0
+12	D	60	30
+13	G	75	20
+14	A	-155	145
+15	T	-105	20
+16	A	-55	-40
+17	A	-65	150
+18	K	-110	135
+19	S	-90	-5
+20	K	-65	-20
+21	R	-80	145
+22	L	-120	25
+23	F	-65	-80
+24	K	-105	-45
+25	E	-70	-35
+26	A	-75	-10
+27	P	-80	-20
+28	V	-120	95
+29	V	-65	-20
+30	V	-120	125
+31	S	-150	150
+32	G	90	10
+33	P	-60	145
+34	V	-85	160
+35	I	-80	130
+36	G	-80	-5
+37	D	-95	5
+38	N	-100	15
+39	P	-75	115
+40	I	-110	145
+41	V	-110	115
+42	D	-70	130
+43	A	-65	-20
+44	D	-105	105
+45	T	-115	150
+46	I	-65	135
+47	Q	-65	150
+48	L	-60	-30
+49	D	-75	-5
+50	E	-125	130
+51	L	-85	60
+52	A	-55	130
+53	R	-80	150
+54	P	-65	165
+55	S	-80	-5
+56	L	-105	-20
+57	P	-65	130
+58	K	-75	140
+59	T	-130	160
+60	K	-70	135
+61	S	-115	150
+62	Q	-95	155
+63	K	-120	30
+64	S	-75	-15
+65	S	-125	125
+66	A	-50	-45
+67	A	-65	-15
+68	S	-60	-35
+69	P	-75	-10
+70	A	-115	80
+71	A	-70	-25
+72	L	-130	-155
+73	S	-100	135
+74	G	-70	150
+75	Y	-65	-25
+76	K	75	0
+77	M	-55	135
+78	T	-85	-10
+79	L	-90	5
+80	L	-80	-45
+81	A	-60	-40
+82	L	-135	45
+83	I	-130	160
+84	K	-75	-40
+85	E	-50	-50
+86	S	-80	5
+87	I	-130	30
+88	P	-70	145
+89	N	-110	30
+90	Q	-95	60
+91	A	-50	-30
+92	K	-135	5
+93	R	-75	150
+94	Q	-65	-35
+95	K	-60	-15
+96	F	-90	70
+97	E	-90	165
+98	M	-60	-35
+99	Q	-85	-20
+100	V	-125	115
+101	G	-180	170
+102	G	145	160
+103	I	-135	0
+104	R	-150	110
+105	N	-75	-20
+106	E	-100	135
+107	Q	-125	-160
+108	D	-80	90
+109	F	-90	-5
+110	K	-70	135
+111	N	-100	175
+112	L	-55	150
+113	R	-75	-40
+114	R	-60	-40
+115	E	-135	-10
+116	I	-90	-10
+117	I	-55	-30
+118	R	-75	165
+119	S	-65	-45
+120	A	-70	145
+121	A	-55	-30
+122	Q	-80	170
+i: 5, contacts: 1
+angles_to_unknot: 6, max_tries: 64
+code: [0, 0, 0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 0, 0, 1] contacts: 1
+code: [0, 0, 0, 0, 1, 0] contacts: 1
+code: [0, 0, 0, 0, 1, 1] contacts: 1
+code: [0, 0, 0, 1, 0, 0] contacts: 1
+code: [0, 0, 0, 1, 0, 1] contacts: 1
+code: [0, 0, 0, 1, 1, 0] contacts: 1
+code: [0, 0, 0, 1, 1, 1] contacts: 1
+code: [0, 0, 1, 0, 0, 0] contacts: 1
+code: [0, 0, 1, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0, 1, 0] contacts: 1
+code: [0, 0, 1, 0, 1, 1] contacts: 1
+code: [0, 0, 1, 1, 0, 0] contacts: 1
+code: [0, 0, 1, 1, 0, 1] contacts: 1
+code: [0, 0, 1, 1, 1, 0] contacts: 1
+code: [0, 0, 1, 1, 1, 1] contacts: 1
+code: [0, 1, 0, 0, 0, 0] contacts: 1
+code: [0, 1, 0, 0, 0, 1] contacts: 1
+code: [0, 1, 0, 0, 1, 0] contacts: 1
+code: [0, 1, 0, 0, 1, 1] contacts: 1
+code: [0, 1, 0, 1, 0, 0] contacts: 1
+code: [0, 1, 0, 1, 0, 1] contacts: 1
+code: [0, 1, 0, 1, 1, 0] contacts: 1
+code: [0, 1, 0, 1, 1, 1] contacts: 1
+code: [0, 1, 1, 0, 0, 0] contacts: 1
+code: [0, 1, 1, 0, 0, 1] contacts: 1
+code: [0, 1, 1, 0, 1, 0] contacts: 1
+code: [0, 1, 1, 0, 1, 1] contacts: 1
+code: [0, 1, 1, 1, 0, 0] contacts: 1
+code: [0, 1, 1, 1, 0, 1] contacts: 1
+code: [0, 1, 1, 1, 1, 0] contacts: 1
+code: [0, 1, 1, 1, 1, 1] contacts: 1
+code: [1, 0, 0, 0, 0, 0] contacts: 1
+code: [1, 0, 0, 0, 0, 1] contacts: 1
+code: [1, 0, 0, 0, 1, 0] contacts: 1
+code: [1, 0, 0, 0, 1, 1] contacts: 1
+code: [1, 0, 0, 1, 0, 0] contacts: 1
+code: [1, 0, 0, 1, 0, 1] contacts: 1
+code: [1, 0, 0, 1, 1, 0] contacts: 1
+code: [1, 0, 0, 1, 1, 1] contacts: 1
+code: [1, 0, 1, 0, 0, 0] contacts: 1
+code: [1, 0, 1, 0, 0, 1] contacts: 1
+code: [1, 0, 1, 0, 1, 0] contacts: 1
+code: [1, 0, 1, 0, 1, 1] contacts: 1
+code: [1, 0, 1, 1, 0, 0] contacts: 1
+code: [1, 0, 1, 1, 0, 1] contacts: 1
+code: [1, 0, 1, 1, 1, 0] contacts: 1
+code: [1, 0, 1, 1, 1, 1] contacts: 1
+code: [1, 1, 0, 0, 0, 0] contacts: 1
+code: [1, 1, 0, 0, 0, 1] contacts: 1
+code: [1, 1, 0, 0, 1, 0] contacts: 1
+code: [1, 1, 0, 0, 1, 1] contacts: 1
+code: [1, 1, 0, 1, 0, 0] contacts: 1
+code: [1, 1, 0, 1, 0, 1] contacts: 1
+code: [1, 1, 0, 1, 1, 0] contacts: 1
+code: [1, 1, 0, 1, 1, 1] contacts: 1
+code: [1, 1, 1, 0, 0, 0] contacts: 1
+code: [1, 1, 1, 0, 0, 1] contacts: 1
+code: [1, 1, 1, 0, 1, 0] contacts: 1
+code: [1, 1, 1, 0, 1, 1] contacts: 1
+code: [1, 1, 1, 1, 0, 0] contacts: 1
+code: [1, 1, 1, 1, 0, 1] contacts: 1
+code: [1, 1, 1, 1, 1, 0] contacts: 1
+code: [1, 1, 1, 1, 1, 1] contacts: 1
+Trying at 2
+i: 1, contacts: 1
+angles_to_unknot: 6, max_tries: 64
+code: [0, 0, 0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 0, 0, 1] contacts: 1
+code: [0, 0, 0, 0, 1, 0] contacts: 1
+code: [0, 0, 0, 0, 1, 1] contacts: 1
+code: [0, 0, 0, 1, 0, 0] contacts: 1
+code: [0, 0, 0, 1, 0, 1] contacts: 1
+code: [0, 0, 0, 1, 1, 0] contacts: 1
+code: [0, 0, 0, 1, 1, 1] contacts: 1
+code: [0, 0, 1, 0, 0, 0] contacts: 1
+code: [0, 0, 1, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0, 1, 0] contacts: 1
+code: [0, 0, 1, 0, 1, 1] contacts: 1
+code: [0, 0, 1, 1, 0, 0] contacts: 1
+code: [0, 0, 1, 1, 0, 1] contacts: 1
+code: [0, 0, 1, 1, 1, 0] contacts: 1
+code: [0, 0, 1, 1, 1, 1] contacts: 1
+code: [0, 1, 0, 0, 0, 0] contacts: 1
+code: [0, 1, 0, 0, 0, 1] contacts: 1
+code: [0, 1, 0, 0, 1, 0] contacts: 1
+code: [0, 1, 0, 0, 1, 1] contacts: 1
+code: [0, 1, 0, 1, 0, 0] contacts: 1
+code: [0, 1, 0, 1, 0, 1] contacts: 1
+code: [0, 1, 0, 1, 1, 0] contacts: 1
+code: [0, 1, 0, 1, 1, 1] contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	1	0	-1.0	1000.0
+# Chosen angles for structure 1:
+1	T	-105	-10
+2	T	-110	15
+3	I	-60	-20
+4	K	-85	165
+5	I	-70	125
+6	M	-95	-5
+7	D	-80	75
+8	P	-60	5
+9	G	-50	-5
+10	V	-60	0
+11	G	-55	-5
+12	D	-110	175
+13	G	75	30
+14	A	-10	110
+15	T	-125	155
+16	A	-70	-15
+17	A	-65	-40
+18	K	-80	-25
+19	S	-100	170
+20	K	-70	-25
+21	R	-100	110
+22	L	-70	130
+23	F	-125	145
+24	K	-90	-20
+25	E	-80	115
+26	A	-50	140
+27	P	-60	140
+28	V	-60	120
+29	V	-100	110
+30	V	-85	35
+31	S	-50	135
+32	G	90	-10
+33	P	-85	-20
+34	V	-110	-60
+35	I	-105	125
+36	G	-65	-20
+37	D	-65	-10
+38	N	50	50
+39	P	-50	135
+40	I	-80	-20
+41	V	-135	135
+42	D	-170	175
+43	A	-100	10
+44	D	-80	145
+45	T	-170	170
+46	I	-75	125
+47	Q	-75	145
+48	L	-75	170
+49	D	-80	-180
+50	E	-70	145
+51	L	-75	155
+52	A	-70	150
+53	R	-130	0
+54	P	-45	-45
+55	S	-85	-25
+56	L	-80	-40
+57	P	-70	160
+58	K	-110	-5
+59	T	-90	25
+60	K	-105	125
+61	S	-150	165
+62	Q	-65	155
+63	K	-80	160
+64	S	-135	150
+65	S	-60	-25
+66	A	-65	130
+67	A	-65	-15
+68	S	-70	-30
+69	P	-60	160
+70	A	-130	15
+71	A	-90	135
+72	L	-105	0
+73	S	-125	20
+74	G	85	-5
+75	Y	-130	130
+76	K	-145	140
+77	M	-55	125
+78	T	-115	5
+79	L	-70	-40
+80	L	-70	-55
+81	A	-95	0
+82	L	-90	-5
+83	I	-145	140
+84	K	-80	125
+85	E	-70	-15
+86	S	-135	25
+87	I	-115	-40
+88	P	-60	155
+89	N	-150	120
+90	Q	-85	-35
+91	A	-75	-10
+92	K	-90	80
+93	R	-130	130
+94	Q	-70	150
+95	K	-60	-30
+96	F	-150	140
+97	E	-115	5
+98	M	-85	155
+99	Q	-70	125
+100	V	-120	25
+101	G	60	35
+102	G	-85	140
+103	I	-140	135
+104	R	-65	-15
+105	N	-80	-5
+106	E	-55	-45
+107	Q	-55	-25
+108	D	-115	140
+109	F	-100	10
+110	K	-70	-20
+111	N	-60	145
+112	L	-110	35
+113	R	-75	145
+114	R	-55	130
+115	E	-55	-35
+116	I	-70	155
+117	I	-60	140
+118	R	-140	170
+119	S	-65	150
+120	A	-90	145
+121	A	-85	-20
+122	Q	-95	5
+i: 5, contacts: 1
+Trying at 3
+i: 5, contacts: 1
+Trying at 4
+i: 5, contacts: 1
+angles_to_unknot: 5, max_tries: 32
+code: [0, 0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 0, 1] contacts: 1
+code: [0, 0, 0, 1, 0] contacts: 1
+code: [0, 0, 0, 1, 1] contacts: 1
+code: [0, 0, 1, 0, 0] contacts: 1
+code: [0, 0, 1, 0, 1] contacts: 1
+code: [0, 0, 1, 1, 0] contacts: 1
+code: [0, 0, 1, 1, 1] contacts: 1
+code: [0, 1, 0, 0, 0] contacts: 1
+code: [0, 1, 0, 0, 1] contacts: 1
+code: [0, 1, 0, 1, 0] contacts: 1
+code: [0, 1, 0, 1, 1] contacts: 1
+code: [0, 1, 1, 0, 0] contacts: 1
+code: [0, 1, 1, 0, 1] contacts: 1
+code: [0, 1, 1, 1, 0] contacts: 1
+code: [0, 1, 1, 1, 1] contacts: 1
+code: [1, 0, 0, 0, 0] contacts: 1
+code: [1, 0, 0, 0, 1] contacts: 1
+code: [1, 0, 0, 1, 0] contacts: 1
+code: [1, 0, 0, 1, 1] contacts: 1
+code: [1, 0, 1, 0, 0] contacts: 1
+code: [1, 0, 1, 0, 1] contacts: 1
+code: [1, 0, 1, 1, 0] contacts: 1
+code: [1, 0, 1, 1, 1] contacts: 1
+code: [1, 1, 0, 0, 0] contacts: 1
+code: [1, 1, 0, 0, 1] contacts: 1
+code: [1, 1, 0, 1, 0] contacts: 1
+code: [1, 1, 0, 1, 1] contacts: 1
+code: [1, 1, 1, 0, 0] contacts: 1
+code: [1, 1, 1, 0, 1] contacts: 1
+code: [1, 1, 1, 1, 0] contacts: 1
+code: [1, 1, 1, 1, 1] contacts: 1
+Trying at 5
+i: 5, contacts: 1
+angles_to_unknot: 4, max_tries: 16
+code: [0, 0, 0, 0] contacts: 1
+code: [0, 0, 0, 1] contacts: 1
+code: [0, 0, 1, 0] contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	5	0	-1.0	1000.0
+# Chosen angles for structure 5:
+1	T	-50	-45
+2	T	-60	135
+3	I	-75	-40
+4	K	-140	160
+5	I	-70	-20
+6	M	155	25
+7	D	55	55
+8	P	-60	0
+9	G	-55	0
+10	V	-60	0
+11	G	-60	-10
+12	D	-45	-55
+13	G	110	-160
+14	A	-90	120
+15	T	-150	165
+16	A	-60	-25
+17	A	-50	-50
+18	K	-75	-5
+19	S	-60	-45
+20	K	-110	15
+21	R	-80	-40
+22	L	-90	-15
+23	F	-85	-10
+24	K	-75	-20
+25	E	-75	130
+26	A	-80	-20
+27	P	-75	160
+28	V	-60	125
+29	V	-110	125
+30	V	-120	160
+31	S	-80	-5
+32	G	100	5
+33	P	-55	150
+34	V	-70	-55
+35	I	-125	175
+36	G	95	-5
+37	D	-130	30
+38	N	60	25
+39	P	-60	150
+40	I	-115	130
+41	V	-70	-10
+42	D	40	-110
+43	A	-160	165
+44	D	-65	-20
+45	T	-110	10
+46	I	-80	125
+47	Q	-60	140
+48	L	-80	170
+49	D	-85	-180
+50	E	-125	155
+51	L	-55	135
+52	A	-60	-25
+53	R	-140	120
+54	P	-80	150
+55	S	45	70
+56	L	-85	80
+57	P	-75	5
+58	K	-60	145
+59	T	-130	135
+60	K	70	5
+61	S	-70	-10
+62	Q	-55	-50
+63	K	-90	155
+64	S	-60	150
+65	S	-55	-30
+66	A	-50	-40
+67	A	-115	130
+68	S	-70	-10
+69	P	-60	115
+70	A	-100	-10
+71	A	-65	155
+72	L	-115	140
+73	S	-150	35
+74	G	135	150
+75	Y	-140	170
+76	K	-60	-50
+77	M	-85	70
+78	T	-95	-5
+79	L	-85	50
+80	L	-60	-20
+81	A	-115	35
+82	L	-85	155
+83	I	-95	115
+84	K	80	-55
+85	E	60	40
+86	S	-60	145
+87	I	-80	-45
+88	P	-75	-20
+89	N	65	35
+90	Q	-105	-10
+91	A	-70	145
+92	K	-95	10
+93	R	-95	10
+94	Q	-125	-15
+95	K	-65	-65
+96	F	-150	155
+97	E	-60	140
+98	M	-110	0
+99	Q	-70	-20
+100	V	-85	-15
+101	G	-170	-150
+102	G	100	175
+103	I	-120	165
+104	R	-140	125
+105	N	-115	25
+106	E	-110	135
+107	Q	-135	125
+108	D	-90	10
+109	F	-65	-40
+110	K	-130	150
+111	N	-175	170
+112	L	-80	75
+113	R	-80	-35
+114	R	-160	160
+115	E	-55	-35
+116	I	-100	125
+117	I	-110	115
+118	R	-60	-30
+119	S	-135	150
+120	A	-60	-20
+121	A	-90	-5
+122	Q	-60	135
+Trying at 6
+Trying at 7
+Trying at 8
+Renaming files based on success...
+Trying to rename structure 1 to structure 1
+Trying to rename structure 2 to structure 2
+Trying to rename structure 3 to structure 3
+Trying to rename structure 4 to structure 4
+Trying to rename structure 5 to structure 5
+Number of successfully optimized structures: 5
+Cleaning up...
+Time elapsed: 681.54
