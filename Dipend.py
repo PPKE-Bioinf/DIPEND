@@ -782,26 +782,77 @@ def Cleanup(peptides):
     # deletes temporary files crated by the program
     #os.system("rm fetch*.dat")
     os.system("rm contacts_%s.dat" % peptides.base)
-    # the Gromacs generated files
-    os.system("rm check.top")
-    os.system("rm check_box.gro")
-    os.system("rm check_num.dat")
-    os.system("rm check.gro")
-    os.system("rm em*.gro")
-    os.system("rm em*.trr")
-    os.system("rm em*.tpr")
-    os.system("rm mdout.mdp")
-    os.system("rm posre.itp")
-    os.system("rm md.log")
-    os.system("rm ener.edr")
-    # the ChimeraX generated files
+    if peptides.gmxcheck==1:
+        # the Gromacs generated files
+        os.system("rm check.top")
+        os.system("rm check_box.gro")
+        os.system("rm check_num.dat")
+        os.system("rm check.gro")
+        os.system("rm em*.gro")
+        os.system("rm em*.trr")
+        os.system("rm em*.tpr")
+        os.system("rm mdout.mdp")
+        os.system("rm posre.itp")
+        os.system("rm md.log")
+        os.system("rm ener.edr")
+        os.system("rm chimerax_clashcheck.dat")
+        os.system("rm clashcheck.cxc")
     os.system ("rm rotate.cxc")
     os.system("rm build.cxc")
     os.system("rm rotateProPhi.cxc")
-    os.system("rm chimerax_clashcheck.dat")
-    os.system("rm clashcheck.cxc")
+
     
 ########################################################################
+def ConcatEnsemble(peptides):
+    ens_filname = "%sensemble.pdb" % peptides.base
+    WriteLog("Concatenating ensemble of successfully built structures to %s\n" % ens_filname, peptides)
+    with open(ens_filname, "w") as ens:
+        for m in range(1,peptides.numberofstructures+1):
+            if peptides.gmxcheck == 1:
+                fn_ = "%smin_%s.pdb" % (peptides.base, m)
+            else:
+                fn_ = "%s%s.pdb" % (peptides.base, m)
+            if os.path.isfile(fn_):
+                modelnum = m 
+                found = 0
+                with open(fn_, "r") as struc:
+                    lines = struc.readlines()
+                    for l_ in lines:
+                        if l_[0:6]=="HEADER " or l_[0:6]=="TITLE " or l_[0:6]=="EXPDTA" or l_[0:6]=="AUTHOR" or l_[0:6]=="REMARK"  or l_[0:6]=="CRYST1":
+                            ens.write(l_)
+                        elif l_[0:6]=="MODEL ":
+                            found = 1
+                            if modelnum<10:
+                                ens.write("MODEL        %s\n" % modelnum)
+                            elif modelnum>10 and modelnum<100:
+                                ens.write("MODEL       %s\n" % modelnum)
+                            elif modelnum>100 and modelnum<1000:
+                                ens.write("MODEL      %s\n" % modelnum)
+                            elif modelnum>1000 and modelnum<10000:
+                                ens.write("MODEL     %s\n" % modelnum)
+                            else:
+                                ens.write("MODEL    %s\n" % modelnum)
+                        elif l_[0:6]=="ATOM  " or l_[0:6]=="HETATM":  
+                            if found == 0: # not found a MODEL line before the first atom line
+                                if modelnum<10:
+                                    ens.write("MODEL        %s\n" % modelnum)
+                                elif modelnum>10 and modelnum<100:
+                                    ens.write("MODEL       %s\n" % modelnum)
+                                elif modelnum>100 and modelnum<1000:
+                                    ens.write("MODEL      %s\n" % modelnum)
+                                elif modelnum>1000 and modelnum<10000:
+                                    ens.write("MODEL     %s\n" % modelnum)
+                                else:
+                                    ens.write("MODEL    %s\n" % modelnum)
+                                found = 1
+                            ens.write(l_)
+                        elif l_=="END\n":
+                            ens.write("ENDMDL\n")
+                        else:
+                            ens.write(l_)
+
+########################################################################
+
 ####################### M A I N
 
 def Main():
@@ -984,6 +1035,7 @@ def Main():
     if MyPeptides.keep == 0:
         Cleanup(MyPeptides)
 
+    ConcatEnsemble(MyPeptides)
     elapsed_time = time.time() - start_time
     WriteLog("Time elapsed: %.2f\n" % (elapsed_time), MyPeptides)
 

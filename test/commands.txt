@@ -97,3 +97,13 @@ nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_left_tcbig_ -d tcbig -
 # test other things
 nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_ -m WEIGHTED_TRIPLET -n 3 -u 0 -g 0 -s ATAAKSKRLFKETTIKIMDPGVGDGATAAKSKRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKSQKSSAASPAALSGYKMTLLALIKESIPNQAKRQKFEMQVGGIRNEQDF > out 2>&1 & 
 
+################ concatEnsemble branch ######################
+
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_ -m WEIGHTED_TRIPLET -n 3 -u 0 -s  KRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKS > out 2>&1 & 
+
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_ -m WEIGHTED_TRIPLET -n 3 -u 0 -g 0 -s KRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKS > out 2>&1
+
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_g1_ -m LEFT -n 10  > out 2>&1 & 
+
+nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_g0_ -m RIGHT -n 10 -g 0  > out 2>&1 &
+
