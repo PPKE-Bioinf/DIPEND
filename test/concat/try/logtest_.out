@@ -1,0 +1,138 @@
+Given parameters:
+ 	angle to add: 31
+ 	base: test_
+ 	cycle: 10
+ 	dataset: TCBIG
+ 	gromacs optimization: 1
+ 	mode: WEIGHTED_TRIPLET
+ 	number of structures: 3
+ 	proline phi rotation: 0
+ 	remaining temporary files: 0
+ 	random addition: 6
+ 	unkot max: 0
+ 	sequence: KRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKS
+Proline res 8 phi is not rotated.
+Proline res 14 phi is not rotated.
+Proline res 20 phi is not rotated.
+Proline res 35 phi is not rotated.
+Proline res 38 phi is not rotated.
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Trying at 0
+i: 1, contacts: 1
+i: 2, contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	2	0	-1.0	1000.0
+# Chosen angles for structure 2:
+1	K	30	100
+2	R	-105	-50
+3	L	50	0
+4	F	-15	-115
+5	K	45	-115
+6	E	70	125
+7	A	140	160
+8	P	-50	5
+9	V	-55	-5
+10	V	-55	0
+11	V	-55	0
+12	S	-90	35
+13	G	145	100
+14	P	50	-40
+15	V	-130	-40
+16	I	65	95
+17	G	75	-5
+18	D	-55	80
+19	N	-10	105
+20	P	-10	-20
+21	I	5	-105
+22	V	-45	45
+23	D	-80	-110
+24	A	-75	-65
+25	D	-45	-5
+26	T	-65	145
+27	I	35	125
+28	Q	-145	145
+29	L	-70	-35
+30	D	95	-15
+31	E	60	-130
+32	L	-95	0
+33	A	-15	-105
+34	R	170	165
+35	P	-75	-160
+36	S	-75	0
+37	L	-150	150
+38	P	-110	5
+39	K	-130	145
+40	T	-165	120
+41	K	60	150
+42	S	-105	-50
+i: 3, contacts: 1
+Trying at 1
+i: 1, contacts: 0
+Clash_report_for_the_gmx_optimized_structure,_number_of_clashes,_maximum_overlap,_distance:	1	0	-1.0	1000.0
+# Chosen angles for structure 1:
+1	K	-175	115
+2	R	-180	-170
+3	L	-130	165
+4	F	-150	85
+5	K	-85	5
+6	E	-100	135
+7	A	-35	35
+8	P	-45	0
+9	V	-60	-5
+10	V	-55	5
+11	V	-60	0
+12	S	-45	95
+13	G	150	-55
+14	P	-90	-70
+15	V	90	-35
+16	I	-65	95
+17	G	-45	-40
+18	D	-30	-120
+19	N	155	95
+20	P	-50	10
+21	I	50	-50
+22	V	90	-80
+23	D	105	45
+24	A	-50	-110
+25	D	-65	55
+26	T	-60	115
+27	I	-115	155
+28	Q	55	35
+29	L	-140	-20
+30	D	-95	-105
+31	E	-145	105
+32	L	125	175
+33	A	-115	-100
+34	R	-110	160
+35	P	-45	-55
+36	S	-175	90
+37	L	145	170
+38	P	-50	-20
+39	K	-5	75
+40	T	-165	-165
+41	K	-55	60
+42	S	-20	-105
+i: 3, contacts: 1
+Trying at 2
+i: 3, contacts: 1
+Trying at 3
+i: 3, contacts: 1
+Trying at 4
+i: 3, contacts: 1
+Trying at 5
+i: 3, contacts: 1
+Trying at 6
+i: 3, contacts: 1
+Trying at 7
+i: 3, contacts: 1
+Trying at 8
+i: 3, contacts: 1
+Renaming files based on success...
+Trying to rename structure 1 to structure 1
+Trying to rename structure 2 to structure 2
+Number of successfully optimized structures: 2
+Trying to rename structure 3 to structure 3
+Cleaning up...
+Concatenating ensemble of successfully built structures to test_ensemble.pdb
+Time elapsed: 51.56

@@ -1,0 +1,8 @@
+open /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/concat/ens-g1/test_g1_8.pdb
+setattr :3 res phi -111
+setattr :3 res psi -36
+setattr :5 res phi -161
+setattr :5 res psi 4
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/concat/ens-g1/test_g1_8_15.pdb
+save /media/zita/420035510C1C3397/Research-from-2016-09-30/Scripts/DIPEND/test/concat/ens-g1/test_g1_8.pdb
+q

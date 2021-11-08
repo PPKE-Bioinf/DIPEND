@@ -1,0 +1,65 @@
+Given parameters:
+ 	angle to add: 31
+ 	base: test_
+ 	cycle: 10
+ 	dataset: TCBIG
+ 	gromacs optimization: 0
+ 	mode: WEIGHTED_TRIPLET
+ 	number of structures: 3
+ 	proline phi rotation: 0
+ 	remaining temporary files: 0
+ 	random addition: 6
+ 	unkot max: 0
+ 	sequence: KRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKS
+Proline res 8 phi is not rotated.
+Proline res 14 phi is not rotated.
+Proline res 20 phi is not rotated.
+Proline res 35 phi is not rotated.
+Proline res 38 phi is not rotated.
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Trying at 0
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Trying at 1
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Trying at 2
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 0
+Trying at 3
+i: 1, contacts: 1
+i: 2, contacts: 0
+i: 3, contacts: 1
+Trying at 4
+i: 1, contacts: 1
+i: 2, contacts: 0
+i: 3, contacts: 1
+Trying at 5
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Trying at 6
+i: 1, contacts: 0
+i: 2, contacts: 1
+i: 3, contacts: 0
+Trying at 7
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Trying at 8
+i: 1, contacts: 1
+i: 2, contacts: 1
+i: 3, contacts: 1
+Renaming files based on success...
+Trying to rename structure 1 to structure 1
+Trying to rename structure 2 to structure 2
+Trying to rename structure 3 to structure 3
+Number of successfully optimized structures: 3
+Cleaning up...
+Concatenating ensemble of successfully built structures to test_ensemble.pdb
+Time elapsed: 82.33
