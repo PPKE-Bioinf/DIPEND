@@ -22,8 +22,8 @@ int main(int argc, char* argv[]) {
 
 
     ofstream datfile,lstfile;
-    string datfilename = pwd+"/contacts_"+base+".dat";
-    string lstfilename = pwd+"/contacts_"+base+".lst"; 
+    string datfilename = pwd+"/contacts_"+base+i+".dat";
+    string lstfilename = pwd+"/contacts_"+base+i+".lst"; 
     datfile.open(datfilename);
     lstfile.open(lstfilename); 
 
