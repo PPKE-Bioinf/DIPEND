@@ -107,3 +107,15 @@ nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_g1_ -m LEFT -n 10  > o
 
 nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -b test_g0_ -m RIGHT -n 10 -g 0  > out 2>&1 &
 
+################ parallel branch ######################
+
+nohup ~/Scripts-Research/DIPEND/runDipend.sh -b test_ -m RIGHT -n 5 -s  KRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKS -t 2 > out 2>&1 & 
+
+nohup ~/Scripts-Research/DIPEND/runDipend.sh -b test_ -m RIGHT -n 5 -u 0 -s  KRLFIGDNPIVDADTIQPKTKS -t 1 > out 2>&1 & 
+
+nohup ~/Scripts-Research/DIPEND/runDipend.sh -b test_ -m WEIGHTED_TRIPLET -n 3 -s  KRLFKEAPVVVSGPVIGDNPIVDADTIQLDELARPSLPKTKS -t 3 > out 2>&1 & 
+
+nohup ~/Scripts-Research/DIPEND/runDipend.sh -b test_ -m RIGHT -n 15 -u 0 -s  KRLFIGDNPIVDADTIQPKTKS -t 4 > o
+
+nohup bash ~/Scripts-Research/DIPEND/runDipend.sh -b test_ -m RIGHT -n 25 -u 0 -s  KRLFIGDNPIVDADTIQPKTKS -t 6 > o   2>&1 & 
+

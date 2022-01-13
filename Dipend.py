@@ -27,6 +27,7 @@ Input parameteres can be supplied as options or listed in the Data/parameters.in
 -b --base: the beginning of the output filenames (optional, structure_ by default)
 -c --cycle: how many times it goes through trying to build the sequences (optional, 10 by deault)
 -d --dataset: which dataset from Ting et al. 2010 to use: Conly or TCBIG (optional, TCBIG by default)
+-f --first: the first thread 1 by default, gets set to 0 in case of other threads, so the initial build is not performed at every thread
 -g --gmxcheck: perform Gromacs check at the end for each successfully generated structure (1 yes by default, set it to any other value to skip Gromacs check)
 -h --help: prints this help message and exits
 -k --keep: does not delete temporary files (0 (deletes temporary files) by default, set it to 1 if you want the files to remain). Beware! From the Gromacs files, only the very last run is retained even with value 1! (I set the GMX_MAXBACKUP to -1 in order to avoid creating a lot of files, modify the Gromacs sh files if you need all the Gromacs files!)
@@ -61,7 +62,7 @@ class Peptides():
             phiPsiAngles.append(a)
 
 
-    def __init__(self, sequence, base, mode, numberofstructures, dataset, cycle, keep, gmxcheck, pro, random, angleadd, unknot, threadnum, range_from, range_to):
+    def __init__(self, sequence, base, mode, numberofstructures, dataset, cycle, keep, gmxcheck, pro, random, angleadd, unknot, threadnum, range_from, range_to, first):
         self.sequence = sequence
         self.base = base
         self.mode = mode
@@ -83,6 +84,7 @@ class Peptides():
         self.threadnum = threadnum
         self.range_from = range_from
         self.range_to = range_to
+        self.first = first
 
     def addAngles(self, angles):
         self.angles = angles
@@ -281,7 +283,8 @@ def WriteDistributions(peptides, install):
                 fn = "%s/%sDistribution_%s.bin" % (install.workingdirectory, peptides.base, counter)
             else:
                 fn = current_filename
-            TwoDimensionalNormalDistribution(peptides, install, phi, psi, stdev, fn)
+            if peptides.first==1:
+                TwoDimensionalNormalDistribution(peptides, install, phi, psi, stdev, fn)
     peptides.add_distributions(distributions)
     peptides.add_weights(weights)
     peptides.add_filenames(filenames)
@@ -809,6 +812,8 @@ def Cleanup(peptides):
         os.system("rm rotateProPhi_%s.cxc" % (n))
         os.system("rm unknot_%s.cxc" % (n))
         os.system("rm %s%s_*.pdb" % (peptides.base, n))
+        if peptides.first == 2: # the last one
+            os.system("rm build.cxc")
     
 ########################################################################
 def ConcatEnsemble(peptides):
@@ -881,14 +886,15 @@ def Main():
     threadnum = -99
     range_from = -99
     range_to = -99
+    first = 1
 
     textForLater = [] # it will be later written to the logfile, but that cannot yet be opened (because it first needs all the input arguments to be set)
 
     # taking command line arguments 
     fullCmdArguments = sys.argv
     argumentList = fullCmdArguments[1:]
-    unixOptions = "a:b:c:d:g:k:m:n:p:s:r:t:u:x:y:h"  
-    gnuOptions = ["angletoadd=", "base=", "cycle=", "dataset=", "gmxcheck=", "keep=", "mode=", "numofstructures=", "proline=", "sequence=", "random=", "threads", "unknotmax", "xfrom=", "yto=", "help"]  
+    unixOptions = "a:b:c:d:f:g:k:m:n:p:s:r:t:u:x:y:h"  
+    gnuOptions = ["angletoadd=", "base=", "cycle=", "dataset=", "first=", "gmxcheck=", "keep=", "mode=", "numofstructures=", "proline=", "sequence=", "random=", "threads", "unknotmax", "xfrom=", "yto=", "help"]  
 
     try:  
         arguments, values = getopt.getopt(argumentList, unixOptions, gnuOptions)
@@ -907,6 +913,8 @@ def Main():
             cycle = int(currentValue)
         elif currentArgument in ("-d", "--dataset"):
             dataset = currentValue
+        elif currentArgument in ("-f", "--first"):
+            first = int(currentValue)
         elif currentArgument in ("-g", "--gmxcheck"):
             gmxcheck = int(currentValue)
         elif currentArgument in ("-k", "--keep"):
@@ -1014,7 +1022,7 @@ def Main():
     if range_to == -99:
         range_to = numberofstructures+1
 
-    MyPeptides = Peptides(sequence, base, mode, numberofstructures, dataset.upper(), cycle, keep, gmxcheck, pro, addrandom, angletoadd, unknotmax, threadnum, range_from, range_to)
+    MyPeptides = Peptides(sequence, base, mode, numberofstructures, dataset.upper(), cycle, keep, gmxcheck, pro, addrandom, angletoadd, unknotmax, threadnum, range_from, range_to, first)
 
     #textForLater.append("Command given: %s\n" % (" ".join(sys.argv)))
 
@@ -1022,7 +1030,7 @@ def Main():
     for textLine in textForLater:
         WriteLog(textLine, MyPeptides)
 
-    WriteLog("Given parameters:\n \tangle to add: %s\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \trandom addition: %s\n \tunkot max: %s\n \tsequence: %s\n \tthreadnum: %s\n \trange from: %s\n \trange to: %s\n" % (MyPeptides.angletoadd, MyPeptides.base, MyPeptides.cycle, MyPeptides.dataset, MyPeptides.gmxcheck, MyPeptides.mode, MyPeptides.numberofstructures, MyPeptides.proline, MyPeptides.keep, MyPeptides.addrandom, MyPeptides.unknotmax, MyPeptides.sequence, MyPeptides.threadnum, MyPeptides.range_from, MyPeptides.range_to), MyPeptides)
+    WriteLog("Given parameters:\n \tangle to add: %s\n \tbase: %s\n \tcycle: %s\n \tdataset: %s\n \tgromacs optimization: %s\n \tmode: %s\n \tnumber of structures: %s\n \tproline phi rotation: %s\n \tremaining temporary files: %s\n \trandom addition: %s\n \tunkot max: %s\n \tsequence: %s\n \tthreadnum: %s\n \trange from: %s\n \trange to: %s\n \tfirst: %s\n" % (MyPeptides.angletoadd, MyPeptides.base, MyPeptides.cycle, MyPeptides.dataset, MyPeptides.gmxcheck, MyPeptides.mode, MyPeptides.numberofstructures, MyPeptides.proline, MyPeptides.keep, MyPeptides.addrandom, MyPeptides.unknotmax, MyPeptides.sequence, MyPeptides.threadnum, MyPeptides.range_from, MyPeptides.range_to, MyPeptides.first), MyPeptides)
 
     workingdirectory = os.getcwd()
     datapath = sys.path[0]+"/Data/"
@@ -1048,7 +1056,8 @@ def Main():
     MyInstall = Install(gromacspath, gromacssuffix, datapath, workingdirectory, chimeraxpath, scwrl4path)
 
     #########
-    Build(MyPeptides, MyInstall)
+    if MyPeptides.first==1:
+        Build(MyPeptides, MyInstall)
     if MyPeptides.mode == "WEIGHTED_LEFT" or MyPeptides.mode == "WEIGHTED_RIGHT" or MyPeptides.mode == "WEIGHTED_TRIPLET":
         WriteDistributions(MyPeptides, MyInstall)
     MyPeptides.init_success()

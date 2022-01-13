@@ -11,7 +11,6 @@ Help()
    echo "Input parameteres can be supplied as options or listed in the Data/parameters.in file."
    echo "-t --threadnum: the number of the threads (parallel running processes), 1 by default"
 }
-
 angletoadd=-99
 base=""
 cycle=-99
@@ -25,9 +24,7 @@ sequence=""
 random=-99
 threads=-99
 unknotmax=-99
-
 paramfile="/home/zita/Scripts-Research/DIPEND/Data/parameters.in"
-
 # Get the options
 while getopts "a:b:c:d:g:k:m:n:p:r:s:t:u:h" option; do
    case $option in
@@ -49,11 +46,10 @@ while getopts "a:b:c:d:g:k:m:n:p:r:s:t:u:h" option; do
          exit;;
    esac
 done
-
+# read paramfile
 while read -r line; do 
 set -- "$line" 
 IFS=" " && arrline=($*) 
-
 case ${arrline[0]} in
       \#) true;;
       a) 
@@ -112,37 +108,43 @@ case ${arrline[0]} in
         ;;
 esac
 done < $paramfile
-
-
+# calculate distribution of structures into thread groups
 if [ $threads -gt $numofstructures ]
 then
-    threads=numofstructures
+    threads=$numofstructures
 fi
 if [ $threads -lt 1 ]
 then
     threads=1
 fi
-
-echo "threads: "
-echo $threads
-echo "numofstructures: "
-echo $numofstructures
-#echo "base: "
-#echo $base
 groupsize=1
-groupsize=$((numofstructures/threads+1))
-echo "groupsize: "
-echo $groupsize
-
+groupsize=$((numofstructures/threads))
+# beginning execution
+first=1
 x=1
-y=$groupsize+1
-
-for (( i=1; i<=$threads; i++ ))
-do
-nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -a $angletoadd -b $base -c $cycle -d $dataset -g $gmxcheck -k $keep -m $mode -n $numofstructures -p $proline -r $random -s $sequence -t $threads -u $unknotmax -x $x -y $y > out$i 2>&1 &
-#echo "doing x: $x y: $y"
+y=$((groupsize+1))
+if [ $y -gt $numofstructures ]
+then
+  y=$numofstructures
+fi
+# first time running
+    nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -a $angletoadd -b $base -c $cycle -d $dataset -f 1 -g $gmxcheck -k $keep -m $mode -n $numofstructures -p $proline -r $random -s $sequence -t $threads -u $unknotmax -x $x -y $y > out1 2>&1 &
+sleep 10 # (in seconds) we have to wait a bit for the first thread to make the initial structure for the other threads
 x=$((x+groupsize))
 y=$((y+groupsize))
-
+# from the second thread (if any)
+if [ $threads>=2 ] 
+then
+for (( i=2; i<$threads; i++ ))
+do
+    nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -a $angletoadd -b $base -c $cycle -d $dataset -f 0 -g $gmxcheck -k $keep -m $mode -n $numofstructures -p $proline -r $random -s $sequence -t $threads -u $unknotmax -x $x -y $y > out$i 2>&1 &
+x=$((x+groupsize))
+y=$((y+groupsize))
+if [ $y -gt $numofstructures ]
+then
+  y=$numofstructures
+fi
 done
-
+# last time running
+    nohup python3 ~/Scripts-Research/DIPEND/Dipend.py -a $angletoadd -b $base -c $cycle -d $dataset -f 2 -g $gmxcheck -k $keep -m $mode -n $numofstructures -p $proline -r $random -s $sequence -t $threads -u $unknotmax -x $x -y $y > out$threads 2>&1 &
+fi
